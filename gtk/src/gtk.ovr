@@ -355,45 +355,61 @@ defOverride('gtk_list_store_seto', [[
 ]])
 
 defOverride('gtk_about_dialog_set_email_hook', [[
-	int size = lua_gettop(L);
-	int ud_ref = -1;
-	/* User data? */
-	
-	if(size > 1)
-		ud_ref = luaL_ref(L, LUA_REGISTRYINDEX);
+	/* Deactivating it? */
+	if( lua_isnoneornil(L, 1) )
+    {
+        gtk_about_dialog_set_url_hook(NULL, NULL, NULL);
+    }
+    else
+    {    
+        int size = lua_gettop(L);
+        int ud_ref = -1;
+        /* User data? */
+        
+        if(size > 1)
+            ud_ref = luaL_ref(L, LUA_REGISTRYINDEX);
 
-	lua_pushvalue(L, 1);
-	int function_ref = luaL_ref(L, LUA_REGISTRYINDEX);
+        lua_pushvalue(L, 1);
+        int function_ref = luaL_ref(L, LUA_REGISTRYINDEX);
 
-	Data* data = g_malloc(sizeof(Data));
-	data->L = L;
-	data->function_ref = function_ref;
-	data->ud_ref = ud_ref;
+        Data* data = g_malloc(sizeof(Data));
+        data->L = L;
+        data->function_ref = function_ref;
+        data->ud_ref = ud_ref;
 
-	gtk_about_dialog_set_email_hook((GtkAboutDialogActivateLinkFunc)hook_callback,
-		data, callback_free);
-
+        gtk_about_dialog_set_email_hook((GtkAboutDialogActivateLinkFunc)hook_callback,
+            data, callback_free);
+    }
+    
 	return 0;
 ]])
 
-defOverride('gtk_about_dialog_set_url_hook', [[
-	int size = lua_gettop(L);
-	int ud_ref = -1;
+defOverride('gtk_about_dialog_set_url_hook', [[    
+    /* Deactivating it? */
+	if( lua_isnoneornil(L, 1) )
+    {
+        gtk_about_dialog_set_url_hook(NULL, NULL, NULL);
+    }
+    else
+    {
+        int size = lua_gettop(L);
+        int ud_ref = -1;
 
-	/* User data? */
-	if(size > 1)
-		ud_ref = luaL_ref(L, LUA_REGISTRYINDEX);
+        /* User data? */
+        if(size > 1)
+            ud_ref = luaL_ref(L, LUA_REGISTRYINDEX);
 
-	lua_pushvalue(L, 1);
-	int function_ref = luaL_ref(L, LUA_REGISTRYINDEX);
+        lua_pushvalue(L, 1);
+        int function_ref = luaL_ref(L, LUA_REGISTRYINDEX);
 
-	Data* data = g_malloc(sizeof(Data));
-	data->L = L;
-	data->function_ref = function_ref;
-	data->ud_ref = ud_ref;
+        Data* data = g_malloc(sizeof(Data));
+        data->L = L;
+        data->function_ref = function_ref;
+        data->ud_ref = ud_ref;
 
-	gtk_about_dialog_set_url_hook((GtkAboutDialogActivateLinkFunc)hook_callback,
-		data, callback_free);
+        gtk_about_dialog_set_url_hook((GtkAboutDialogActivateLinkFunc)hook_callback,
+            data, callback_free);
+    }
 
 	return 0;
 ]])

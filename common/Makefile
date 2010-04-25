@@ -3,12 +3,6 @@ PKG_PACKAGES=$(PKG_LUA)
 NAME=common.so
 include ../flags.mk
 
-ifdef DEBUG
-	CFLAGS+=-g -O0 -DIDEBUG
-else
-	CFLAGS+=-O2
-endif
-
 # Source
 SOURCES=$(wildcard src/*.c)
 OBJECTS=$(SOURCES:.c=.o)
