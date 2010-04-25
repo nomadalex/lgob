@@ -71,7 +71,7 @@ defClass('AtkMisc',
 defClass('AtkNoOpObject',
 	{
 		parent = 'AtkObject',
-		implements = {'AtkComponent', 'AtkText', 'AtkHypertext', 'AtkImage', 'AtkSelection', 'AtkTable', 'AtkValue', 'AtkEditableText', 'AtkDocument', 'AtkAction'}
+		implements = {'AtkAction', 'AtkComponent', 'AtkDocument', 'AtkEditableText', 'AtkHypertext', 'AtkImage', 'AtkSelection', 'AtkTable', 'AtkText', 'AtkValue'}
 	}
 )
 
@@ -90,6 +90,12 @@ defClass('AtkObject',
 defClass('AtkObjectFactory',
 	{
 		parent = 'GObject'
+	}
+)
+
+defClass('AtkPlug',
+	{
+		parent = 'AtkObject'
 	}
 )
 
@@ -114,6 +120,12 @@ defClass('AtkRelationSet',
 defClass('AtkSelection',
 	{
 		abstract = true
+	}
+)
+
+defClass('AtkSocket',
+	{
+		parent = 'AtkObject'
 	}
 )
 
@@ -661,16 +673,6 @@ defFunction('atk_hyperlink_get_n_anchors',
 	}
 )
 
-defFunction('atk_hyperlink_is_selected_link',
-	{
-		class = 'AtkHyperlink',
-		since = '1.4',
-		args = {'GObject* none'},
-		ret = 'boolean none',
-		deprecated = '0.1'
-	}
-)
-
 defFunction('atk_hyperlink_impl_get_hyperlink',
 	{
 		class = 'AtkHyperlinkImpl',
@@ -769,7 +771,7 @@ defFunction('atk_misc_get_type',
 
 defFunction('atk_misc_get_instance',
 	{
-		since = '1.0',
+		since = '1.13',
 		ret = 'GObject* none'
 	}
 )
@@ -777,7 +779,7 @@ defFunction('atk_misc_get_instance',
 defFunction('atk_misc_threads_enter',
 	{
 		class = 'AtkMisc',
-		since = '1.0',
+		since = '1.13',
 		args = {'GObject* none'}
 	}
 )
@@ -785,7 +787,7 @@ defFunction('atk_misc_threads_enter',
 defFunction('atk_misc_threads_leave',
 	{
 		class = 'AtkMisc',
-		since = '1.0',
+		since = '1.13',
 		args = {'GObject* none'}
 	}
 )
@@ -893,26 +895,6 @@ defFunction('atk_object_get_role',
 		since = '0.1',
 		args = {'GObject* none'},
 		ret = 'int full'
-	}
-)
-
-defFunction('atk_object_get_layer',
-	{
-		class = 'AtkObject',
-		since = '0.1',
-		args = {'GObject* none'},
-		ret = 'int full',
-		deprecated = '0.1'
-	}
-)
-
-defFunction('atk_object_get_mdi_zorder',
-	{
-		class = 'AtkObject',
-		since = '0.1',
-		args = {'GObject* none'},
-		ret = 'int none',
-		deprecated = '0.1'
 	}
 )
 
@@ -1057,6 +1039,32 @@ defFunction('atk_object_factory_get_accessible_type',
 		since = '0.1',
 		args = {'GObject* none'},
 		ret = 'unsigned long none'
+	}
+)
+
+defFunction('atk_plug_get_type',
+	{
+		class = 'AtkPlug',
+		since = '9999.9999',
+		ret = 'unsigned long none'
+	}
+)
+
+defFunction('atk_plug_new',
+	{
+		class = 'AtkPlug',
+		constructor = true,
+		since = '1.0',
+		ret = 'GObject* full'
+	}
+)
+
+defFunction('atk_plug_get_id',
+	{
+		class = 'AtkPlug',
+		since = '1.0',
+		args = {'GObject* none'},
+		ret = 'char* full'
 	}
 )
 
@@ -1308,6 +1316,40 @@ defFunction('atk_selection_select_all_selection',
 	{
 		class = 'AtkSelection',
 		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('atk_socket_get_type',
+	{
+		class = 'AtkSocket',
+		since = '9999.9999',
+		ret = 'unsigned long none'
+	}
+)
+
+defFunction('atk_socket_new',
+	{
+		class = 'AtkSocket',
+		constructor = true,
+		since = '1.0',
+		ret = 'GObject* full'
+	}
+)
+
+defFunction('atk_socket_embed',
+	{
+		class = 'AtkSocket',
+		since = '1.0',
+		args = {'GObject* none', 'char* full'}
+	}
+)
+
+defFunction('atk_socket_is_occupied',
+	{
+		class = 'AtkSocket',
+		since = '1.0',
 		args = {'GObject* none'},
 		ret = 'boolean none'
 	}
@@ -2174,15 +2216,16 @@ defEnum('AtkRelationType',
 		['ATK_RELATION_LABELLED_BY'] = 4,
 		['ATK_RELATION_FLOWS_FROM'] = 8,
 		['ATK_RELATION_POPUP_FOR'] = 12,
+		['ATK_RELATION_LAST_DEFINED'] = 17,
 		['ATK_RELATION_CONTROLLED_BY'] = 1,
-		['ATK_RELATION_LAST_DEFINED'] = 16,
+		['ATK_RELATION_LABEL_FOR'] = 3,
 		['ATK_RELATION_DESCRIBED_BY'] = 14,
 		['ATK_RELATION_CONTROLLER_FOR'] = 2,
 		['ATK_RELATION_NODE_CHILD_OF'] = 6,
 		['ATK_RELATION_EMBEDDED_BY'] = 11,
 		['ATK_RELATION_FLOWS_TO'] = 7,
 		['ATK_RELATION_SUBWINDOW_OF'] = 9,
-		['ATK_RELATION_LABEL_FOR'] = 3
+		['ATK_RELATION_NODE_PARENT_OF'] = 16
 	}
 )
 

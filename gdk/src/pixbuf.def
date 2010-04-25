@@ -23,6 +23,12 @@ defClass('GdkPixbufLoader',
 	}
 )
 
+defClass('GdkPixbufNonAnim',
+	{
+		parent = 'GdkPixbufAnimation'
+	}
+)
+
 defClass('GdkPixbufSimpleAnim',
 	{
 		parent = 'GdkPixbufAnimation'
@@ -36,6 +42,18 @@ defClass('GdkPixbufSimpleAnimIter',
 )
 
 defClass('GdkPixbufFormat',
+	{
+		
+	}
+)
+
+defClass('GdkPixbufModule',
+	{
+		
+	}
+)
+
+defClass('GdkPixbufModulePattern',
 	{
 		
 	}
@@ -184,7 +202,7 @@ defFunction('gdk_pixbuf_ref',
 		since = '0.1',
 		args = {'GObject* none'},
 		ret = 'GObject* full',
-		deprecated = '0.1'
+		deprecated = '2.0'
 	}
 )
 
@@ -193,7 +211,7 @@ defFunction('gdk_pixbuf_unref',
 		class = 'GdkPixbuf',
 		since = '0.1',
 		args = {'GObject* none'},
-		deprecated = '0.1'
+		deprecated = '2.0'
 	}
 )
 
@@ -385,7 +403,7 @@ defFunction('gdk_pixbuf_saturate_and_pixelate',
 defFunction('gdk_pixbuf_apply_embedded_orientation',
 	{
 		class = 'GdkPixbuf',
-		since = '0.1',
+		since = '2.12',
 		args = {'GObject* none'},
 		ret = 'GObject* full'
 	}
@@ -460,6 +478,15 @@ defFunction('gdk_pixbuf_flip',
 	}
 )
 
+defFunction('gdk_pixbuf_set_option',
+	{
+		class = 'GdkPixbuf',
+		since = '2.2',
+		args = {'GObject* none', 'char* none', 'char* none'},
+		ret = 'boolean none'
+	}
+)
+
 defFunction('gdk_pixbuf_animation_get_type',
 	{
 		class = 'GdkPixbufAnimation',
@@ -484,7 +511,7 @@ defFunction('gdk_pixbuf_animation_ref',
 		since = '0.1',
 		args = {'GObject* none'},
 		ret = 'GObject* full',
-		deprecated = '0.1'
+		deprecated = '2.0'
 	}
 )
 
@@ -493,7 +520,7 @@ defFunction('gdk_pixbuf_animation_unref',
 		class = 'GdkPixbufAnimation',
 		since = '0.1',
 		args = {'GObject* none'},
-		deprecated = '0.1'
+		deprecated = '2.0'
 	}
 )
 
@@ -529,7 +556,7 @@ defFunction('gdk_pixbuf_animation_get_static_image',
 		class = 'GdkPixbufAnimation',
 		since = '0.1',
 		args = {'GObject* none'},
-		ret = 'GObject* none'
+		ret = 'GObject* full'
 	}
 )
 
@@ -754,6 +781,24 @@ defFunction('gdk_pixbuf_loader_get_format',
 	}
 )
 
+defFunction('gdk_pixbuf_non_anim_get_type',
+	{
+		class = 'GdkPixbufNonAnim',
+		since = '9999.9999',
+		ret = 'unsigned long none'
+	}
+)
+
+defFunction('gdk_pixbuf_non_anim_new',
+	{
+		class = 'GdkPixbufNonAnim',
+		constructor = true,
+		since = '2.0',
+		args = {'GObject* none'},
+		ret = 'GObject* full'
+	}
+)
+
 defFunction('gdk_pixbuf_simple_anim_get_type',
 	{
 		class = 'GdkPixbufSimpleAnim',
@@ -784,7 +829,7 @@ defFunction('gdk_pixbuf_simple_anim_set_loop',
 	{
 		class = 'GdkPixbufSimpleAnim',
 		since = '2.18',
-		accessorSince = '2.0',
+		accessorSince = '2.18',
 		args = {'GObject* none', 'boolean none'}
 	}
 )
@@ -793,7 +838,7 @@ defFunction('gdk_pixbuf_simple_anim_get_loop',
 	{
 		class = 'GdkPixbufSimpleAnim',
 		since = '2.18',
-		accessorSince = '2.0',
+		accessorSince = '2.18',
 		args = {'GObject* none'},
 		ret = 'boolean none'
 	}
@@ -872,6 +917,14 @@ defEnum('GdkPixbufError',
 		['GDK_PIXBUF_ERROR_CORRUPT_IMAGE'] = 0,
 		['GDK_PIXBUF_ERROR_INSUFFICIENT_MEMORY'] = 1,
 		['GDK_PIXBUF_ERROR_UNKNOWN_TYPE'] = 3
+	}
+)
+
+defEnum('GdkPixbufFormatFlags',
+	{
+		['GDK_PIXBUF_FORMAT_WRITABLE'] = 1,
+		['GDK_PIXBUF_FORMAT_THREADSAFE'] = 4,
+		['GDK_PIXBUF_FORMAT_SCALABLE'] = 2
 	}
 )
 

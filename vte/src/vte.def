@@ -49,16 +49,18 @@ defFunction('vte_reaper_get_type',
 
 defFunction('vte_reaper_get',
 	{
-		since = '1.0',
-		ret = 'GObject* full'
+		since = '0.1',
+		ret = 'GObject* full',
+		deprecated = '0.1'
 	}
 )
 
 defFunction('vte_reaper_add_child',
 	{
-		since = '1.0',
+		since = '0.1',
 		args = {'int none'},
-		ret = 'int none'
+		ret = 'int none',
+		deprecated = '0.1'
 	}
 )
 
@@ -380,7 +382,7 @@ defFunction('vte_terminal_get_cursor_blink_mode',
 defFunction('vte_terminal_set_cursor_shape',
 	{
 		class = 'VteTerminal',
-		since = '0.19.1',
+		since = '0.20',
 		accessorSince = '1.0',
 		args = {'GObject* none', 'int none'}
 	}
@@ -680,7 +682,8 @@ defFunction('vte_terminal_get_padding',
 	{
 		class = 'VteTerminal',
 		since = '0.1',
-		args = {'GObject* none', 'int* full', 'int* full'}
+		args = {'GObject* none', 'int* full', 'int* full'},
+		deprecated = '0.1'
 	}
 )
 
@@ -696,7 +699,7 @@ defFunction('vte_terminal_set_pty',
 defFunction('vte_terminal_get_pty',
 	{
 		class = 'VteTerminal',
-		since = '0.19.1',
+		since = '0.20',
 		accessorSince = '1.0',
 		args = {'GObject* none'},
 		ret = 'int none'
@@ -771,9 +774,18 @@ defFunction('vte_terminal_get_icon_title',
 defFunction('vte_terminal_get_child_exit_status',
 	{
 		class = 'VteTerminal',
-		since = '0.19.1',
+		since = '0.20',
 		args = {'GObject* none'},
 		ret = 'int none'
+	}
+)
+
+defFunction('vte_terminal_write_contents',
+	{
+		class = 'VteTerminal',
+		since = '0.24',
+		args = {'GObject* none', 'GObject* none', 'int none', 'GObject* none', 'GError** full'},
+		ret = 'boolean none'
 	}
 )
 
@@ -792,7 +804,7 @@ defFunction('vte_terminal_get_using_xft',
 		since = '0.1',
 		args = {'GObject* none'},
 		ret = 'boolean none',
-		deprecated = '0.19'
+		deprecated = '0.20'
 	}
 )
 
@@ -812,7 +824,7 @@ defFunction('vte_terminal_get_char_descent',
 		since = '0.1',
 		args = {'GObject* none'},
 		ret = 'long none',
-		deprecated = '0.19'
+		deprecated = '0.20'
 	}
 )
 
@@ -822,7 +834,7 @@ defFunction('vte_terminal_get_char_ascent',
 		since = '0.1',
 		args = {'GObject* none'},
 		ret = 'long none',
-		deprecated = '0.19'
+		deprecated = '0.20'
 	}
 )
 
@@ -831,7 +843,7 @@ defFunction('vte_terminal_set_font_full',
 		class = 'VteTerminal',
 		since = '0.11.11',
 		args = {'GObject* none', 'struct* none', 'int none'},
-		deprecated = '0.19'
+		deprecated = '0.20'
 	}
 )
 
@@ -840,7 +852,7 @@ defFunction('vte_terminal_set_font_from_string_full',
 		class = 'VteTerminal',
 		since = '0.11.11',
 		args = {'GObject* none', 'char* none', 'int none'},
-		deprecated = '0.19'
+		deprecated = '0.20'
 	}
 )
 
@@ -910,6 +922,12 @@ defEnum('VteTerminalEraseBinding',
 		['VTE_ERASE_ASCII_BACKSPACE'] = 1,
 		['VTE_ERASE_DELETE_SEQUENCE'] = 3,
 		['VTE_ERASE_ASCII_DELETE'] = 2
+	}
+)
+
+defEnum('VteTerminalWriteFlags',
+	{
+		['VTE_TERMINAL_WRITE_DEFAULT'] = 0
 	}
 )
 

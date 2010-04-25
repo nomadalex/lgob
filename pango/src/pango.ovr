@@ -49,6 +49,7 @@ undef{
 	'pango_glyph_string_x_to_index',
 	'pango_glyph_string_index_to_x',
 	'pango_log2vis_get_embedding_levels',
+    'pango_layout_set_markup_with_accel',
 }
 
 undef{

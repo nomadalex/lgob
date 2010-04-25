@@ -1,10 +1,8 @@
 #! /usr/bin/env lua
 
 --[[
-	TreeView example. Can be edited and have its rows swapped by drag'n'drop!
-	
-	Note: If you wan't to just reorder the rows, you can set the property
-	"reorderable" of the TreeView. Much more easy and fancy.
+	TreeView example. Can be edited and have its rows swapped by drag'n'drop.
+    Note that you can't swap the rows when you choose to sort then.
 --]]
 
 require("lgob.gdk")
@@ -55,38 +53,6 @@ for i, j in ipairs(values) do
 	model:set(iter, 0, j.name, 1, j.flag)
 end
 
-function motion(data, context, x, y, time)
-	gdk.drag_status(context, gdk.ACTION_COPY, time)
-	return true
-end
-
-function drop(data, context, x, y, time)
-	gtk.drag_finish(context, true, false, time)
-	sel:get_selected(iter)
-
-	local res, path = view:get_path_at_pos(x, y)
-	
-	if res then
-		path = path - 1
-		local res, id = model:get_sort_column_id()
-		
-		if id == gtk.TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID then
-			model:get_iter_from_string(iter2, path)
-			model:swap(iter, iter2)
-		else
-			print("Can't do that on a sorted model!")
-		end
-	end
-	
-	return true
-end
-
--- Enable internal drag'n'drop
-gtk.drag_source_set(view, gdk.BUTTON1_MASK)
-gtk.drag_dest_set(view, 0)
-gtk.drag_source_set_icon_stock(view, "gtk-copy")
-view:connect("drag-motion", motion)
-view:connect("drag-drop", drop)
 view:set("reorderable", true)
 
 view:append_column(col1)

@@ -10,7 +10,8 @@ defClass('ClutterActor',
 
 defClass('ClutterAlpha',
 	{
-		parent = 'GInitiallyUnowned'
+		parent = 'GInitiallyUnowned',
+		implements = {'ClutterScriptable'}
 	}
 )
 
@@ -22,7 +23,15 @@ defClass('ClutterAnimatable',
 
 defClass('ClutterAnimation',
 	{
-		parent = 'GObject'
+		parent = 'GObject',
+		implements = {'ClutterScriptable'}
+	}
+)
+
+defClass('ClutterAnimator',
+	{
+		parent = 'GObject',
+		implements = {'ClutterScriptable'}
 	}
 )
 
@@ -34,25 +43,29 @@ defClass('ClutterBackend',
 
 defClass('ClutterBehaviour',
 	{
-		parent = 'GObject'
+		parent = 'GObject',
+		implements = {'ClutterScriptable'}
 	}
 )
 
 defClass('ClutterBehaviourDepth',
 	{
-		parent = 'ClutterBehaviour'
+		parent = 'ClutterBehaviour',
+		implements = {'ClutterScriptable'}
 	}
 )
 
 defClass('ClutterBehaviourEllipse',
 	{
-		parent = 'ClutterBehaviour'
+		parent = 'ClutterBehaviour',
+		implements = {'ClutterScriptable'}
 	}
 )
 
 defClass('ClutterBehaviourOpacity',
 	{
-		parent = 'ClutterBehaviour'
+		parent = 'ClutterBehaviour',
+		implements = {'ClutterScriptable'}
 	}
 )
 
@@ -65,19 +78,40 @@ defClass('ClutterBehaviourPath',
 
 defClass('ClutterBehaviourRotate',
 	{
-		parent = 'ClutterBehaviour'
+		parent = 'ClutterBehaviour',
+		implements = {'ClutterScriptable'}
 	}
 )
 
 defClass('ClutterBehaviourScale',
 	{
-		parent = 'ClutterBehaviour'
+		parent = 'ClutterBehaviour',
+		implements = {'ClutterScriptable'}
+	}
+)
+
+defClass('ClutterBinLayout',
+	{
+		parent = 'ClutterLayoutManager'
 	}
 )
 
 defClass('ClutterBindingPool',
 	{
 		parent = 'GObject'
+	}
+)
+
+defClass('ClutterBox',
+	{
+		parent = 'ClutterActor',
+		implements = {'ClutterContainer', 'ClutterScriptable'}
+	}
+)
+
+defClass('ClutterBoxLayout',
+	{
+		parent = 'ClutterLayoutManager'
 	}
 )
 
@@ -107,10 +141,34 @@ defClass('ClutterContainer',
 	}
 )
 
+defClass('ClutterDeviceManager',
+	{
+		parent = 'GObject'
+	}
+)
+
+defClass('ClutterFixedLayout',
+	{
+		parent = 'ClutterLayoutManager'
+	}
+)
+
+defClass('ClutterFlowLayout',
+	{
+		parent = 'ClutterLayoutManager'
+	}
+)
+
 defClass('ClutterGroup',
 	{
 		parent = 'ClutterActor',
-		implements = {'ClutterScriptable', 'ClutterContainer'}
+		implements = {'ClutterContainer', 'ClutterScriptable'}
+	}
+)
+
+defClass('ClutterInputDevice',
+	{
+		parent = 'GObject'
 	}
 )
 
@@ -120,9 +178,22 @@ defClass('ClutterInterval',
 	}
 )
 
+defClass('ClutterLayoutManager',
+	{
+		parent = 'GInitiallyUnowned'
+	}
+)
+
+defClass('ClutterLayoutMeta',
+	{
+		parent = 'ClutterChildMeta'
+	}
+)
+
 defClass('ClutterListModel',
 	{
-		parent = 'ClutterModel'
+		parent = 'ClutterModel',
+		implements = {'ClutterScriptable'}
 	}
 )
 
@@ -134,7 +205,8 @@ defClass('ClutterMedia',
 
 defClass('ClutterModel',
 	{
-		parent = 'GObject'
+		parent = 'GObject',
+		implements = {'ClutterScriptable'}
 	}
 )
 
@@ -184,13 +256,19 @@ defClass('ClutterShader',
 defClass('ClutterStage',
 	{
 		parent = 'ClutterGroup',
-		implements = {'ClutterScriptable', 'ClutterContainer'}
+		implements = {'ClutterContainer', 'ClutterScriptable'}
 	}
 )
 
 defClass('ClutterStageManager',
 	{
 		parent = 'GObject'
+	}
+)
+
+defClass('ClutterStageWindow',
+	{
+		abstract = true
 	}
 )
 
@@ -221,6 +299,12 @@ defClass('ClutterActorBox',
 )
 
 defClass('ClutterAnimatableIface',
+	{
+		
+	}
+)
+
+defClass('ClutterAnimatorKey',
 	{
 		
 	}
@@ -269,12 +353,6 @@ defClass('ClutterFog',
 )
 
 defClass('ClutterGeometry',
-	{
-		
-	}
-)
-
-defClass('ClutterInputDevice',
 	{
 		
 	}
@@ -365,6 +443,12 @@ defClass('ClutterShaderMatrix',
 )
 
 defClass('ClutterStageStateEvent',
+	{
+		
+	}
+)
+
+defClass('ClutterStageWindowIface',
 	{
 		
 	}
@@ -514,6 +598,25 @@ defFunction('clutter_actor_destroy',
 		class = 'ClutterActor',
 		since = '0.1',
 		args = {'GObject* none'}
+	}
+)
+
+defFunction('clutter_actor_set_request_mode',
+	{
+		class = 'ClutterActor',
+		since = '1.2',
+		accessorSince = '0.8',
+		args = {'GObject* none', 'int none'}
+	}
+)
+
+defFunction('clutter_actor_get_request_mode',
+	{
+		class = 'ClutterActor',
+		since = '1.2',
+		accessorSince = '0.8',
+		args = {'GObject* none'},
+		ret = 'int full'
 	}
 )
 
@@ -1262,6 +1365,50 @@ defFunction('clutter_actor_is_in_clone_paint',
 	}
 )
 
+defFunction('clutter_actor_has_pointer',
+	{
+		class = 'ClutterActor',
+		since = '1.2',
+		args = {'GObject* none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('clutter_actor_set_text_direction',
+	{
+		class = 'ClutterActor',
+		since = '1.2',
+		accessorSince = '1.0',
+		args = {'GObject* none', 'int none'}
+	}
+)
+
+defFunction('clutter_actor_get_text_direction',
+	{
+		class = 'ClutterActor',
+		since = '1.2',
+		accessorSince = '1.0',
+		args = {'GObject* none'},
+		ret = 'int full'
+	}
+)
+
+defFunction('clutter_actor_push_internal',
+	{
+		class = 'ClutterActor',
+		since = '1.2',
+		args = {'GObject* none'}
+	}
+)
+
+defFunction('clutter_actor_pop_internal',
+	{
+		class = 'ClutterActor',
+		since = '1.2',
+		args = {'GObject* none'}
+	}
+)
+
 defFunction('clutter_actor_animate',
 	{
 		class = 'ClutterActor',
@@ -1436,6 +1583,22 @@ defFunction('clutter_actor_box_from_vertices',
 		class = 'ClutterActorBox',
 		since = '1.0',
 		args = {'struct* none', 'unhandled none'}
+	}
+)
+
+defFunction('clutter_actor_box_interpolate',
+	{
+		class = 'ClutterActorBox',
+		since = '1.2',
+		args = {'struct* none', 'struct* none', 'double none', 'struct* full'}
+	}
+)
+
+defFunction('clutter_actor_box_clamp_to_pixel',
+	{
+		class = 'ClutterActorBox',
+		since = '1.2',
+		args = {'struct* none'}
 	}
 )
 
@@ -1723,6 +1886,15 @@ defFunction('clutter_animation_has_property',
 	}
 )
 
+defFunction('clutter_animation_update',
+	{
+		class = 'ClutterAnimation',
+		since = '1.0',
+		args = {'GObject* none', 'char* none', 'struct* none'},
+		ret = 'GObject* none'
+	}
+)
+
 defFunction('clutter_animation_update_interval',
 	{
 		class = 'ClutterAnimation',
@@ -1753,6 +1925,201 @@ defFunction('clutter_animation_completed',
 		class = 'ClutterAnimation',
 		since = '1.0',
 		args = {'GObject* none'}
+	}
+)
+
+defFunction('clutter_animator_get_type',
+	{
+		class = 'ClutterAnimator',
+		since = '1.2',
+		ret = 'unsigned long none'
+	}
+)
+
+defFunction('clutter_animator_new',
+	{
+		class = 'ClutterAnimator',
+		constructor = true,
+		since = '1.2',
+		ret = 'GObject* full'
+	}
+)
+
+defFunction('clutter_animator_set_key',
+	{
+		class = 'ClutterAnimator',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'char* none', 'unsigned int none', 'double none', 'struct* none'},
+		ret = 'GObject* none'
+	}
+)
+
+defFunction('clutter_animator_set',
+	{
+		class = 'ClutterAnimator',
+		since = '1.2',
+		args = {'GObject* none', 'void* none', 'char* none', 'unsigned int none', 'double none', 'unhandled none'}
+	}
+)
+
+defFunction('clutter_animator_get_keys',
+	{
+		class = 'ClutterAnimator',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'char* none', 'double none'},
+		ret = 'struct* container'
+	}
+)
+
+defFunction('clutter_animator_remove_key',
+	{
+		class = 'ClutterAnimator',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'char* none', 'double none'}
+	}
+)
+
+defFunction('clutter_animator_start',
+	{
+		class = 'ClutterAnimator',
+		since = '1.2',
+		args = {'GObject* none'},
+		ret = 'GObject* full'
+	}
+)
+
+defFunction('clutter_animator_compute_value',
+	{
+		class = 'ClutterAnimator',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'char* none', 'double none', 'struct* none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('clutter_animator_get_timeline',
+	{
+		class = 'ClutterAnimator',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none'},
+		ret = 'GObject* none'
+	}
+)
+
+defFunction('clutter_animator_set_timeline',
+	{
+		class = 'ClutterAnimator',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none', 'GObject* none'}
+	}
+)
+
+defFunction('clutter_animator_get_duration',
+	{
+		class = 'ClutterAnimator',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none'},
+		ret = 'unsigned int none'
+	}
+)
+
+defFunction('clutter_animator_set_duration',
+	{
+		class = 'ClutterAnimator',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none', 'unsigned int none'}
+	}
+)
+
+defFunction('clutter_animator_property_get_ease_in',
+	{
+		class = 'ClutterAnimator',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'char* none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('clutter_animator_property_set_ease_in',
+	{
+		class = 'ClutterAnimator',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'char* none', 'boolean none'}
+	}
+)
+
+defFunction('clutter_animator_property_get_interpolation',
+	{
+		class = 'ClutterAnimator',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'char* none'},
+		ret = 'int full'
+	}
+)
+
+defFunction('clutter_animator_property_set_interpolation',
+	{
+		class = 'ClutterAnimator',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'char* none', 'int none'}
+	}
+)
+
+defFunction('clutter_animator_key_get_object',
+	{
+		class = 'ClutterAnimatorKey',
+		since = '1.2',
+		args = {'struct* none'},
+		ret = 'GObject* none'
+	}
+)
+
+defFunction('clutter_animator_key_get_property_name',
+	{
+		class = 'ClutterAnimatorKey',
+		since = '1.2',
+		args = {'struct* none'},
+		ret = 'char* none'
+	}
+)
+
+defFunction('clutter_animator_key_get_property_type',
+	{
+		class = 'ClutterAnimatorKey',
+		since = '1.2',
+		args = {'struct* none'},
+		ret = 'unsigned long none'
+	}
+)
+
+defFunction('clutter_animator_key_get_mode',
+	{
+		class = 'ClutterAnimatorKey',
+		since = '1.2',
+		args = {'struct* none'},
+		ret = 'unsigned long none'
+	}
+)
+
+defFunction('clutter_animator_key_get_progress',
+	{
+		class = 'ClutterAnimatorKey',
+		since = '1.2',
+		args = {'struct* none'},
+		ret = 'double none'
+	}
+)
+
+defFunction('clutter_animator_key_get_value',
+	{
+		class = 'ClutterAnimatorKey',
+		since = '1.2',
+		args = {'struct* none', 'struct* none'},
+		ret = 'boolean none'
 	}
 )
 
@@ -2353,6 +2720,48 @@ defFunction('clutter_behaviour_scale_get_bounds',
 	}
 )
 
+defFunction('clutter_bin_layout_get_type',
+	{
+		class = 'ClutterBinLayout',
+		since = '1.2',
+		ret = 'unsigned long none'
+	}
+)
+
+defFunction('clutter_bin_layout_new',
+	{
+		class = 'ClutterBinLayout',
+		constructor = true,
+		since = '1.2',
+		args = {'int none', 'int none'},
+		ret = 'GObject* full'
+	}
+)
+
+defFunction('clutter_bin_layout_set_alignment',
+	{
+		class = 'ClutterBinLayout',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'int none', 'int none'}
+	}
+)
+
+defFunction('clutter_bin_layout_get_alignment',
+	{
+		class = 'ClutterBinLayout',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'int* full', 'int* full'}
+	}
+)
+
+defFunction('clutter_bin_layout_add',
+	{
+		class = 'ClutterBinLayout',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'int none', 'int none'}
+	}
+)
+
 defFunction('clutter_binding_pool_get_type',
 	{
 		class = 'ClutterBindingPool',
@@ -2458,6 +2867,288 @@ defFunction('clutter_binding_pool_unblock_action',
 		class = 'ClutterBindingPool',
 		since = '1.0',
 		args = {'GObject* none', 'char* none'}
+	}
+)
+
+defFunction('clutter_box_get_type',
+	{
+		class = 'ClutterBox',
+		since = '1.0',
+		ret = 'unsigned long none'
+	}
+)
+
+defFunction('clutter_box_new',
+	{
+		class = 'ClutterBox',
+		constructor = true,
+		since = '1.0',
+		args = {'GObject* none'},
+		ret = 'GObject* full'
+	}
+)
+
+defFunction('clutter_box_set_layout_manager',
+	{
+		class = 'ClutterBox',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none', 'GObject* none'}
+	}
+)
+
+defFunction('clutter_box_get_layout_manager',
+	{
+		class = 'ClutterBox',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none'},
+		ret = 'GObject* full'
+	}
+)
+
+defFunction('clutter_box_set_color',
+	{
+		class = 'ClutterBox',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none', 'struct* none'}
+	}
+)
+
+defFunction('clutter_box_get_color',
+	{
+		class = 'ClutterBox',
+		since = '1.2',
+		args = {'GObject* none', 'struct* full'}
+	}
+)
+
+defFunction('clutter_box_pack',
+	{
+		class = 'ClutterBox',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'char* none', 'unhandled none'}
+	}
+)
+
+defFunction('clutter_box_packv',
+	{
+		class = 'ClutterBox',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'unsigned int none', 'char* none', 'unhandled none'}
+	}
+)
+
+defFunction('clutter_box_pack_after',
+	{
+		class = 'ClutterBox',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'GObject* none', 'char* none', 'unhandled none'}
+	}
+)
+
+defFunction('clutter_box_pack_before',
+	{
+		class = 'ClutterBox',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'GObject* none', 'char* none', 'unhandled none'}
+	}
+)
+
+defFunction('clutter_box_pack_at',
+	{
+		class = 'ClutterBox',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'int none', 'char* none', 'unhandled none'}
+	}
+)
+
+defFunction('clutter_box_layout_get_type',
+	{
+		class = 'ClutterBoxLayout',
+		since = '1.2',
+		ret = 'unsigned long none'
+	}
+)
+
+defFunction('clutter_box_layout_new',
+	{
+		class = 'ClutterBoxLayout',
+		constructor = true,
+		since = '1.2',
+		ret = 'GObject* full'
+	}
+)
+
+defFunction('clutter_box_layout_set_spacing',
+	{
+		class = 'ClutterBoxLayout',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none', 'unsigned int none'}
+	}
+)
+
+defFunction('clutter_box_layout_get_spacing',
+	{
+		class = 'ClutterBoxLayout',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none'},
+		ret = 'unsigned int none'
+	}
+)
+
+defFunction('clutter_box_layout_set_vertical',
+	{
+		class = 'ClutterBoxLayout',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none', 'boolean none'}
+	}
+)
+
+defFunction('clutter_box_layout_get_vertical',
+	{
+		class = 'ClutterBoxLayout',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('clutter_box_layout_set_pack_start',
+	{
+		class = 'ClutterBoxLayout',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none', 'boolean none'}
+	}
+)
+
+defFunction('clutter_box_layout_get_pack_start',
+	{
+		class = 'ClutterBoxLayout',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('clutter_box_layout_pack',
+	{
+		class = 'ClutterBoxLayout',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'boolean none', 'boolean none', 'boolean none', 'int none', 'int none'}
+	}
+)
+
+defFunction('clutter_box_layout_set_alignment',
+	{
+		class = 'ClutterBoxLayout',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'int none', 'int none'}
+	}
+)
+
+defFunction('clutter_box_layout_get_alignment',
+	{
+		class = 'ClutterBoxLayout',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'int* full', 'int* full'}
+	}
+)
+
+defFunction('clutter_box_layout_set_fill',
+	{
+		class = 'ClutterBoxLayout',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'boolean none', 'boolean none'}
+	}
+)
+
+defFunction('clutter_box_layout_get_fill',
+	{
+		class = 'ClutterBoxLayout',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'boolean* full', 'boolean* full'}
+	}
+)
+
+defFunction('clutter_box_layout_set_expand',
+	{
+		class = 'ClutterBoxLayout',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'boolean none'}
+	}
+)
+
+defFunction('clutter_box_layout_get_expand',
+	{
+		class = 'ClutterBoxLayout',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('clutter_box_layout_set_use_animations',
+	{
+		class = 'ClutterBoxLayout',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none', 'boolean none'}
+	}
+)
+
+defFunction('clutter_box_layout_get_use_animations',
+	{
+		class = 'ClutterBoxLayout',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('clutter_box_layout_set_easing_mode',
+	{
+		class = 'ClutterBoxLayout',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none', 'unsigned long none'}
+	}
+)
+
+defFunction('clutter_box_layout_get_easing_mode',
+	{
+		class = 'ClutterBoxLayout',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none'},
+		ret = 'unsigned long none'
+	}
+)
+
+defFunction('clutter_box_layout_set_easing_duration',
+	{
+		class = 'ClutterBoxLayout',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none', 'unsigned int none'}
+	}
+)
+
+defFunction('clutter_box_layout_get_easing_duration',
+	{
+		class = 'ClutterBoxLayout',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none'},
+		ret = 'unsigned int none'
 	}
 )
 
@@ -2794,6 +3485,22 @@ defFunction('clutter_container_sort_depth_order',
 	}
 )
 
+defFunction('clutter_container_create_child_meta',
+	{
+		class = 'ClutterContainer',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none'}
+	}
+)
+
+defFunction('clutter_container_destroy_child_meta',
+	{
+		class = 'ClutterContainer',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none'}
+	}
+)
+
 defFunction('clutter_container_get_child_meta',
 	{
 		class = 'ClutterContainer',
@@ -2832,6 +3539,57 @@ defFunction('clutter_container_child_get',
 		class = 'ClutterContainer',
 		since = '0.8',
 		args = {'GObject* none', 'GObject* none', 'char* none', 'unhandled none'}
+	}
+)
+
+defFunction('clutter_device_manager_get_type',
+	{
+		class = 'ClutterDeviceManager',
+		since = '1.2',
+		ret = 'unsigned long none'
+	}
+)
+
+defFunction('clutter_device_manager_get_default',
+	{
+		since = '1.2',
+		ret = 'GObject* none'
+	}
+)
+
+defFunction('clutter_device_manager_list_devices',
+	{
+		class = 'ClutterDeviceManager',
+		since = '1.2',
+		args = {'GObject* none'},
+		ret = 'struct* container'
+	}
+)
+
+defFunction('clutter_device_manager_peek_devices',
+	{
+		class = 'ClutterDeviceManager',
+		since = '1.2',
+		args = {'GObject* none'},
+		ret = 'struct* none'
+	}
+)
+
+defFunction('clutter_device_manager_get_device',
+	{
+		class = 'ClutterDeviceManager',
+		since = '1.2',
+		args = {'GObject* none', 'int none'},
+		ret = 'GObject* none'
+	}
+)
+
+defFunction('clutter_device_manager_get_core_device',
+	{
+		class = 'ClutterDeviceManager',
+		since = '1.2',
+		args = {'GObject* none', 'int none'},
+		ret = 'GObject* none'
 	}
 )
 
@@ -2929,7 +3687,7 @@ defFunction('clutter_event_get_device',
 		class = 'ClutterEvent',
 		since = '1.0',
 		args = {'struct* none'},
-		ret = 'struct* full'
+		ret = 'GObject* full'
 	}
 )
 
@@ -3022,6 +3780,149 @@ defFunction('clutter_event_get_scroll_direction',
 	}
 )
 
+defFunction('clutter_fixed_layout_get_type',
+	{
+		class = 'ClutterFixedLayout',
+		since = '1.2',
+		ret = 'unsigned long none'
+	}
+)
+
+defFunction('clutter_fixed_layout_new',
+	{
+		class = 'ClutterFixedLayout',
+		constructor = true,
+		since = '1.2',
+		ret = 'GObject* full'
+	}
+)
+
+defFunction('clutter_flow_layout_get_type',
+	{
+		class = 'ClutterFlowLayout',
+		since = '1.2',
+		ret = 'unsigned long none'
+	}
+)
+
+defFunction('clutter_flow_layout_new',
+	{
+		class = 'ClutterFlowLayout',
+		constructor = true,
+		since = '1.2',
+		args = {'int none'},
+		ret = 'GObject* full'
+	}
+)
+
+defFunction('clutter_flow_layout_set_orientation',
+	{
+		class = 'ClutterFlowLayout',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none', 'int none'}
+	}
+)
+
+defFunction('clutter_flow_layout_get_orientation',
+	{
+		class = 'ClutterFlowLayout',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none'},
+		ret = 'int full'
+	}
+)
+
+defFunction('clutter_flow_layout_set_homogeneous',
+	{
+		class = 'ClutterFlowLayout',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none', 'boolean none'}
+	}
+)
+
+defFunction('clutter_flow_layout_get_homogeneous',
+	{
+		class = 'ClutterFlowLayout',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('clutter_flow_layout_set_column_spacing',
+	{
+		class = 'ClutterFlowLayout',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none', 'float none'}
+	}
+)
+
+defFunction('clutter_flow_layout_get_column_spacing',
+	{
+		class = 'ClutterFlowLayout',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none'},
+		ret = 'float none'
+	}
+)
+
+defFunction('clutter_flow_layout_set_row_spacing',
+	{
+		class = 'ClutterFlowLayout',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none', 'float none'}
+	}
+)
+
+defFunction('clutter_flow_layout_get_row_spacing',
+	{
+		class = 'ClutterFlowLayout',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none'},
+		ret = 'float none'
+	}
+)
+
+defFunction('clutter_flow_layout_set_column_width',
+	{
+		class = 'ClutterFlowLayout',
+		since = '1.2',
+		args = {'GObject* none', 'float none', 'float none'}
+	}
+)
+
+defFunction('clutter_flow_layout_get_column_width',
+	{
+		class = 'ClutterFlowLayout',
+		since = '1.2',
+		args = {'GObject* none', 'float* full', 'float* full'}
+	}
+)
+
+defFunction('clutter_flow_layout_set_row_height',
+	{
+		class = 'ClutterFlowLayout',
+		since = '1.2',
+		args = {'GObject* none', 'float none', 'float none'}
+	}
+)
+
+defFunction('clutter_flow_layout_get_row_height',
+	{
+		class = 'ClutterFlowLayout',
+		since = '1.2',
+		args = {'GObject* none', 'float* full', 'float* full'}
+	}
+)
+
 defFunction('clutter_group_get_type',
 	{
 		class = 'ClutterGroup',
@@ -3065,11 +3966,20 @@ defFunction('clutter_group_remove_all',
 	}
 )
 
+defFunction('clutter_input_device_get_type',
+	{
+		class = 'ClutterInputDevice',
+		since = '1.0',
+		ret = 'unsigned long none'
+	}
+)
+
 defFunction('clutter_input_device_get_device_type',
 	{
 		class = 'ClutterInputDevice',
 		since = '1.0',
-		args = {'struct* none'},
+		accessorSince = '1.2',
+		args = {'GObject* none'},
 		ret = 'int full'
 	}
 )
@@ -3078,8 +3988,51 @@ defFunction('clutter_input_device_get_device_id',
 	{
 		class = 'ClutterInputDevice',
 		since = '1.0',
-		args = {'struct* none'},
+		args = {'GObject* none'},
 		ret = 'int none'
+	}
+)
+
+defFunction('clutter_input_device_get_device_coords',
+	{
+		class = 'ClutterInputDevice',
+		since = '1.2',
+		args = {'GObject* none', 'int* full', 'int* full'}
+	}
+)
+
+defFunction('clutter_input_device_get_pointer_actor',
+	{
+		class = 'ClutterInputDevice',
+		since = '1.2',
+		args = {'GObject* none'},
+		ret = 'GObject* none'
+	}
+)
+
+defFunction('clutter_input_device_get_pointer_stage',
+	{
+		class = 'ClutterInputDevice',
+		since = '1.2',
+		args = {'GObject* none'},
+		ret = 'GObject* none'
+	}
+)
+
+defFunction('clutter_input_device_get_device_name',
+	{
+		class = 'ClutterInputDevice',
+		since = '1.2',
+		args = {'GObject* none'},
+		ret = 'char* none'
+	}
+)
+
+defFunction('clutter_input_device_update_from_event',
+	{
+		class = 'ClutterInputDevice',
+		since = '1.2',
+		args = {'GObject* none', 'struct* none', 'boolean none'}
 	}
 )
 
@@ -3247,6 +4200,157 @@ defFunction('clutter_knot_equal',
 	}
 )
 
+defFunction('clutter_layout_manager_get_type',
+	{
+		class = 'ClutterLayoutManager',
+		since = '1.0',
+		ret = 'unsigned long none'
+	}
+)
+
+defFunction('clutter_layout_manager_get_preferred_width',
+	{
+		class = 'ClutterLayoutManager',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'float none', 'float* full', 'float* full'}
+	}
+)
+
+defFunction('clutter_layout_manager_get_preferred_height',
+	{
+		class = 'ClutterLayoutManager',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'float none', 'float* full', 'float* full'}
+	}
+)
+
+defFunction('clutter_layout_manager_allocate',
+	{
+		class = 'ClutterLayoutManager',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'struct* none', 'int none'}
+	}
+)
+
+defFunction('clutter_layout_manager_set_container',
+	{
+		class = 'ClutterLayoutManager',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none'}
+	}
+)
+
+defFunction('clutter_layout_manager_layout_changed',
+	{
+		class = 'ClutterLayoutManager',
+		since = '1.2',
+		args = {'GObject* none'}
+	}
+)
+
+defFunction('clutter_layout_manager_find_child_property',
+	{
+		class = 'ClutterLayoutManager',
+		since = '1.2',
+		args = {'GObject* none', 'char* none'},
+		ret = 'struct* none'
+	}
+)
+
+defFunction('clutter_layout_manager_list_child_properties',
+	{
+		class = 'ClutterLayoutManager',
+		since = '1.2',
+		args = {'GObject* none', 'unsigned int* full'},
+		ret = 'struct** full'
+	}
+)
+
+defFunction('clutter_layout_manager_get_child_meta',
+	{
+		class = 'ClutterLayoutManager',
+		since = '1.0',
+		args = {'GObject* none', 'GObject* none', 'GObject* none'},
+		ret = 'GObject* full'
+	}
+)
+
+defFunction('clutter_layout_manager_child_set',
+	{
+		class = 'ClutterLayoutManager',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'GObject* none', 'char* none', 'unhandled none'}
+	}
+)
+
+defFunction('clutter_layout_manager_child_get',
+	{
+		class = 'ClutterLayoutManager',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'GObject* none', 'char* none', 'unhandled none'}
+	}
+)
+
+defFunction('clutter_layout_manager_child_set_property',
+	{
+		class = 'ClutterLayoutManager',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'GObject* none', 'char* none', 'struct* none'}
+	}
+)
+
+defFunction('clutter_layout_manager_child_get_property',
+	{
+		class = 'ClutterLayoutManager',
+		since = '1.2',
+		args = {'GObject* none', 'GObject* none', 'GObject* none', 'char* none', 'struct* none'}
+	}
+)
+
+defFunction('clutter_layout_manager_begin_animation',
+	{
+		class = 'ClutterLayoutManager',
+		since = '1.2',
+		args = {'GObject* none', 'unsigned int none', 'unsigned long none'},
+		ret = 'GObject* none'
+	}
+)
+
+defFunction('clutter_layout_manager_end_animation',
+	{
+		class = 'ClutterLayoutManager',
+		since = '1.2',
+		args = {'GObject* none'}
+	}
+)
+
+defFunction('clutter_layout_manager_get_animation_progress',
+	{
+		class = 'ClutterLayoutManager',
+		since = '1.2',
+		args = {'GObject* none'},
+		ret = 'double none'
+	}
+)
+
+defFunction('clutter_layout_meta_get_type',
+	{
+		class = 'ClutterLayoutMeta',
+		since = '1.2',
+		ret = 'unsigned long none'
+	}
+)
+
+defFunction('clutter_layout_meta_get_manager',
+	{
+		class = 'ClutterLayoutMeta',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none'},
+		ret = 'GObject* none'
+	}
+)
+
 defFunction('clutter_list_model_get_type',
 	{
 		class = 'ClutterListModel',
@@ -3331,6 +4435,40 @@ defFunction('clutter_media_get_progress',
 		since = '1.0',
 		args = {'GObject* none'},
 		ret = 'double none'
+	}
+)
+
+defFunction('clutter_media_set_subtitle_uri',
+	{
+		class = 'ClutterMedia',
+		since = '1.2',
+		args = {'GObject* none', 'char* none'}
+	}
+)
+
+defFunction('clutter_media_get_subtitle_uri',
+	{
+		class = 'ClutterMedia',
+		since = '1.2',
+		args = {'GObject* none'},
+		ret = 'char* full'
+	}
+)
+
+defFunction('clutter_media_set_subtitle_font_name',
+	{
+		class = 'ClutterMedia',
+		since = '1.2',
+		args = {'GObject* none', 'char* none'}
+	}
+)
+
+defFunction('clutter_media_get_subtitle_font_name',
+	{
+		class = 'ClutterMedia',
+		since = '1.2',
+		args = {'GObject* none'},
+		ret = 'char* full'
 	}
 )
 
@@ -4647,6 +5785,7 @@ defFunction('clutter_stage_set_key_focus',
 	{
 		class = 'ClutterStage',
 		since = '0.6',
+		accessorSince = '1.2',
 		args = {'GObject* none', 'GObject* none'}
 	}
 )
@@ -4655,6 +5794,7 @@ defFunction('clutter_stage_get_key_focus',
 	{
 		class = 'ClutterStage',
 		since = '0.6',
+		accessorSince = '1.2',
 		args = {'GObject* none'},
 		ret = 'GObject* none'
 	}
@@ -4718,10 +5858,45 @@ defFunction('clutter_stage_get_throttle_motion_events',
 	}
 )
 
+defFunction('clutter_stage_set_use_alpha',
+	{
+		class = 'ClutterStage',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none', 'boolean none'}
+	}
+)
+
+defFunction('clutter_stage_get_use_alpha',
+	{
+		class = 'ClutterStage',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('clutter_stage_set_minimum_size',
+	{
+		class = 'ClutterStage',
+		since = '1.2',
+		args = {'GObject* none', 'unsigned int none', 'unsigned int none'}
+	}
+)
+
+defFunction('clutter_stage_get_minimum_size',
+	{
+		class = 'ClutterStage',
+		since = '1.2',
+		args = {'GObject* none', 'unsigned int* full', 'unsigned int* full'}
+	}
+)
+
 defFunction('clutter_stage_manager_get_type',
 	{
 		class = 'ClutterStageManager',
-		since = '9999.9999',
+		since = '0.8',
 		ret = 'unsigned long none'
 	}
 )
@@ -4730,15 +5905,6 @@ defFunction('clutter_stage_manager_get_default',
 	{
 		since = '0.8',
 		ret = 'GObject* none'
-	}
-)
-
-defFunction('clutter_stage_manager_set_default_stage',
-	{
-		class = 'ClutterStageManager',
-		since = '0.8',
-		accessorSince = '0.8',
-		args = {'GObject* none', 'GObject* none'}
 	}
 )
 
@@ -4755,9 +5921,9 @@ defFunction('clutter_stage_manager_get_default_stage',
 defFunction('clutter_stage_manager_list_stages',
 	{
 		class = 'ClutterStageManager',
-		since = '1.0',
+		since = '0.8',
 		args = {'GObject* none'},
-		ret = 'struct* full'
+		ret = 'struct* container'
 	}
 )
 
@@ -4770,10 +5936,20 @@ defFunction('clutter_stage_manager_peek_stages',
 	}
 )
 
+defFunction('clutter_stage_manager_set_default_stage',
+	{
+		class = 'ClutterStageManager',
+		since = '0.8',
+		accessorSince = '0.8',
+		args = {'GObject* none', 'GObject* none'},
+		deprecated = '1.2'
+	}
+)
+
 defFunction('clutter_text_get_type',
 	{
 		class = 'ClutterText',
-		since = '0.1',
+		since = '0.6',
 		ret = 'unsigned long none'
 	}
 )
@@ -4867,6 +6043,25 @@ defFunction('clutter_text_get_font_name',
 		accessorSince = '1.0',
 		args = {'GObject* none'},
 		ret = 'char* none'
+	}
+)
+
+defFunction('clutter_text_set_font_description',
+	{
+		class = 'ClutterText',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none', 'struct* none'}
+	}
+)
+
+defFunction('clutter_text_get_font_description',
+	{
+		class = 'ClutterText',
+		since = '1.2',
+		accessorSince = '1.2',
+		args = {'GObject* none'},
+		ret = 'struct* full'
 	}
 )
 
@@ -4986,7 +6181,7 @@ defFunction('clutter_text_set_line_alignment',
 defFunction('clutter_text_get_line_alignment',
 	{
 		class = 'ClutterText',
-		since = '0.1',
+		since = '1.0',
 		accessorSince = '1.0',
 		args = {'GObject* none'},
 		ret = 'int full'
@@ -5906,6 +7101,14 @@ defFunction('clutter_units_from_mm',
 	}
 )
 
+defFunction('clutter_units_from_cm',
+	{
+		class = 'ClutterUnits',
+		since = '1.2',
+		args = {'struct* none', 'float none'}
+	}
+)
+
 defFunction('clutter_units_from_pt',
 	{
 		class = 'ClutterUnits',
@@ -5987,6 +7190,14 @@ defFunction('clutter_cairo_set_source_color',
 	{
 		since = '1.0',
 		args = {'struct* none', 'struct* none'}
+	}
+)
+
+defFunction('clutter_check_version',
+	{
+		since = '1.2',
+		args = {'unsigned int none', 'unsigned int none', 'unsigned int none'},
+		ret = 'boolean none'
 	}
 )
 
@@ -6094,6 +7305,13 @@ defFunction('clutter_get_actor_by_gid',
 	}
 )
 
+defFunction('clutter_get_current_event',
+	{
+		since = '1.2',
+		ret = 'struct* none'
+	}
+)
+
 defFunction('clutter_get_current_event_time',
 	{
 		since = '1.0',
@@ -6122,6 +7340,13 @@ defFunction('clutter_get_default_frame_rate',
 	}
 )
 
+defFunction('clutter_get_default_text_direction',
+	{
+		since = '1.2',
+		ret = 'int full'
+	}
+)
+
 defFunction('clutter_get_font_flags',
 	{
 		since = '1.0',
@@ -6140,7 +7365,7 @@ defFunction('clutter_get_input_device_for_id',
 	{
 		since = '0.8',
 		args = {'int none'},
-		ret = 'struct* none'
+		ret = 'GObject* none'
 	}
 )
 
@@ -6428,7 +7653,8 @@ defFunction('clutter_util_next_p2',
 	{
 		since = '0.1',
 		args = {'int none'},
-		ret = 'int none'
+		ret = 'int none',
+		deprecated = '1.2'
 	}
 )
 
@@ -6523,10 +7749,11 @@ defFunction('clutter_value_set_units',
 
 defEnum('ClutterActorFlags',
 	{
-		['CLUTTER_ACTOR_VISIBLE'] = 16,
-		['CLUTTER_ACTOR_REACTIVE'] = 8,
+		['CLUTTER_ACTOR_NO_LAYOUT'] = 32,
 		['CLUTTER_ACTOR_REALIZED'] = 4,
-		['CLUTTER_ACTOR_MAPPED'] = 2
+		['CLUTTER_ACTOR_MAPPED'] = 2,
+		['CLUTTER_ACTOR_VISIBLE'] = 16,
+		['CLUTTER_ACTOR_REACTIVE'] = 8
 	}
 )
 
@@ -6575,6 +7802,24 @@ defEnum('ClutterAnimationMode',
 	}
 )
 
+defEnum('ClutterBinAlignment',
+	{
+		['CLUTTER_BIN_ALIGNMENT_FILL'] = 1,
+		['CLUTTER_BIN_ALIGNMENT_FIXED'] = 0,
+		['CLUTTER_BIN_ALIGNMENT_START'] = 2,
+		['CLUTTER_BIN_ALIGNMENT_CENTER'] = 4,
+		['CLUTTER_BIN_ALIGNMENT_END'] = 3
+	}
+)
+
+defEnum('ClutterBoxAlignment',
+	{
+		['CLUTTER_BOX_ALIGNMENT_START'] = 0,
+		['CLUTTER_BOX_ALIGNMENT_END'] = 1,
+		['CLUTTER_BOX_ALIGNMENT_CENTER'] = 2
+	}
+)
+
 defEnum('ClutterEventFlags',
 	{
 		['CLUTTER_EVENT_FLAG_SYNTHETIC'] = 1,
@@ -6603,6 +7848,7 @@ defEnum('ClutterEventType',
 defEnum('ClutterFeatureFlags',
 	{
 		['CLUTTER_FEATURE_STAGE_CURSOR'] = 256,
+		['CLUTTER_FEATURE_SWAP_EVENTS'] = 4096,
 		['CLUTTER_FEATURE_TEXTURE_READ_PIXELS'] = 32,
 		['CLUTTER_FEATURE_TEXTURE_NPOT'] = 4,
 		['CLUTTER_FEATURE_STAGE_STATIC'] = 64,
@@ -6612,6 +7858,13 @@ defEnum('ClutterFeatureFlags',
 		['CLUTTER_FEATURE_STAGE_MULTIPLE'] = 2048,
 		['CLUTTER_FEATURE_TEXTURE_YUV'] = 16,
 		['CLUTTER_FEATURE_SHADERS_GLSL'] = 512
+	}
+)
+
+defEnum('ClutterFlowOrientation',
+	{
+		['CLUTTER_FLOW_VERTICAL'] = 1,
+		['CLUTTER_FLOW_HORIZONTAL'] = 0
 	}
 )
 
@@ -6656,6 +7909,13 @@ defEnum('ClutterInputDeviceType',
 	}
 )
 
+defEnum('ClutterInterpolation',
+	{
+		['CLUTTER_INTERPOLATION_LINEAR'] = 0,
+		['CLUTTER_INTERPOLATION_CUBIC'] = 1
+	}
+)
+
 defEnum('ClutterModifierType',
 	{
 		['CLUTTER_BUTTON5_MASK'] = 4096,
@@ -6696,6 +7956,13 @@ defEnum('ClutterPickMode',
 		['CLUTTER_PICK_ALL'] = 2,
 		['CLUTTER_PICK_NONE'] = 0,
 		['CLUTTER_PICK_REACTIVE'] = 1
+	}
+)
+
+defEnum('ClutterRedrawFlags',
+	{
+		['CLUTTER_REDRAW_CLIPPED_TO_BOX'] = 0,
+		['CLUTTER_REDRAW_CLIPPED_TO_ALLOCATION'] = 2
 	}
 )
 
@@ -6754,6 +8021,14 @@ defEnum('ClutterStageState',
 	}
 )
 
+defEnum('ClutterTextDirection',
+	{
+		['CLUTTER_TEXT_DIRECTION_RTL'] = 2,
+		['CLUTTER_TEXT_DIRECTION_LTR'] = 1,
+		['CLUTTER_TEXT_DIRECTION_DEFAULT'] = 0
+	}
+)
+
 defEnum('ClutterTextureError',
 	{
 		['CLUTTER_TEXTURE_ERROR_OUT_OF_MEMORY'] = 0,
@@ -6791,7 +8066,8 @@ defEnum('ClutterUnitType',
 		['CLUTTER_UNIT_POINT'] = 3,
 		['CLUTTER_UNIT_PIXEL'] = 0,
 		['CLUTTER_UNIT_MM'] = 2,
-		['CLUTTER_UNIT_EM'] = 1
+		['CLUTTER_UNIT_EM'] = 1,
+		['CLUTTER_UNIT_CM'] = 4
 	}
 )
 

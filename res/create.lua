@@ -84,7 +84,7 @@ end
 
 -- def -> versioned def
 lfs.chdir('../codegen/src/')
-local p = '../../../res'
+local p = '../../res'
 
 for name, mod in pairs(modules) do
 	ex( sf('./update-version.lua %s/gir-devhelp/%s < %s/def1/%s.def > %s/def2/%s.def', p, 

@@ -84,6 +84,16 @@ fixVersion('gdk_window_is_destroyed', '2.18')
 
 undefPattern('GdkEvent.+')
 
+-- 2.20
+undef{
+    'gdk_keymap_add_virtual_modifiers',
+    'gdk_keymap_map_virtual_modifiers',
+    'gdk_pixbuf_non_anim_new',
+    'gdk_pixbuf_set_option',
+}
+undefPattern('.+_compound_text')
+
+
 defOverride('gdk_color_parse', [[
 	GdkColor color;
 	gdk_color_parse(lua_tostring(L, 1), &color);

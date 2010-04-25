@@ -1,5 +1,6 @@
 #! /usr/bin/env lua
 
+require("lgob.loader")          -- completion seems to be a module now
 require("lgob.gtksourceview")
 
 local window = gtk.Window.new()

@@ -554,7 +554,7 @@ defFunction('gdk_colormap_ref',
 		since = '0.1',
 		args = {'GObject* none'},
 		ret = 'GObject* full',
-		deprecated = '0.1'
+		deprecated = '2.0'
 	}
 )
 
@@ -563,7 +563,7 @@ defFunction('gdk_colormap_unref',
 		class = 'GdkColormap',
 		since = '0.1',
 		args = {'GObject* none'},
-		deprecated = '0.1'
+		deprecated = '2.0'
 	}
 )
 
@@ -772,7 +772,7 @@ defFunction('gdk_device_get_state',
 	{
 		class = 'GdkDevice',
 		since = '0.1',
-		args = {'GObject* none', 'GObject* none', 'double* full', 'int* full'}
+		args = {'GObject* none', 'GObject* none', 'double* full', 'int* none'}
 	}
 )
 
@@ -998,7 +998,7 @@ defFunction('gdk_display_get_window_at_pointer',
 		class = 'GdkDisplay',
 		since = '2.2',
 		args = {'GObject* none', 'int* full', 'int* full'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -1136,7 +1136,7 @@ defFunction('gdk_display_manager_get_type',
 defFunction('gdk_display_manager_get',
 	{
 		since = '2.2',
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -1146,7 +1146,7 @@ defFunction('gdk_display_manager_get_default_display',
 		since = '2.2',
 		accessorSince = '2.0',
 		args = {'GObject* none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -1190,7 +1190,7 @@ defFunction('gdk_drag_context_ref',
 		class = 'GdkDragContext',
 		since = '0.1',
 		args = {'GObject* none'},
-		deprecated = '0.1'
+		deprecated = '2.2'
 	}
 )
 
@@ -1199,7 +1199,7 @@ defFunction('gdk_drag_context_unref',
 		class = 'GdkDragContext',
 		since = '0.1',
 		args = {'GObject* none'},
-		deprecated = '0.1'
+		deprecated = '2.2'
 	}
 )
 
@@ -1297,7 +1297,7 @@ defFunction('gdk_drawable_ref',
 		since = '0.1',
 		args = {'GObject* none'},
 		ret = 'GObject* full',
-		deprecated = '0.1'
+		deprecated = '2.0'
 	}
 )
 
@@ -1306,7 +1306,7 @@ defFunction('gdk_drawable_unref',
 		class = 'GdkDrawable',
 		since = '0.1',
 		args = {'GObject* none'},
-		deprecated = '0.1'
+		deprecated = '2.0'
 	}
 )
 
@@ -1460,15 +1460,6 @@ defFunction('gdk_event_send_clientmessage_toall',
 	}
 )
 
-defFunction('gdk_event_get_symbol',
-	{
-		class = 'GdkEvent',
-		since = '2.0',
-		args = {'struct* none'},
-		ret = 'unsigned int none'
-	}
-)
-
 defFunction('gdk_font_ref',
 	{
 		class = 'GdkFont',
@@ -1552,7 +1543,7 @@ defFunction('gdk_gc_ref',
 		since = '0.1',
 		args = {'GObject* none'},
 		ret = 'GObject* full',
-		deprecated = '0.1'
+		deprecated = '2.0'
 	}
 )
 
@@ -1561,7 +1552,7 @@ defFunction('gdk_gc_unref',
 		class = 'GdkGC',
 		since = '0.1',
 		args = {'GObject* none'},
-		deprecated = '0.1'
+		deprecated = '2.0'
 	}
 )
 
@@ -1801,7 +1792,7 @@ defFunction('gdk_image_ref',
 		since = '0.1',
 		args = {'GObject* none'},
 		ret = 'GObject* full',
-		deprecated = '0.1'
+		deprecated = '2.0'
 	}
 )
 
@@ -1810,7 +1801,7 @@ defFunction('gdk_image_unref',
 		class = 'GdkImage',
 		since = '0.1',
 		args = {'GObject* none'},
-		deprecated = '0.1'
+		deprecated = '2.0'
 	}
 )
 
@@ -1934,6 +1925,23 @@ defFunction('gdk_keymap_get_caps_lock_state',
 	}
 )
 
+defFunction('gdk_keymap_add_virtual_modifiers',
+	{
+		class = 'GdkKeymap',
+		since = '2.20',
+		args = {'GObject* none', 'int* none'}
+	}
+)
+
+defFunction('gdk_keymap_map_virtual_modifiers',
+	{
+		class = 'GdkKeymap',
+		since = '2.20',
+		args = {'GObject* none', 'int* none'},
+		ret = 'boolean none'
+	}
+)
+
 defFunction('gdk_pango_attr_emboss_color_new',
 	{
 		class = 'GdkPangoAttrEmbossColor',
@@ -2052,15 +2060,15 @@ defFunction('gdk_pixmap_create_from_xpm',
 	{
 		since = '0.1',
 		args = {'GObject* none', 'struct** full', 'struct* none', 'char* none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
 defFunction('gdk_pixmap_colormap_create_from_xpm',
 	{
 		since = '0.1',
-		args = {'GObject* none', 'GObject* none', 'struct** full', 'struct* none', 'char* none'},
-		ret = 'GObject* full'
+		args = {'GObject* none', 'GObject* none', 'struct** none', 'struct* none', 'char* none'},
+		ret = 'GObject* none'
 	}
 )
 
@@ -2068,15 +2076,15 @@ defFunction('gdk_pixmap_create_from_xpm_d',
 	{
 		since = '0.1',
 		args = {'GObject* none', 'struct** full', 'struct* none', 'unhandled none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
 defFunction('gdk_pixmap_colormap_create_from_xpm_d',
 	{
 		since = '0.1',
-		args = {'GObject* none', 'GObject* none', 'struct** full', 'struct* none', 'unhandled none'},
-		ret = 'GObject* full'
+		args = {'GObject* none', 'GObject* none', 'struct** none', 'struct* none', 'unhandled none'},
+		ret = 'GObject* none'
 	}
 )
 
@@ -2117,15 +2125,6 @@ defFunction('gdk_pixmap_foreign_new_for_screen',
 		since = '2.10',
 		args = {'GObject* none', 'unsigned long none', 'int none', 'int none', 'int none'},
 		ret = 'GObject* full'
-	}
-)
-
-defFunction('gdk_rectangle_new',
-	{
-		class = 'GdkRectangle',
-		constructor = true,
-		since = '2.0',
-		ret = 'struct* full'
 	}
 )
 
@@ -2363,7 +2362,7 @@ defFunction('gdk_screen_get_default_colormap',
 		class = 'GdkScreen',
 		since = '2.2',
 		args = {'GObject* none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -2380,7 +2379,7 @@ defFunction('gdk_screen_get_system_colormap',
 		class = 'GdkScreen',
 		since = '2.2',
 		args = {'GObject* none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -2389,7 +2388,7 @@ defFunction('gdk_screen_get_system_visual',
 		class = 'GdkScreen',
 		since = '2.2',
 		args = {'GObject* none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -2416,7 +2415,7 @@ defFunction('gdk_screen_get_rgba_colormap',
 		class = 'GdkScreen',
 		since = '2.8',
 		args = {'GObject* none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -2425,7 +2424,7 @@ defFunction('gdk_screen_get_rgba_visual',
 		class = 'GdkScreen',
 		since = '2.8',
 		args = {'GObject* none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -2532,6 +2531,15 @@ defFunction('gdk_screen_get_n_monitors',
 	{
 		class = 'GdkScreen',
 		since = '2.2',
+		args = {'GObject* none'},
+		ret = 'int none'
+	}
+)
+
+defFunction('gdk_screen_get_primary_monitor',
+	{
+		class = 'GdkScreen',
+		since = '2.20',
 		args = {'GObject* none'},
 		ret = 'int none'
 	}
@@ -2688,14 +2696,14 @@ defFunction('gdk_visual_get_best_type',
 defFunction('gdk_visual_get_system',
 	{
 		since = '0.1',
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
 defFunction('gdk_visual_get_best',
 	{
 		since = '0.1',
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -2703,7 +2711,7 @@ defFunction('gdk_visual_get_best_with_depth',
 	{
 		since = '0.1',
 		args = {'int none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -2711,7 +2719,7 @@ defFunction('gdk_visual_get_best_with_type',
 	{
 		since = '0.1',
 		args = {'int none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -2719,7 +2727,7 @@ defFunction('gdk_visual_get_best_with_both',
 	{
 		since = '0.1',
 		args = {'int none', 'int none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -2728,7 +2736,7 @@ defFunction('gdk_visual_get_screen',
 		class = 'GdkVisual',
 		since = '2.2',
 		args = {'GObject* none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -2746,7 +2754,7 @@ defFunction('gdk_window_new',
 		constructor = true,
 		since = '0.1',
 		args = {'GObject* none', 'struct* none', 'int none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -2754,7 +2762,7 @@ defFunction('gdk_window_at_pointer',
 	{
 		since = '0.1',
 		args = {'int* full', 'int* full'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -2838,7 +2846,7 @@ defFunction('gdk_window_get_window_type',
 defFunction('gdk_window_is_destroyed',
 	{
 		class = 'GdkWindow',
-		since = '0.1',
+		since = '2.18',
 		args = {'GObject* none'},
 		ret = 'boolean none'
 	}
@@ -3295,7 +3303,7 @@ defFunction('gdk_window_set_cursor',
 	{
 		class = 'GdkWindow',
 		since = '0.1',
-		accessorSince = '2.0',
+		accessorSince = '2.18',
 		args = {'GObject* none', 'struct* none'}
 	}
 )
@@ -3304,7 +3312,7 @@ defFunction('gdk_window_get_cursor',
 	{
 		class = 'GdkWindow',
 		since = '2.18',
-		accessorSince = '2.0',
+		accessorSince = '2.18',
 		args = {'GObject* none'},
 		ret = 'struct* full'
 	}
@@ -3346,7 +3354,7 @@ defFunction('gdk_window_get_origin',
 defFunction('gdk_window_get_root_coords',
 	{
 		class = 'GdkWindow',
-		since = '0.1',
+		since = '2.18',
 		args = {'GObject* none', 'int none', 'int none', 'int* full', 'int* full'}
 	}
 )
@@ -3853,7 +3861,7 @@ defFunction('gdk_char_height',
 		since = '0.1',
 		args = {'struct* none', 'char none'},
 		ret = 'int none',
-		deprecated = '0.1'
+		deprecated = '2.2'
 	}
 )
 
@@ -3871,7 +3879,7 @@ defFunction('gdk_char_width',
 		since = '0.1',
 		args = {'struct* none', 'char none'},
 		ret = 'int none',
-		deprecated = '0.1'
+		deprecated = '2.2'
 	}
 )
 
@@ -3889,7 +3897,7 @@ defFunction('gdk_color_alloc',
 		since = '0.1',
 		args = {'GObject* none', 'struct* none'},
 		ret = 'int none',
-		deprecated = '0.1'
+		deprecated = '2.2'
 	}
 )
 
@@ -4208,7 +4216,7 @@ defFunction('gdk_draw_string',
 	{
 		since = '0.1',
 		args = {'GObject* none', 'struct* none', 'GObject* none', 'int none', 'int none', 'char* none'},
-		deprecated = '0.1'
+		deprecated = '2.4'
 	}
 )
 
@@ -4216,7 +4224,7 @@ defFunction('gdk_draw_text',
 	{
 		since = '0.1',
 		args = {'GObject* none', 'struct* none', 'GObject* none', 'int none', 'int none', 'char* none', 'int none'},
-		deprecated = '0.1'
+		deprecated = '2.4'
 	}
 )
 
@@ -4224,7 +4232,7 @@ defFunction('gdk_draw_text_wc',
 	{
 		since = '0.1',
 		args = {'GObject* none', 'struct* none', 'GObject* none', 'int none', 'int none', 'unsigned long* none', 'int none'},
-		deprecated = '0.1'
+		deprecated = '2.4'
 	}
 )
 
@@ -4396,14 +4404,6 @@ defFunction('gdk_free_text_list',
 	}
 )
 
-defFunction('gdkx_visual_get',
-	{
-		since = '0.1',
-		args = {'VisualID none'},
-		ret = 'GObject* full'
-	}
-)
-
 defFunction('gdk_get_default_root_window',
 	{
 		since = '0.1',
@@ -4467,7 +4467,7 @@ defFunction('gdk_input_add',
 		since = '0.1',
 		args = {'int none', 'int none', 'callback none', 'void* none'},
 		ret = 'int none',
-		deprecated = '0.1'
+		deprecated = '2.14'
 	}
 )
 
@@ -4476,7 +4476,7 @@ defFunction('gdk_input_add_full',
 		since = '0.1',
 		args = {'int none', 'int none', 'callback none', 'void* none', 'callback none'},
 		ret = 'int none',
-		deprecated = '0.1'
+		deprecated = '2.14'
 	}
 )
 
@@ -4594,14 +4594,6 @@ defFunction('gdk_mbstowcs',
 		args = {'unsigned long* none', 'char* none', 'int none'},
 		ret = 'int none',
 		deprecated = '0.1'
-	}
-)
-
-defFunction('gdk_net_wm_supports',
-	{
-		since = '0.1',
-		args = {'ptraslong none'},
-		ret = 'boolean none'
 	}
 )
 
@@ -4801,7 +4793,7 @@ defFunction('gdk_property_get',
 defFunction('gdk_query_depths',
 	{
 		since = '0.1',
-		args = {'int** full', 'int* full'}
+		args = {'unhandled full', 'int* full'}
 	}
 )
 
@@ -5337,395 +5329,6 @@ defFunction('gdk_wcstombs',
 		args = {'unsigned long* none'},
 		ret = 'char* full',
 		deprecated = '0.1'
-	}
-)
-
-defFunction('gdk_x11_atom_to_xatom',
-	{
-		since = '0.1',
-		args = {'ptraslong none'},
-		ret = 'Atom full'
-	}
-)
-
-defFunction('gdk_x11_atom_to_xatom_for_display',
-	{
-		since = '2.2',
-		args = {'GObject* none', 'ptraslong none'},
-		ret = 'Atom full'
-	}
-)
-
-defFunction('gdk_x11_colormap_foreign_new',
-	{
-		since = '2.2',
-		args = {'GObject* none', 'Colormap none'},
-		ret = 'GObject* full'
-	}
-)
-
-defFunction('gdk_x11_colormap_get_xcolormap',
-	{
-		since = '0.1',
-		args = {'GObject* none'},
-		ret = 'Colormap full'
-	}
-)
-
-defFunction('gdk_x11_colormap_get_xdisplay',
-	{
-		since = '0.1',
-		args = {'GObject* none'},
-		ret = 'struct* full'
-	}
-)
-
-defFunction('gdk_x11_cursor_get_xcursor',
-	{
-		since = '0.1',
-		args = {'struct* none'},
-		ret = 'Cursor full'
-	}
-)
-
-defFunction('gdk_x11_cursor_get_xdisplay',
-	{
-		since = '0.1',
-		args = {'struct* none'},
-		ret = 'struct* full'
-	}
-)
-
-defFunction('gdk_x11_display_broadcast_startup_message',
-	{
-		since = '2.12',
-		args = {'GObject* none', 'char* none', 'unhandled none'}
-	}
-)
-
-defFunction('gdk_x11_display_get_startup_notification_id',
-	{
-		since = '2.12',
-		args = {'GObject* none'},
-		ret = 'char* none'
-	}
-)
-
-defFunction('gdk_x11_display_get_user_time',
-	{
-		since = '2.8',
-		args = {'GObject* none'},
-		ret = 'unsigned long none'
-	}
-)
-
-defFunction('gdk_x11_display_get_xdisplay',
-	{
-		since = '2.2',
-		args = {'GObject* none'},
-		ret = 'struct* full'
-	}
-)
-
-defFunction('gdk_x11_display_grab',
-	{
-		since = '2.2',
-		args = {'GObject* none'}
-	}
-)
-
-defFunction('gdk_x11_display_set_cursor_theme',
-	{
-		since = '2.8',
-		args = {'GObject* none', 'char* none', 'int none'}
-	}
-)
-
-defFunction('gdk_x11_display_ungrab',
-	{
-		since = '2.2',
-		args = {'GObject* none'}
-	}
-)
-
-defFunction('gdk_x11_drawable_get_xdisplay',
-	{
-		since = '0.1',
-		args = {'GObject* none'},
-		ret = 'struct* full'
-	}
-)
-
-defFunction('gdk_x11_drawable_get_xid',
-	{
-		since = '0.1',
-		args = {'GObject* none'},
-		ret = 'XID full'
-	}
-)
-
-defFunction('gdk_x11_font_get_name',
-	{
-		since = '0.1',
-		args = {'struct* none'},
-		ret = 'char* none',
-		deprecated = '0.1'
-	}
-)
-
-defFunction('gdk_x11_font_get_xdisplay',
-	{
-		since = '0.1',
-		args = {'struct* none'},
-		ret = 'struct* full',
-		deprecated = '0.1'
-	}
-)
-
-defFunction('gdk_x11_font_get_xfont',
-	{
-		since = '0.1',
-		args = {'struct* none'},
-		ret = 'void* none',
-		deprecated = '0.1'
-	}
-)
-
-defFunction('gdk_x11_gc_get_xdisplay',
-	{
-		since = '0.1',
-		args = {'GObject* none'},
-		ret = 'struct* full'
-	}
-)
-
-defFunction('gdk_x11_gc_get_xgc',
-	{
-		since = '0.1',
-		args = {'GObject* none'},
-		ret = 'GC full'
-	}
-)
-
-defFunction('gdk_x11_get_default_root_xwindow',
-	{
-		since = '0.1',
-		ret = 'Window full'
-	}
-)
-
-defFunction('gdk_x11_get_default_screen',
-	{
-		since = '0.1',
-		ret = 'int none'
-	}
-)
-
-defFunction('gdk_x11_get_default_xdisplay',
-	{
-		since = '0.1',
-		ret = 'struct* full'
-	}
-)
-
-defFunction('gdk_x11_get_server_time',
-	{
-		since = '0.1',
-		args = {'GObject* none'},
-		ret = 'unsigned long none'
-	}
-)
-
-defFunction('gdk_x11_get_xatom_by_name',
-	{
-		since = '0.1',
-		args = {'char* none'},
-		ret = 'Atom full'
-	}
-)
-
-defFunction('gdk_x11_get_xatom_by_name_for_display',
-	{
-		since = '2.2',
-		args = {'GObject* none', 'char* none'},
-		ret = 'Atom full'
-	}
-)
-
-defFunction('gdk_x11_get_xatom_name',
-	{
-		since = '0.1',
-		args = {'Atom none'},
-		ret = 'char* none'
-	}
-)
-
-defFunction('gdk_x11_get_xatom_name_for_display',
-	{
-		since = '2.2',
-		args = {'GObject* none', 'Atom none'},
-		ret = 'char* none'
-	}
-)
-
-defFunction('gdk_x11_grab_server',
-	{
-		since = '0.1'
-	}
-)
-
-defFunction('gdk_x11_image_get_xdisplay',
-	{
-		since = '0.1',
-		args = {'GObject* none'},
-		ret = 'struct* full'
-	}
-)
-
-defFunction('gdk_x11_image_get_ximage',
-	{
-		since = '0.1',
-		args = {'GObject* none'},
-		ret = 'struct* full'
-	}
-)
-
-defFunction('gdk_x11_lookup_xdisplay',
-	{
-		since = '2.2',
-		args = {'struct* none'},
-		ret = 'GObject* full'
-	}
-)
-
-defFunction('gdk_x11_pixmap_get_drawable_impl',
-	{
-		since = '2.0',
-		args = {'GObject* none'},
-		ret = 'GObject* full'
-	}
-)
-
-defFunction('gdk_x11_register_standard_event_type',
-	{
-		since = '2.4',
-		args = {'GObject* none', 'int none', 'int none'}
-	}
-)
-
-defFunction('gdk_x11_screen_get_monitor_output',
-	{
-		since = '2.14',
-		args = {'GObject* none', 'int none'},
-		ret = 'XID full'
-	}
-)
-
-defFunction('gdk_x11_screen_get_screen_number',
-	{
-		since = '2.2',
-		args = {'GObject* none'},
-		ret = 'int none'
-	}
-)
-
-defFunction('gdk_x11_screen_get_window_manager_name',
-	{
-		since = '2.2',
-		args = {'GObject* none'},
-		ret = 'char* none'
-	}
-)
-
-defFunction('gdk_x11_screen_get_xscreen',
-	{
-		since = '2.2',
-		args = {'GObject* none'},
-		ret = 'struct* full'
-	}
-)
-
-defFunction('gdk_x11_screen_lookup_visual',
-	{
-		since = '2.2',
-		args = {'GObject* none', 'VisualID none'},
-		ret = 'GObject* full'
-	}
-)
-
-defFunction('gdk_x11_screen_supports_net_wm_hint',
-	{
-		since = '2.2',
-		args = {'GObject* none', 'ptraslong none'},
-		ret = 'boolean none'
-	}
-)
-
-defFunction('gdk_x11_ungrab_server',
-	{
-		since = '0.1'
-	}
-)
-
-defFunction('gdk_x11_visual_get_xvisual',
-	{
-		since = '0.1',
-		args = {'GObject* none'},
-		ret = 'Visual* full'
-	}
-)
-
-defFunction('gdk_x11_window_get_drawable_impl',
-	{
-		since = '2.0',
-		args = {'GObject* none'},
-		ret = 'GObject* full'
-	}
-)
-
-defFunction('gdk_x11_window_move_to_current_desktop',
-	{
-		since = '2.8',
-		args = {'GObject* none'}
-	}
-)
-
-defFunction('gdk_x11_window_set_user_time',
-	{
-		since = '2.6',
-		args = {'GObject* none', 'unsigned long none'}
-	}
-)
-
-defFunction('gdk_x11_xatom_to_atom',
-	{
-		since = '0.1',
-		args = {'Atom none'},
-		ret = 'ptraslong full'
-	}
-)
-
-defFunction('gdk_x11_xatom_to_atom_for_display',
-	{
-		since = '2.2',
-		args = {'GObject* none', 'Atom none'},
-		ret = 'ptraslong full'
-	}
-)
-
-defFunction('gdk_xid_table_lookup',
-	{
-		since = '0.1',
-		args = {'XID none'},
-		ret = 'void* none'
-	}
-)
-
-defFunction('gdk_xid_table_lookup_for_display',
-	{
-		since = '2.2',
-		args = {'GObject* none', 'XID none'},
-		ret = 'void* none'
 	}
 )
 

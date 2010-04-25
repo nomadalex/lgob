@@ -7,6 +7,44 @@ defClass('GtkSourceBuffer',
 	}
 )
 
+defClass('GtkSourceCompletion',
+	{
+		parent = 'GtkObject'
+	}
+)
+
+defClass('GtkSourceCompletionContext',
+	{
+		parent = 'GInitiallyUnowned'
+	}
+)
+
+defClass('GtkSourceCompletionInfo',
+	{
+		parent = 'GtkWindow',
+		implements = {'AtkImplementorIface', 'GtkBuildable'}
+	}
+)
+
+defClass('GtkSourceCompletionItem',
+	{
+		parent = 'GObject',
+		implements = {'GtkSourceSourceCompletionProposal'}
+	}
+)
+
+defClass('GtkSourceCompletionProposal',
+	{
+		abstract = true
+	}
+)
+
+defClass('GtkSourceCompletionProvider',
+	{
+		abstract = true
+	}
+)
+
 defClass('GtkSourceGutter',
 	{
 		parent = 'GObject'
@@ -55,10 +93,34 @@ defClass('GtkSourceStyleSchemeManager',
 	}
 )
 
+defClass('GtkSourceUndoManager',
+	{
+		abstract = true
+	}
+)
+
 defClass('GtkSourceView',
 	{
 		parent = 'GtkTextView',
 		implements = {'AtkImplementorIface', 'GtkBuildable'}
+	}
+)
+
+defClass('GtkSourceCompletionProposalIface',
+	{
+		
+	}
+)
+
+defClass('GtkSourceCompletionProviderIface',
+	{
+		
+	}
+)
+
+defClass('GtkSourceUndoManagerIface',
+	{
+		
 	}
 )
 
@@ -293,6 +355,462 @@ defFunction('gtk_source_buffer_remove_source_marks',
 		class = 'GtkSourceBuffer',
 		since = '2.2',
 		args = {'GObject* none', 'struct* none', 'struct* none', 'char* none'}
+	}
+)
+
+defFunction('gtk_source_buffer_iter_has_context_class',
+	{
+		class = 'GtkSourceBuffer',
+		since = '2.2',
+		args = {'GObject* none', 'struct* none', 'char* none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('gtk_source_buffer_get_context_classes_at_iter',
+	{
+		class = 'GtkSourceBuffer',
+		since = '2.2',
+		args = {'GObject* none', 'struct* none'}
+	}
+)
+
+defFunction('gtk_source_buffer_iter_forward_to_context_class_toggle',
+	{
+		class = 'GtkSourceBuffer',
+		since = '2.2',
+		args = {'GObject* none', 'struct* none', 'char* none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('gtk_source_buffer_iter_backward_to_context_class_toggle',
+	{
+		class = 'GtkSourceBuffer',
+		since = '2.2',
+		args = {'GObject* none', 'struct* none', 'char* none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('gtk_source_buffer_get_undo_manager',
+	{
+		class = 'GtkSourceBuffer',
+		since = '2.2',
+		accessorSince = '2.2',
+		args = {'GObject* none'},
+		ret = 'GObject* full'
+	}
+)
+
+defFunction('gtk_source_buffer_set_undo_manager',
+	{
+		class = 'GtkSourceBuffer',
+		since = '2.2',
+		accessorSince = '2.2',
+		args = {'GObject* none', 'GObject* none'}
+	}
+)
+
+defFunction('gtk_source_completion_get_type',
+	{
+		class = 'GtkSourceCompletion',
+		since = '0.1',
+		ret = 'unsigned long none'
+	}
+)
+
+defFunction('gtk_source_completion_add_provider',
+	{
+		class = 'GtkSourceCompletion',
+		since = '0.1',
+		args = {'GObject* none', 'GObject* none', 'GError** full'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('gtk_source_completion_remove_provider',
+	{
+		class = 'GtkSourceCompletion',
+		since = '0.1',
+		args = {'GObject* none', 'GObject* none', 'GError** full'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('gtk_source_completion_get_providers',
+	{
+		class = 'GtkSourceCompletion',
+		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'struct* full'
+	}
+)
+
+defFunction('gtk_source_completion_show',
+	{
+		class = 'GtkSourceCompletion',
+		since = '0.1',
+		args = {'GObject* none', 'struct* none', 'GObject* none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('gtk_source_completion_hide',
+	{
+		class = 'GtkSourceCompletion',
+		since = '0.1',
+		args = {'GObject* none'}
+	}
+)
+
+defFunction('gtk_source_completion_get_info_window',
+	{
+		class = 'GtkSourceCompletion',
+		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'GObject* full'
+	}
+)
+
+defFunction('gtk_source_completion_get_view',
+	{
+		class = 'GtkSourceCompletion',
+		since = '0.1',
+		accessorSince = '2.2',
+		args = {'GObject* none'},
+		ret = 'any* none'
+	}
+)
+
+defFunction('gtk_source_completion_create_context',
+	{
+		class = 'GtkSourceCompletion',
+		since = '0.1',
+		args = {'GObject* none', 'struct* none'},
+		ret = 'GObject* full'
+	}
+)
+
+defFunction('gtk_source_completion_move_window',
+	{
+		class = 'GtkSourceCompletion',
+		since = '0.1',
+		args = {'GObject* none', 'struct* none'}
+	}
+)
+
+defFunction('gtk_source_completion_block_interactive',
+	{
+		class = 'GtkSourceCompletion',
+		since = '0.1',
+		args = {'GObject* none'}
+	}
+)
+
+defFunction('gtk_source_completion_unblock_interactive',
+	{
+		class = 'GtkSourceCompletion',
+		since = '0.1',
+		args = {'GObject* none'}
+	}
+)
+
+defFunction('gtk_source_completion_context_get_type',
+	{
+		class = 'GtkSourceCompletionContext',
+		since = '0.1',
+		ret = 'unsigned long none'
+	}
+)
+
+defFunction('gtk_source_completion_context_add_proposals',
+	{
+		class = 'GtkSourceCompletionContext',
+		since = '0.1',
+		args = {'GObject* none', 'any* none', 'struct* none', 'boolean none'}
+	}
+)
+
+defFunction('gtk_source_completion_context_get_iter',
+	{
+		class = 'GtkSourceCompletionContext',
+		since = '0.1',
+		args = {'GObject* none', 'struct* none'}
+	}
+)
+
+defFunction('gtk_source_completion_context_get_activation',
+	{
+		class = 'GtkSourceCompletionContext',
+		since = '0.1',
+		accessorSince = '2.2',
+		args = {'GObject* none'},
+		ret = 'int full'
+	}
+)
+
+defFunction('gtk_source_completion_info_get_type',
+	{
+		class = 'GtkSourceCompletionInfo',
+		since = '0.1',
+		ret = 'unsigned long none'
+	}
+)
+
+defFunction('gtk_source_completion_info_new',
+	{
+		class = 'GtkSourceCompletionInfo',
+		constructor = true,
+		since = '0.1',
+		ret = 'GObject* full'
+	}
+)
+
+defFunction('gtk_source_completion_info_move_to_iter',
+	{
+		class = 'GtkSourceCompletionInfo',
+		since = '0.1',
+		args = {'GObject* none', 'GObject* none', 'struct* none'}
+	}
+)
+
+defFunction('gtk_source_completion_info_set_sizing',
+	{
+		class = 'GtkSourceCompletionInfo',
+		since = '0.1',
+		args = {'GObject* none', 'int none', 'int none', 'boolean none', 'boolean none'}
+	}
+)
+
+defFunction('gtk_source_completion_info_set_widget',
+	{
+		class = 'GtkSourceCompletionInfo',
+		since = '0.1',
+		args = {'GObject* none', 'GObject* none'}
+	}
+)
+
+defFunction('gtk_source_completion_info_get_widget',
+	{
+		class = 'GtkSourceCompletionInfo',
+		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'GObject* full'
+	}
+)
+
+defFunction('gtk_source_completion_info_process_resize',
+	{
+		class = 'GtkSourceCompletionInfo',
+		since = '0.1',
+		args = {'GObject* none'}
+	}
+)
+
+defFunction('gtk_source_completion_item_get_type',
+	{
+		class = 'GtkSourceCompletionItem',
+		since = '0.1',
+		ret = 'unsigned long none'
+	}
+)
+
+defFunction('gtk_source_completion_item_new',
+	{
+		class = 'GtkSourceCompletionItem',
+		constructor = true,
+		since = '0.1',
+		args = {'char* none', 'char* none', 'GObject* none', 'char* none'},
+		ret = 'GObject* full'
+	}
+)
+
+defFunction('gtk_source_completion_item_new_with_markup',
+	{
+		class = 'GtkSourceCompletionItem',
+		constructor = true,
+		since = '0.1',
+		args = {'char* none', 'char* none', 'GObject* none', 'char* none'},
+		ret = 'GObject* full'
+	}
+)
+
+defFunction('gtk_source_completion_item_new_from_stock',
+	{
+		class = 'GtkSourceCompletionItem',
+		constructor = true,
+		since = '0.1',
+		args = {'char* none', 'char* none', 'char* none', 'char* none'},
+		ret = 'GObject* full'
+	}
+)
+
+defFunction('gtk_source_completion_proposal_get_label',
+	{
+		class = 'GtkSourceCompletionProposal',
+		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'char* full'
+	}
+)
+
+defFunction('gtk_source_completion_proposal_get_markup',
+	{
+		class = 'GtkSourceCompletionProposal',
+		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'char* full'
+	}
+)
+
+defFunction('gtk_source_completion_proposal_get_text',
+	{
+		class = 'GtkSourceCompletionProposal',
+		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'char* full'
+	}
+)
+
+defFunction('gtk_source_completion_proposal_get_icon',
+	{
+		class = 'GtkSourceCompletionProposal',
+		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'GObject* full'
+	}
+)
+
+defFunction('gtk_source_completion_proposal_get_info',
+	{
+		class = 'GtkSourceCompletionProposal',
+		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'char* full'
+	}
+)
+
+defFunction('gtk_source_completion_proposal_changed',
+	{
+		class = 'GtkSourceCompletionProposal',
+		since = '0.1',
+		args = {'GObject* none'}
+	}
+)
+
+defFunction('gtk_source_completion_proposal_hash',
+	{
+		class = 'GtkSourceCompletionProposal',
+		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'unsigned int none'
+	}
+)
+
+defFunction('gtk_source_completion_proposal_equal',
+	{
+		class = 'GtkSourceCompletionProposal',
+		since = '0.1',
+		args = {'GObject* none', 'GObject* none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('gtk_source_completion_provider_get_name',
+	{
+		class = 'GtkSourceCompletionProvider',
+		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'char* full'
+	}
+)
+
+defFunction('gtk_source_completion_provider_get_icon',
+	{
+		class = 'GtkSourceCompletionProvider',
+		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'GObject* full'
+	}
+)
+
+defFunction('gtk_source_completion_provider_populate',
+	{
+		class = 'GtkSourceCompletionProvider',
+		since = '0.1',
+		args = {'GObject* none', 'GObject* none'}
+	}
+)
+
+defFunction('gtk_source_completion_provider_get_activation',
+	{
+		class = 'GtkSourceCompletionProvider',
+		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'int full'
+	}
+)
+
+defFunction('gtk_source_completion_provider_match',
+	{
+		class = 'GtkSourceCompletionProvider',
+		since = '0.1',
+		args = {'GObject* none', 'GObject* none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('gtk_source_completion_provider_get_info_widget',
+	{
+		class = 'GtkSourceCompletionProvider',
+		since = '0.1',
+		args = {'GObject* none', 'GObject* none'},
+		ret = 'GObject* full'
+	}
+)
+
+defFunction('gtk_source_completion_provider_update_info',
+	{
+		class = 'GtkSourceCompletionProvider',
+		since = '0.1',
+		args = {'GObject* none', 'GObject* none', 'GObject* none'}
+	}
+)
+
+defFunction('gtk_source_completion_provider_get_start_iter',
+	{
+		class = 'GtkSourceCompletionProvider',
+		since = '0.1',
+		args = {'GObject* none', 'GObject* none', 'GObject* none', 'struct* none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('gtk_source_completion_provider_activate_proposal',
+	{
+		class = 'GtkSourceCompletionProvider',
+		since = '0.1',
+		args = {'GObject* none', 'GObject* none', 'struct* none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('gtk_source_completion_provider_get_interactive_delay',
+	{
+		class = 'GtkSourceCompletionProvider',
+		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'int none'
+	}
+)
+
+defFunction('gtk_source_completion_provider_get_priority',
+	{
+		class = 'GtkSourceCompletionProvider',
+		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'int none'
 	}
 )
 
@@ -1080,6 +1598,72 @@ defFunction('gtk_source_style_scheme_manager_get_scheme',
 	}
 )
 
+defFunction('gtk_source_undo_manager_can_undo',
+	{
+		class = 'GtkSourceUndoManager',
+		since = '2.10',
+		args = {'GObject* none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('gtk_source_undo_manager_can_redo',
+	{
+		class = 'GtkSourceUndoManager',
+		since = '2.10',
+		args = {'GObject* none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('gtk_source_undo_manager_undo',
+	{
+		class = 'GtkSourceUndoManager',
+		since = '2.10',
+		args = {'GObject* none'}
+	}
+)
+
+defFunction('gtk_source_undo_manager_redo',
+	{
+		class = 'GtkSourceUndoManager',
+		since = '2.10',
+		args = {'GObject* none'}
+	}
+)
+
+defFunction('gtk_source_undo_manager_begin_not_undoable_action',
+	{
+		class = 'GtkSourceUndoManager',
+		since = '2.10',
+		args = {'GObject* none'}
+	}
+)
+
+defFunction('gtk_source_undo_manager_end_not_undoable_action',
+	{
+		class = 'GtkSourceUndoManager',
+		since = '2.10',
+		args = {'GObject* none'}
+	}
+)
+
+defFunction('gtk_source_undo_manager_can_undo_changed',
+	{
+		class = 'GtkSourceUndoManager',
+		since = '2.10',
+		args = {'GObject* none'}
+	}
+)
+
+defFunction('gtk_source_undo_manager_can_redo_changed',
+	{
+		class = 'GtkSourceUndoManager',
+		since = '2.10',
+		args = {'GObject* none'}
+	}
+)
+
 defFunction('gtk_source_view_get_type',
 	{
 		class = 'GtkSourceView',
@@ -1428,6 +2012,16 @@ defFunction('gtk_source_view_get_draw_spaces',
 	}
 )
 
+defFunction('gtk_source_view_get_completion',
+	{
+		class = 'GtkSourceView',
+		since = '0.1',
+		accessorSince = '2.2',
+		args = {'GObject* none'},
+		ret = 'GObject* full'
+	}
+)
+
 defFunction('gtk_source_view_get_gutter',
 	{
 		class = 'GtkSourceView',
@@ -1453,13 +2047,31 @@ defFunction('gtk_source_iter_forward_search',
 	}
 )
 
+defEnum('GtkSourceCompletionActivation',
+	{
+		['GTK_SOURCE_COMPLETION_ACTIVATION_USER_REQUESTED'] = 2,
+		['GTK_SOURCE_COMPLETION_ACTIVATION_INTERACTIVE'] = 1,
+		['GTK_SOURCE_COMPLETION_ACTIVATION_NONE'] = 0
+	}
+)
+
+defEnum('GtkSourceCompletionError',
+	{
+		['GTK_SOURCE_COMPLETION_ERROR_ALREADY_BOUND'] = 0,
+		['GTK_SOURCE_COMPLETION_ERROR_NOT_BOUND'] = 1
+	}
+)
+
 defEnum('GtkSourceDrawSpacesFlags',
 	{
+		['GTK_SOURCE_DRAW_SPACES_ALL'] = 127,
 		['GTK_SOURCE_DRAW_SPACES_NEWLINE'] = 4,
 		['GTK_SOURCE_DRAW_SPACES_NBSP'] = 8,
+		['GTK_SOURCE_DRAW_SPACES_TRAILING'] = 64,
+		['GTK_SOURCE_DRAW_SPACES_TEXT'] = 32,
 		['GTK_SOURCE_DRAW_SPACES_TAB'] = 2,
 		['GTK_SOURCE_DRAW_SPACES_SPACE'] = 1,
-		['GTK_SOURCE_DRAW_SPACES_ALL'] = 15
+		['GTK_SOURCE_DRAW_SPACES_LEADING'] = 16
 	}
 )
 

@@ -17,7 +17,7 @@ defClass('GtkClutterScrollable',
 defClass('GtkClutterViewport',
 	{
 		parent = 'ClutterActor',
-		implements = {'GtkClutterScrollable', 'ClutterScriptable', 'ClutterContainer', 'GtkClutterZoomable'}
+		implements = {'ClutterContainer', 'ClutterScriptable', 'GtkClutterScrollable', 'GtkClutterZoomable'}
 	}
 )
 

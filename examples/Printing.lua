@@ -33,13 +33,11 @@ function beginPrint(ud, context)
 	data.fontHeight = data.fontSize / 2
 	data.linesPerPage = math.floor(height / data.fontHeight)
 	data.pageCount = math.ceil(data.lineCount / data.linesPerPage)
-
 	operation:set("n-pages", data.pageCount)
 end
 
 function drawPage(ud, context, page)
 	local operation, data = unpack(ud)
-
 	local cr = context:get_cairo_context()
 	local width, height = context:get_size()
 
@@ -54,7 +52,6 @@ function drawPage(ud, context, page)
 	
 	for i = 0, data.linesPerPage do
 		if line > data.lineCount then break end
-
 		layout:set_text(data.text[line], -1)
 		pangocairo.show_layout(cr, layout)
 		cr:rel_move_to(0, data.fontHeight)
