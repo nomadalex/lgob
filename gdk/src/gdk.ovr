@@ -500,7 +500,6 @@ defOverride('gdk_pixbuf_save_to_buffer', [[
     gdk_pixbuf_save_to_bufferv(obj->pointer, &buffer, &size, type, keys, values,
         &error);
         
-    g_free(buffer);
     if(keys)
     {
         g_free(keys);
@@ -519,6 +518,7 @@ defOverride('gdk_pixbuf_save_to_buffer', [[
     lua_pushboolean(L, TRUE);
     lua_pushlstring(L, buffer, size);
     lua_pushinteger(L, size);
+    g_free(buffer); /* if there's an error then buffer will be NULL */
     
     return 3;
 ]])
