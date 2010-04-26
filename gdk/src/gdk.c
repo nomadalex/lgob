@@ -157,3 +157,34 @@ static void _wrap_gdk_ret(lua_State* L)
 	lua_pushliteral(L, "GdkPixbufAniAnimIter"); lua_getfield(L, -3, "PixbufAnimationIter"); lua_rawset(L, -3);
 	lua_pop(L, 1);
 }
+
+static void pixbuf_options(lua_State* L, int idx, char*** k, char*** v)
+{
+    size_t len = lua_objlen(L, idx);
+    
+    if(len > 0)
+    {
+        size_t size     =  sizeof(char*) * (len + 1);
+        size_t cur      = 0;
+        char** keys     = g_malloc(size);
+        char** values   = g_malloc(size);
+        
+        lua_pushnil(L);
+        while( lua_next(L, idx) )
+        {
+            /* key MUST be a string. Will not be modified. */
+            keys  [cur] = (char*)lua_tostring(L, -2);
+            values[cur] = (char*)lua_tostring(L, -1);
+            lua_pop(L, 1);
+            ++cur;
+        }
+        
+        keys[cur] = values[cur] = NULL;
+        *k = keys;
+        *v = values;
+    }
+    else
+    {
+        *k = *v = NULL;
+    }
+}

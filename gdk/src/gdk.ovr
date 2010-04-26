@@ -457,3 +457,68 @@ defOverride('gdk_rectangle_new', [[
     boxed_new(L, GDK_TYPE_RECTANGLE, &rect);
     return 1; 
 ]])
+
+defOverride('gdk_pixbuf_save', [[
+    Object* obj      = lua_touserdata(L, 1);
+    const char* file = lua_tostring(L, 2);
+    const char* type = lua_tostring(L, 3);
+    char **keys, **values;
+    pixbuf_options(L, 4, &keys, &values);
+    
+    GError* error = NULL;
+    gdk_pixbuf_savev(obj->pointer, file, type, keys, values, &error);
+        
+    if(keys)
+    {
+        g_free(keys);
+        g_free(values);
+    }
+    
+    if(error)
+	{
+		lua_pushboolean(L, FALSE);
+		lua_pushinteger(L, error->code);
+		lua_pushstring (L, error->message);
+		g_error_free(error);
+		return 3;
+	}
+    
+    lua_pushboolean(L, TRUE);
+    return 1;
+]])
+
+defOverride('gdk_pixbuf_save_to_buffer', [[
+    Object* obj      = lua_touserdata(L, 1);
+    const char* type = lua_tostring(L, 2);
+    char **keys, **values;
+    pixbuf_options(L, 3, &keys, &values);
+    
+    gchar* buffer;
+    gsize size;
+    GError* error = NULL;
+    
+    gdk_pixbuf_save_to_bufferv(obj->pointer, &buffer, &size, type, keys, values,
+        &error);
+        
+    g_free(buffer);
+    if(keys)
+    {
+        g_free(keys);
+        g_free(values);
+    }
+    
+    if(error)
+	{
+		lua_pushboolean(L, FALSE);
+		lua_pushinteger(L, error->code);
+		lua_pushstring (L, error->message);
+		g_error_free(error);
+		return 3;
+	}
+    
+    lua_pushboolean(L, TRUE);
+    lua_pushlstring(L, buffer, size);
+    lua_pushinteger(L, size);
+    
+    return 3;
+]])
