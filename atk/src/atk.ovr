@@ -12,4 +12,6 @@ undef{
     'atk_misc_get_instance',
     'atk_state_set_contains_states',
     'atk_socket_embed',
+    'AtkPlug',
+    'AtkSocket',
 }
