@@ -116,7 +116,10 @@ function Navigator:populate(libname)
 	if not res then
 		self:setStatus(false, "Couldn't load the '" .. libname .. "' library")
 		return
-	end
+	elseif type(lib) ~= "table" then
+        self:setStatus(false, "Couldn't list the exported symbols of the '" .. libname .. "' library" )
+		return
+    end
 	
 	local numClasses, numFunctions, numConstants = 0, 0, 0
 	

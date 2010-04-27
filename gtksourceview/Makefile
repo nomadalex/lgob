@@ -2,7 +2,16 @@ include ../config.mk
 PKG_PACKAGES=gtksourceview-2.0 $(PKG_LUA)
 NAME=gtksourceview.so
 VERSION=`pkg-config --modversion gtksourceview-2.0`
+
+ifdef VOLD
+	PKG_PACKAGES+=gtksourcecompletion-2.0
+endif
+
 include ../flags.mk
+
+ifdef VOLD
+	CFLAGS+=-DVOLD
+endif
 
 $(NAME): gtksourceview.o
 	$(CC) gtksourceview.o -o $(NAME) $(LDFLAGS)
@@ -30,3 +39,4 @@ help:
 	@echo Options:
 	@echo
 	@echo AMD64=1 to build for 64 bits
+	@echo VOLD=1 to build using a separated gtksourcecompletion

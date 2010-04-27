@@ -33,8 +33,13 @@
 #include <gtksourceview/gtksourcemark.h>
 #include <gtksourceview/gtksourceview.h>
 #include <gtksourceview/gtksourceprintcompositor.h>
-#include <gtksourceview/gtksourcecompletion.h>
-#include <gtksourceview/gtksourcecompletionitem.h>
+
+#if VOLD
+    #include <gtksourcecompletion/gsc-completion.h>
+#else
+    #include <gtksourceview/gtksourcecompletion.h>
+    #include <gtksourceview/gtksourcecompletionitem.h>
+#endif
 
 /* C */
 #include <string.h>
