@@ -283,4 +283,16 @@ defOverride('g_idle_add', [[
 	return 1;
 ]])
 
-
+defOverride('g_base64_decode', [[
+    luaL_checktype(L, 1, LUA_TSTRING);
+    
+    gsize size;
+    char* ret = (char*)g_base64_decode(lua_tostring(L, 1), &size);
+    
+    lua_pushlstring(L, ret, size);
+    lua_pushinteger(L, size);
+    
+    g_free(ret);
+    
+    return 2;
+]])
