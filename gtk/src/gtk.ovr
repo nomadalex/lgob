@@ -1452,3 +1452,37 @@ defOverride('gtk_message_dialog_new', [[
 	object_new(L, ptr, FALSE);
 	return 1;
 ]])
+
+defOverride('gtk_drag_dest_set', [[
+    luaL_checktype(L, 1, LUA_TUSERDATA);
+    
+    Object* obj1 = lua_touserdata(L, 1);
+    Object* obj2 = lua_touserdata(L, 3);
+    
+    gtk_drag_dest_set(
+        obj1->pointer,
+        lua_tointeger(L, 2),
+        obj2 ? obj2->pointer : NULL, 
+        lua_tointeger(L, 4),
+        lua_tointeger(L, 5)
+    );
+    
+    return 0;
+]])
+
+defOverride('gtk_drag_source_set', [[
+    luaL_checktype(L, 1, LUA_TUSERDATA);
+    
+    Object* obj1 = lua_touserdata(L, 1);
+    Object* obj2 = lua_touserdata(L, 3);
+    
+    gtk_drag_source_set(
+        obj1->pointer,
+        lua_tointeger(L, 2),
+        obj2 ? obj2->pointer : NULL, 
+        lua_tointeger(L, 4),
+        lua_tointeger(L, 5)
+    );
+    
+    return 0;
+]])
