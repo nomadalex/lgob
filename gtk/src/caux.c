@@ -145,3 +145,25 @@ static gboolean tree_foreach_callback(GtkTreeModel* model, GtkTreePath* path,
 
 	return res;
 }
+
+static void builder_connect_callback(GtkBuilder* builder, GObject* object,
+    const gchar* signal_name, const gchar* handler_name, GObject* connect_object,
+    GConnectFlags flags, lua_State* L)
+{
+	int size = lua_gettop(L);
+    
+    /* By convention */ 
+    lua_pushvalue(L, 2);    /* function */
+    lua_pushvalue(L, 3);    /* userdata */
+
+	/* Push the args */
+	object_new(L, object,  FALSE);
+    lua_pushstring(L, signal_name);
+    lua_pushstring(L, handler_name);
+	object_new(L, connect_object,  FALSE);
+    lua_pushinteger(L, flags);
+    
+	/* Call the function */
+	lua_call(L, 6, 0);
+	lua_settop(L, size);
+}

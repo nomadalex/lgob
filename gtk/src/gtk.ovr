@@ -1486,3 +1486,18 @@ defOverride('gtk_drag_source_set', [[
     
     return 0;
 ]])
+
+defOverride('gtk_builder_connect_signals_full', [[
+    luaL_checktype(L, 1, LUA_TUSERDATA);
+	luaL_checktype(L, 2, LUA_TFUNCTION);
+    
+    int size = lua_gettop(L);
+    if(size < 3) lua_pushnil(L);
+
+    Object* obj = lua_touserdata(L, 1);
+	gtk_builder_connect_signals_full(obj->pointer, (GtkBuilderConnectFunc)builder_connect_callback, L);
+
+    lua_settop(L, size);
+    
+    return 0;
+]])

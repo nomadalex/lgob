@@ -176,6 +176,9 @@ static void _wrap_gtk_init(lua_State* L)
 static void _wrap_gtk_ret(lua_State* L)
 {
 	register_class(L, "ProxyList", "ListStore", proxylist);
+    
+    /* GtkBuilder */
+    luaL_loadstring(L, "function gtk.Builder:connect_signals(h,d) if not h then h = _G end self:connect_signals_full(function(_,o,s,hn)o:connect(s,h[hn],d)end)end"); lua_call(L, 0, 0);
 }
 
 #include "caux.c"
