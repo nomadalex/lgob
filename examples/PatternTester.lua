@@ -36,9 +36,16 @@ function Pattern.new()
 end
 
 function Pattern:test_pattern()
-	local reg = self.e_pattern:get("text")
-	local input = self.b_input:get("text")
-	local ret = {input:find(reg)}
+	local reg       = self.e_pattern:get("text")
+	local input     = self.b_input:get("text")
+    local ret       = {pcall(input.find, input, reg)}
+    
+    if not ret[1] then
+        self.b_output:set("text", ret[2])
+        return
+    end
+    
+    table.remove(ret, 1)
 	
 	if #reg > 0 and ret[1] and ret[2] then	
 		ret[2] = string.format("(%d %d) -> '%s'\n", ret[1], ret[2], input:sub(ret[1], ret[2]))
