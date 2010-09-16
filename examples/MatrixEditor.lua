@@ -1,3 +1,5 @@
+#! /usr/bin/env lua
+
 require('lgob.gtk')
 
 local Matrix    = {}

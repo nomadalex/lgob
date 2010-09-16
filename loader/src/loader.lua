@@ -17,7 +17,7 @@
     Copyright (C) 2009 - 2010 Lucas Hermann Negri
 --]]
 
-local loadfunc = require("lgob._loader")
+local loadfunc = require('lgob._loader')
 
 if loadfunc then
 	local function file_readable(filename)
@@ -26,11 +26,11 @@ if loadfunc then
 	end
 	
 	local function global_loader(modulename)
-		for path in string.gmatch(package.cpath .. ";", "([^;]*);") do
-			local filename = string.gsub(path, "%?", (string.gsub(modulename, "%.", "/")))
+		for path in string.gmatch(package.cpath .. ';', '([^;]*);') do
+			local filename = string.gsub(path, '%?', (string.gsub(modulename, '%.', '/')))
 			
 			if file_readable(filename) then
-				loadfunc(filename, "luaopen_" .. modulename:gsub("%.", "_"))
+				loadfunc(filename, 'luaopen_' .. modulename:gsub('%.', '_'))
 			end
 		end
 		
