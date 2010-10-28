@@ -220,6 +220,24 @@ defOverride('gdk_window_get_handle', [[
 	return 1;
 ]])
 
+defFunction('gdk_event_motion_get',
+	{
+	}
+)
+
+defOverride('gdk_event_motion_get', [[
+	Object* obj = lua_touserdata(L, 1);
+	GdkEventMotion* event = obj->pointer;
+	
+	lua_pushinteger(L, event->time);
+	lua_pushinteger(L, event->state);
+	lua_pushinteger(L, event->x);
+	lua_pushinteger(L, event->y);
+	lua_pushboolean(L, event->is_hint);
+	
+	return 5;
+]])
+
 defFunction('gdk_event_any_get',
 	{
 	}
