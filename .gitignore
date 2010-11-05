@@ -1,1 +1,6 @@
 examples/output*
+iface.c
+*.so
+*.dll
+*.o
+*/log
