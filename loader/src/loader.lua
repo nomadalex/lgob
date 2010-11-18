@@ -26,16 +26,16 @@ if loadfunc then
 	end
 	
 	local function global_loader(modulename)
-		for path in string.gmatch(package.cpath .. ';', '([^;]*);') do
-			local filename = string.gsub(path, '%?', (string.gsub(modulename, '%.', '/')))
-			
-			if file_readable(filename) then
-				loadfunc(filename, 'luaopen_' .. modulename:gsub('%.', '_'))
-			end
-		end
-		
-		return false
+        if modulename:match('lgob') then
+            for path in string.gmatch(package.cpath .. ';', '([^;]*);') do
+                local filename = string.gsub(path, '%?', (string.gsub(modulename, '%.', '/')))
+                
+                if file_readable(filename) then
+                    return loadfunc(filename, 'luaopen_' .. modulename:gsub('%.', '_'))
+                end
+            end
+        end
 	end
 
-	table.insert(package.loaders, 1, global_loader)
+	table.insert(package.loaders, 3, global_loader)
 end

@@ -24,11 +24,14 @@
 
 #include <dlfcn.h>
 
+/* libraries loaded with this loader aren't unloaded at the end of the execution
+ * as I don't think that theres need for it */
+
 static int lgob_loadlib(lua_State* L)
 {
 	const char* path     = luaL_checkstring(L, 1);
 	const char* funcname = luaL_checkstring(L, 2);
-	
+    
 	void* lib = dlopen(path, RTLD_LAZY + RTLD_GLOBAL);
 	if(!lib) luaL_error(L, "Couldn't load the module %s", path);
 	
@@ -41,10 +44,8 @@ static int lgob_loadlib(lua_State* L)
 	
 	lua_settop(L, 0);
 	lua_pushcfunction(L, f);
-	lua_call(L, 0, 1);
-	dlclose(lib);
-	
-	return 1;
+    
+    return 1;
 }
 
 int luaopen_lgob__loader(lua_State *L)
