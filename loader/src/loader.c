@@ -32,7 +32,7 @@ static int lgob_loadlib(lua_State* L)
 	const char* path     = luaL_checkstring(L, 1);
 	const char* funcname = luaL_checkstring(L, 2);
     
-	void* lib = dlopen(path, RTLD_LAZY + RTLD_GLOBAL);
+	void* lib = dlopen(path, RTLD_GLOBAL);
 	if(!lib) luaL_error(L, "Couldn't load the module %s", path);
 	
 	lua_CFunction f = dlsym(lib, funcname);
