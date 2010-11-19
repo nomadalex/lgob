@@ -1501,3 +1501,32 @@ defOverride('gtk_builder_connect_signals_full', [[
     
     return 0;
 ]])
+
+defFunction('gtk_tree_model_iter_next',
+	{
+		class = 'GtkTreeModel',
+		since = '0.1',
+		args = {'GObject* none', 'struct* none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('gtk_tree_model_filter_new',
+	{
+		class = 'GtkTreeModelFilter',
+		since = '2.4',
+		args = {'GObject* none', 'struct* none'},
+		ret = 'GObject* full',
+        constructor = true
+	}
+)
+
+defFunction('gtk_tree_model_sort_new_with_model',
+	{
+		class = 'GtkTreeModelSort',
+		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'GObject* full',
+        constructor = true
+	}
+)

@@ -17,7 +17,7 @@ defClass('GtkClutterScrollable',
 defClass('GtkClutterViewport',
 	{
 		parent = 'ClutterActor',
-		implements = {'ClutterContainer', 'ClutterScriptable', 'GtkClutterScrollable', 'GtkClutterZoomable'}
+		implements = {'AtkImplementorIface', 'ClutterAnimatable', 'ClutterContainer', 'ClutterScriptable', 'GtkClutterScrollable', 'GtkClutterZoomable'}
 	}
 )
 
@@ -52,7 +52,7 @@ defFunction('gtk_clutter_embed_new',
 		class = 'GtkClutterEmbed',
 		constructor = true,
 		since = '0.6',
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -61,7 +61,15 @@ defFunction('gtk_clutter_embed_get_stage',
 		class = 'GtkClutterEmbed',
 		since = '0.6',
 		args = {'GObject* none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
+	}
+)
+
+defFunction('gtk_clutter_scrollable_get_adjustments',
+	{
+		class = 'GtkClutterScrollable',
+		since = '0.10',
+		args = {'GObject* none', 'GObject** full', 'GObject** full'}
 	}
 )
 
@@ -70,14 +78,6 @@ defFunction('gtk_clutter_scrollable_set_adjustments',
 		class = 'GtkClutterScrollable',
 		since = '0.10',
 		args = {'GObject* none', 'GObject* none', 'GObject* none'}
-	}
-)
-
-defFunction('gtk_clutter_scrollable_get_adjustments',
-	{
-		class = 'GtkClutterScrollable',
-		since = '0.10',
-		args = {'GObject* none', 'GObject** none', 'GObject** none'}
 	}
 )
 
@@ -95,7 +95,7 @@ defFunction('gtk_clutter_viewport_new',
 		constructor = true,
 		since = '0.10',
 		args = {'GObject* none', 'GObject* none', 'GObject* none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -103,15 +103,7 @@ defFunction('gtk_clutter_viewport_get_origin',
 	{
 		class = 'GtkClutterViewport',
 		since = '0.10',
-		args = {'GObject* none', 'float* full', 'float* full', 'float* full'}
-	}
-)
-
-defFunction('gtk_clutter_zoomable_set_adjustment',
-	{
-		class = 'GtkClutterZoomable',
-		since = '0.10',
-		args = {'GObject* none', 'GObject* none'}
+		args = {'GObject* none', 'float* none', 'float* none', 'float* none'}
 	}
 )
 
@@ -121,6 +113,14 @@ defFunction('gtk_clutter_zoomable_get_adjustment',
 		since = '0.10',
 		args = {'GObject* none'},
 		ret = 'GObject* none'
+	}
+)
+
+defFunction('gtk_clutter_zoomable_set_adjustment',
+	{
+		class = 'GtkClutterZoomable',
+		since = '0.10',
+		args = {'GObject* none', 'GObject* none'}
 	}
 )
 
@@ -183,16 +183,23 @@ defFunction('gtk_clutter_get_text_color',
 defFunction('gtk_clutter_init',
 	{
 		since = '0.8',
-		args = {'int* full', 'char*** none'},
-		ret = 'int full'
+		args = {'int* full', 'void* full'},
+		ret = 'int none'
 	}
 )
 
 defFunction('gtk_clutter_init_with_args',
 	{
 		since = '0.10',
-		args = {'int* full', 'char*** none', 'char* none', 'struct* none', 'char* none', 'GError** full'},
-		ret = 'int full'
+		args = {'int* full', 'void* full', 'char* none', 'struct* none', 'char* none', 'GError** full'},
+		ret = 'int none'
+	}
+)
+
+defFunction('gtk_clutter_texture_error_quark',
+	{
+		since = '0.10',
+		ret = 'unsigned long none'
 	}
 )
 
@@ -200,7 +207,7 @@ defFunction('gtk_clutter_texture_new_from_icon_name',
 	{
 		since = '0.8',
 		args = {'GObject* none', 'char* none', 'int none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -208,7 +215,7 @@ defFunction('gtk_clutter_texture_new_from_pixbuf',
 	{
 		since = '0.8',
 		args = {'GObject* none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -216,7 +223,7 @@ defFunction('gtk_clutter_texture_new_from_stock',
 	{
 		since = '0.8',
 		args = {'GObject* none', 'char* none', 'int none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -241,20 +248,6 @@ defFunction('gtk_clutter_texture_set_from_stock',
 		since = '0.8',
 		args = {'GObject* none', 'GObject* none', 'char* none', 'int none', 'GError** full'},
 		ret = 'boolean none'
-	}
-)
-
-defEnum('ClutterGtkInitError',
-	{
-		['CLUTTER_INIT_ERROR_GTK'] = -4,
-		['CLUTTER_INIT_ERROR_LAST'] = -3
-	}
-)
-
-defEnum('ClutterGtkTextureError',
-	{
-		['CLUTTER_GTK_TEXTURE_ERROR_LAST'] = 1,
-		['CLUTTER_GTK_TEXTURE_INVALID_STOCK_ID'] = 0
 	}
 )
 

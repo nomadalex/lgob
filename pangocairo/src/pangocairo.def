@@ -3,7 +3,7 @@ defName = 'pangocairo'
 
 defClass('PangoCairoFcFontMap',
 	{
-		parent = 'PangoFcFontMap',
+		parent = 'PangoFontMap',
 		implements = {'PangoCairoFontMap'}
 	}
 )
@@ -17,36 +17,6 @@ defClass('PangoCairoFont',
 defClass('PangoCairoFontMap',
 	{
 		abstract = true
-	}
-)
-
-defClass('PangoCairoRenderer',
-	{
-		parent = 'PangoRenderer'
-	}
-)
-
-defClass('PangoCairoFontGlyphExtentsCacheEntry',
-	{
-		
-	}
-)
-
-defClass('PangoCairoFontHexBoxInfo',
-	{
-		
-	}
-)
-
-defClass('PangoCairoFontIface',
-	{
-		
-	}
-)
-
-defClass('PangoCairoFontMapIface',
-	{
-		
 	}
 )
 
@@ -67,11 +37,13 @@ defFunction('pango_cairo_font_get_scaled_font',
 	}
 )
 
-defFunction('pango_cairo_font_map_set_default',
+defFunction('pango_cairo_font_map_create_context',
 	{
 		class = 'PangoCairoFontMap',
-		since = '1.22',
-		args = {'GObject* none'}
+		since = '1.10',
+		args = {'GObject* none'},
+		ret = 'GObject* none',
+		deprecated = '1.22'
 	}
 )
 
@@ -84,14 +56,6 @@ defFunction('pango_cairo_font_map_get_font_type',
 	}
 )
 
-defFunction('pango_cairo_font_map_set_resolution',
-	{
-		class = 'PangoCairoFontMap',
-		since = '1.10',
-		args = {'GObject* none', 'double none'}
-	}
-)
-
 defFunction('pango_cairo_font_map_get_resolution',
 	{
 		class = 'PangoCairoFontMap',
@@ -101,21 +65,19 @@ defFunction('pango_cairo_font_map_get_resolution',
 	}
 )
 
-defFunction('pango_cairo_font_map_create_context',
+defFunction('pango_cairo_font_map_set_default',
 	{
 		class = 'PangoCairoFontMap',
-		since = '1.10',
-		args = {'GObject* none'},
-		ret = 'GObject* full',
-		deprecated = '1.22'
+		since = '1.22',
+		args = {'GObject* none'}
 	}
 )
 
-defFunction('pango_cairo_renderer_get_type',
+defFunction('pango_cairo_font_map_set_resolution',
 	{
-		class = 'PangoCairoRenderer',
-		since = '9999.9999',
-		ret = 'unsigned long none'
+		class = 'PangoCairoFontMap',
+		since = '1.10',
+		args = {'GObject* none', 'double none'}
 	}
 )
 
@@ -139,7 +101,7 @@ defFunction('pango_cairo_context_get_shape_renderer',
 	{
 		since = '1.18',
 		args = {'GObject* none', 'void** none'},
-		ret = 'callback full'
+		ret = 'callback none'
 	}
 )
 
@@ -168,7 +130,7 @@ defFunction('pango_cairo_create_context',
 	{
 		since = '1.22',
 		args = {'struct* none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -176,7 +138,7 @@ defFunction('pango_cairo_create_layout',
 	{
 		since = '1.10',
 		args = {'struct* none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -190,14 +152,14 @@ defFunction('pango_cairo_error_underline_path',
 defFunction('pango_cairo_font_map_get_default',
 	{
 		since = '1.10',
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
 defFunction('pango_cairo_font_map_new',
 	{
 		since = '1.10',
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -205,7 +167,7 @@ defFunction('pango_cairo_font_map_new_for_font_type',
 	{
 		since = '1.18',
 		args = {'cairo_font_type_t none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 

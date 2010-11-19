@@ -362,6 +362,8 @@ Types['GObject* full constructor'] = {
 	['type'] = 'void*',
 }
 
+Types['GObject* none constructor'] = Types['GObject* full constructor']
+
 Types['GError** full'] = {
 	['arg'] =
 	function(pos, tables)

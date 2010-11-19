@@ -95,7 +95,8 @@ defClass('AtkObjectFactory',
 
 defClass('AtkPlug',
 	{
-		parent = 'AtkObject'
+		parent = 'AtkObject',
+		implements = {'AtkComponent'}
 	}
 )
 
@@ -125,7 +126,8 @@ defClass('AtkSelection',
 
 defClass('AtkSocket',
 	{
-		parent = 'AtkObject'
+		parent = 'AtkObject',
+		implements = {'AtkComponent'}
 	}
 )
 
@@ -225,12 +227,6 @@ defClass('AtkKeyEventStruct',
 	}
 )
 
-defClass('_AtkPropertyValues',
-	{
-		
-	}
-)
-
 defClass('AtkRectangle',
 	{
 		
@@ -279,6 +275,18 @@ defClass('AtkValueIface',
 	}
 )
 
+defClass('_AtkPropertyValues',
+	{
+		
+	}
+)
+
+defClass('_AtkRegistry',
+	{
+		
+	}
+)
+
 defFunction('atk_action_do_action',
 	{
 		class = 'AtkAction',
@@ -288,25 +296,7 @@ defFunction('atk_action_do_action',
 	}
 )
 
-defFunction('atk_action_get_n_actions',
-	{
-		class = 'AtkAction',
-		since = '0.1',
-		args = {'GObject* none'},
-		ret = 'int none'
-	}
-)
-
 defFunction('atk_action_get_description',
-	{
-		class = 'AtkAction',
-		since = '0.1',
-		args = {'GObject* none', 'int none'},
-		ret = 'char* none'
-	}
-)
-
-defFunction('atk_action_get_name',
 	{
 		class = 'AtkAction',
 		since = '0.1',
@@ -324,21 +314,39 @@ defFunction('atk_action_get_keybinding',
 	}
 )
 
-defFunction('atk_action_set_description',
-	{
-		class = 'AtkAction',
-		since = '0.1',
-		args = {'GObject* none', 'int none', 'char* none'},
-		ret = 'boolean none'
-	}
-)
-
 defFunction('atk_action_get_localized_name',
 	{
 		class = 'AtkAction',
 		since = '0.1',
 		args = {'GObject* none', 'int none'},
 		ret = 'char* none'
+	}
+)
+
+defFunction('atk_action_get_n_actions',
+	{
+		class = 'AtkAction',
+		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'int none'
+	}
+)
+
+defFunction('atk_action_get_name',
+	{
+		class = 'AtkAction',
+		since = '0.1',
+		args = {'GObject* none', 'int none'},
+		ret = 'char* none'
+	}
+)
+
+defFunction('atk_action_set_description',
+	{
+		class = 'AtkAction',
+		since = '0.1',
+		args = {'GObject* none', 'int none', 'char* none'},
+		ret = 'boolean none'
 	}
 )
 
@@ -360,12 +368,12 @@ defFunction('atk_component_contains',
 	}
 )
 
-defFunction('atk_component_ref_accessible_at_point',
+defFunction('atk_component_get_alpha',
 	{
 		class = 'AtkComponent',
-		since = '0.1',
-		args = {'GObject* none', 'int none', 'int none', 'int none'},
-		ret = 'GObject* full'
+		since = '1.12',
+		args = {'GObject* none'},
+		ret = 'double none'
 	}
 )
 
@@ -373,23 +381,7 @@ defFunction('atk_component_get_extents',
 	{
 		class = 'AtkComponent',
 		since = '0.1',
-		args = {'GObject* none', 'int* full', 'int* full', 'int* full', 'int* full', 'int none'}
-	}
-)
-
-defFunction('atk_component_get_position',
-	{
-		class = 'AtkComponent',
-		since = '0.1',
-		args = {'GObject* none', 'int* full', 'int* full', 'int none'}
-	}
-)
-
-defFunction('atk_component_get_size',
-	{
-		class = 'AtkComponent',
-		since = '0.1',
-		args = {'GObject* none', 'int* full', 'int* full'}
+		args = {'GObject* none', 'int* none', 'int* none', 'int* none', 'int* none', 'int none'}
 	}
 )
 
@@ -398,7 +390,7 @@ defFunction('atk_component_get_layer',
 		class = 'AtkComponent',
 		since = '0.1',
 		args = {'GObject* none'},
-		ret = 'int full'
+		ret = 'int none'
 	}
 )
 
@@ -411,12 +403,37 @@ defFunction('atk_component_get_mdi_zorder',
 	}
 )
 
+defFunction('atk_component_get_position',
+	{
+		class = 'AtkComponent',
+		since = '0.1',
+		args = {'GObject* none', 'int* none', 'int* none', 'int none'}
+	}
+)
+
+defFunction('atk_component_get_size',
+	{
+		class = 'AtkComponent',
+		since = '0.1',
+		args = {'GObject* none', 'int* none', 'int* none'}
+	}
+)
+
 defFunction('atk_component_grab_focus',
 	{
 		class = 'AtkComponent',
 		since = '0.1',
 		args = {'GObject* none'},
 		ret = 'boolean none'
+	}
+)
+
+defFunction('atk_component_ref_accessible_at_point',
+	{
+		class = 'AtkComponent',
+		since = '0.1',
+		args = {'GObject* none', 'int none', 'int none', 'int none'},
+		ret = 'GObject* none'
 	}
 )
 
@@ -455,21 +472,21 @@ defFunction('atk_component_set_size',
 	}
 )
 
-defFunction('atk_component_get_alpha',
+defFunction('atk_document_get_attribute_value',
 	{
-		class = 'AtkComponent',
+		class = 'AtkDocument',
 		since = '1.12',
-		args = {'GObject* none'},
-		ret = 'double none'
+		args = {'GObject* none', 'char* none'},
+		ret = 'char* none'
 	}
 )
 
-defFunction('atk_document_get_document_type',
+defFunction('atk_document_get_attributes',
 	{
 		class = 'AtkDocument',
-		since = '0.1',
+		since = '1.12',
 		args = {'GObject* none'},
-		ret = 'char* none'
+		ret = 'AtkAttributeSet* none'
 	}
 )
 
@@ -482,7 +499,7 @@ defFunction('atk_document_get_document',
 	}
 )
 
-defFunction('atk_document_get_locale',
+defFunction('atk_document_get_document_type',
 	{
 		class = 'AtkDocument',
 		since = '0.1',
@@ -491,20 +508,11 @@ defFunction('atk_document_get_locale',
 	}
 )
 
-defFunction('atk_document_get_attributes',
+defFunction('atk_document_get_locale',
 	{
 		class = 'AtkDocument',
-		since = '1.12',
+		since = '0.1',
 		args = {'GObject* none'},
-		ret = 'struct* full'
-	}
-)
-
-defFunction('atk_document_get_attribute_value',
-	{
-		class = 'AtkDocument',
-		since = '1.12',
-		args = {'GObject* none', 'char* none'},
 		ret = 'char* none'
 	}
 )
@@ -515,31 +523,6 @@ defFunction('atk_document_set_attribute_value',
 		since = '1.12',
 		args = {'GObject* none', 'char* none', 'char* none'},
 		ret = 'boolean none'
-	}
-)
-
-defFunction('atk_editable_text_set_run_attributes',
-	{
-		class = 'AtkEditableText',
-		since = '0.1',
-		args = {'GObject* none', 'struct* none', 'int none', 'int none'},
-		ret = 'boolean none'
-	}
-)
-
-defFunction('atk_editable_text_set_text_contents',
-	{
-		class = 'AtkEditableText',
-		since = '0.1',
-		args = {'GObject* none', 'char* none'}
-	}
-)
-
-defFunction('atk_editable_text_insert_text',
-	{
-		class = 'AtkEditableText',
-		since = '0.1',
-		args = {'GObject* none', 'char* none', 'int none', 'int* full'}
 	}
 )
 
@@ -567,11 +550,36 @@ defFunction('atk_editable_text_delete_text',
 	}
 )
 
+defFunction('atk_editable_text_insert_text',
+	{
+		class = 'AtkEditableText',
+		since = '0.1',
+		args = {'GObject* none', 'char* none', 'int none', 'int* none'}
+	}
+)
+
 defFunction('atk_editable_text_paste_text',
 	{
 		class = 'AtkEditableText',
 		since = '0.1',
 		args = {'GObject* none', 'int none'}
+	}
+)
+
+defFunction('atk_editable_text_set_run_attributes',
+	{
+		class = 'AtkEditableText',
+		since = '0.1',
+		args = {'GObject* none', 'AtkAttributeSet* none', 'int none', 'int none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('atk_editable_text_set_text_contents',
+	{
+		class = 'AtkEditableText',
+		since = '0.1',
+		args = {'GObject* none', 'char* none'}
 	}
 )
 
@@ -587,7 +595,7 @@ defFunction('atk_gobject_accessible_for_object',
 	{
 		since = '0.1',
 		args = {'GObject* none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -596,7 +604,7 @@ defFunction('atk_gobject_accessible_get_object',
 		class = 'AtkGObjectAccessible',
 		since = '0.1',
 		args = {'GObject* none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -605,24 +613,6 @@ defFunction('atk_hyperlink_get_type',
 		class = 'AtkHyperlink',
 		since = '0.1',
 		ret = 'unsigned long none'
-	}
-)
-
-defFunction('atk_hyperlink_get_uri',
-	{
-		class = 'AtkHyperlink',
-		since = '0.1',
-		args = {'GObject* none', 'int none'},
-		ret = 'char* full'
-	}
-)
-
-defFunction('atk_hyperlink_get_object',
-	{
-		class = 'AtkHyperlink',
-		since = '0.1',
-		args = {'GObject* none', 'int none'},
-		ret = 'GObject* full'
 	}
 )
 
@@ -636,6 +626,24 @@ defFunction('atk_hyperlink_get_end_index',
 	}
 )
 
+defFunction('atk_hyperlink_get_n_anchors',
+	{
+		class = 'AtkHyperlink',
+		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'int none'
+	}
+)
+
+defFunction('atk_hyperlink_get_object',
+	{
+		class = 'AtkHyperlink',
+		since = '0.1',
+		args = {'GObject* none', 'int none'},
+		ret = 'GObject* none'
+	}
+)
+
 defFunction('atk_hyperlink_get_start_index',
 	{
 		class = 'AtkHyperlink',
@@ -646,12 +654,12 @@ defFunction('atk_hyperlink_get_start_index',
 	}
 )
 
-defFunction('atk_hyperlink_is_valid',
+defFunction('atk_hyperlink_get_uri',
 	{
 		class = 'AtkHyperlink',
 		since = '0.1',
-		args = {'GObject* none'},
-		ret = 'boolean none'
+		args = {'GObject* none', 'int none'},
+		ret = 'char* full'
 	}
 )
 
@@ -664,12 +672,12 @@ defFunction('atk_hyperlink_is_inline',
 	}
 )
 
-defFunction('atk_hyperlink_get_n_anchors',
+defFunction('atk_hyperlink_is_valid',
 	{
 		class = 'AtkHyperlink',
 		since = '0.1',
 		args = {'GObject* none'},
-		ret = 'int none'
+		ret = 'boolean none'
 	}
 )
 
@@ -678,7 +686,7 @@ defFunction('atk_hyperlink_impl_get_hyperlink',
 		class = 'AtkHyperlinkImpl',
 		since = '1.12',
 		args = {'GObject* none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -687,16 +695,7 @@ defFunction('atk_hypertext_get_link',
 		class = 'AtkHypertext',
 		since = '0.1',
 		args = {'GObject* none', 'int none'},
-		ret = 'GObject* full'
-	}
-)
-
-defFunction('atk_hypertext_get_n_links',
-	{
-		class = 'AtkHypertext',
-		since = '0.1',
-		args = {'GObject* none'},
-		ret = 'int none'
+		ret = 'GObject* none'
 	}
 )
 
@@ -705,6 +704,15 @@ defFunction('atk_hypertext_get_link_index',
 		class = 'AtkHypertext',
 		since = '0.1',
 		args = {'GObject* none', 'int none'},
+		ret = 'int none'
+	}
+)
+
+defFunction('atk_hypertext_get_n_links',
+	{
+		class = 'AtkHypertext',
+		since = '0.1',
+		args = {'GObject* none'},
 		ret = 'int none'
 	}
 )
@@ -718,11 +726,28 @@ defFunction('atk_image_get_image_description',
 	}
 )
 
+defFunction('atk_image_get_image_locale',
+	{
+		class = 'AtkImage',
+		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'char* none'
+	}
+)
+
+defFunction('atk_image_get_image_position',
+	{
+		class = 'AtkImage',
+		since = '0.1',
+		args = {'GObject* none', 'int* none', 'int* none', 'int none'}
+	}
+)
+
 defFunction('atk_image_get_image_size',
 	{
 		class = 'AtkImage',
 		since = '0.1',
-		args = {'GObject* none', 'int* full', 'int* full'}
+		args = {'GObject* none', 'int* none', 'int* none'}
 	}
 )
 
@@ -735,29 +760,12 @@ defFunction('atk_image_set_image_description',
 	}
 )
 
-defFunction('atk_image_get_image_position',
-	{
-		class = 'AtkImage',
-		since = '0.1',
-		args = {'GObject* none', 'int* full', 'int* full', 'int none'}
-	}
-)
-
-defFunction('atk_image_get_image_locale',
-	{
-		class = 'AtkImage',
-		since = '0.1',
-		args = {'GObject* none'},
-		ret = 'char* none'
-	}
-)
-
 defFunction('atk_implementor_ref_accessible',
 	{
-		class = 'AtkImplementorIface',
+		class = 'AtkImplementor',
 		since = '0.1',
-		args = {'GObject* none'},
-		ret = 'GObject* full'
+		args = {'struct* none'},
+		ret = 'GObject* none'
 	}
 )
 
@@ -835,7 +843,34 @@ defFunction('atk_object_get_type',
 	}
 )
 
-defFunction('atk_object_get_name',
+defFunction('atk_object_add_relationship',
+	{
+		class = 'AtkObject',
+		since = '0.1',
+		args = {'GObject* none', 'int none', 'GObject* none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('atk_object_connect_property_change_handler',
+	{
+		class = 'AtkObject',
+		since = '0.1',
+		args = {'GObject* none', 'AtkPropertyChangeHandler* none'},
+		ret = 'unsigned int none'
+	}
+)
+
+defFunction('atk_object_get_attributes',
+	{
+		class = 'AtkObject',
+		since = '1.12',
+		args = {'GObject* none'},
+		ret = 'AtkAttributeSet* none'
+	}
+)
+
+defFunction('atk_object_get_description',
 	{
 		class = 'AtkObject',
 		since = '0.1',
@@ -844,7 +879,25 @@ defFunction('atk_object_get_name',
 	}
 )
 
-defFunction('atk_object_get_description',
+defFunction('atk_object_get_index_in_parent',
+	{
+		class = 'AtkObject',
+		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'int none'
+	}
+)
+
+defFunction('atk_object_get_n_accessible_children',
+	{
+		class = 'AtkObject',
+		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'int none'
+	}
+)
+
+defFunction('atk_object_get_name',
 	{
 		class = 'AtkObject',
 		since = '0.1',
@@ -858,34 +911,7 @@ defFunction('atk_object_get_parent',
 		class = 'AtkObject',
 		since = '0.1',
 		args = {'GObject* none'},
-		ret = 'GObject* full'
-	}
-)
-
-defFunction('atk_object_get_n_accessible_children',
-	{
-		class = 'AtkObject',
-		since = '0.1',
-		args = {'GObject* none'},
-		ret = 'int none'
-	}
-)
-
-defFunction('atk_object_ref_accessible_child',
-	{
-		class = 'AtkObject',
-		since = '0.1',
-		args = {'GObject* none', 'int none'},
-		ret = 'GObject* full'
-	}
-)
-
-defFunction('atk_object_ref_relation_set',
-	{
-		class = 'AtkObject',
-		since = '0.1',
-		args = {'GObject* none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -894,16 +920,41 @@ defFunction('atk_object_get_role',
 		class = 'AtkObject',
 		since = '0.1',
 		args = {'GObject* none'},
-		ret = 'int full'
+		ret = 'int none'
 	}
 )
 
-defFunction('atk_object_get_attributes',
+defFunction('atk_object_initialize',
 	{
 		class = 'AtkObject',
-		since = '1.12',
+		since = '0.1',
+		args = {'GObject* none', 'void* none'}
+	}
+)
+
+defFunction('atk_object_notify_state_change',
+	{
+		class = 'AtkObject',
+		since = '0.1',
+		args = {'GObject* none', 'unsigned long long none', 'boolean none'}
+	}
+)
+
+defFunction('atk_object_ref_accessible_child',
+	{
+		class = 'AtkObject',
+		since = '0.1',
+		args = {'GObject* none', 'int none'},
+		ret = 'GObject* none'
+	}
+)
+
+defFunction('atk_object_ref_relation_set',
+	{
+		class = 'AtkObject',
+		since = '0.1',
 		args = {'GObject* none'},
-		ret = 'struct* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -912,20 +963,28 @@ defFunction('atk_object_ref_state_set',
 		class = 'AtkObject',
 		since = '0.1',
 		args = {'GObject* none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
-defFunction('atk_object_get_index_in_parent',
+defFunction('atk_object_remove_property_change_handler',
 	{
 		class = 'AtkObject',
 		since = '0.1',
-		args = {'GObject* none'},
-		ret = 'int none'
+		args = {'GObject* none', 'unsigned int none'}
 	}
 )
 
-defFunction('atk_object_set_name',
+defFunction('atk_object_remove_relationship',
+	{
+		class = 'AtkObject',
+		since = '0.1',
+		args = {'GObject* none', 'int none', 'GObject* none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('atk_object_set_description',
 	{
 		class = 'AtkObject',
 		since = '0.1',
@@ -933,7 +992,7 @@ defFunction('atk_object_set_name',
 	}
 )
 
-defFunction('atk_object_set_description',
+defFunction('atk_object_set_name',
 	{
 		class = 'AtkObject',
 		since = '0.1',
@@ -957,57 +1016,6 @@ defFunction('atk_object_set_role',
 	}
 )
 
-defFunction('atk_object_connect_property_change_handler',
-	{
-		class = 'AtkObject',
-		since = '0.1',
-		args = {'GObject* none', 'AtkPropertyChangeHandler* none'},
-		ret = 'unsigned int none'
-	}
-)
-
-defFunction('atk_object_remove_property_change_handler',
-	{
-		class = 'AtkObject',
-		since = '0.1',
-		args = {'GObject* none', 'unsigned int none'}
-	}
-)
-
-defFunction('atk_object_notify_state_change',
-	{
-		class = 'AtkObject',
-		since = '0.1',
-		args = {'GObject* none', 'unsigned long long none', 'boolean none'}
-	}
-)
-
-defFunction('atk_object_initialize',
-	{
-		class = 'AtkObject',
-		since = '0.1',
-		args = {'GObject* none', 'void* none'}
-	}
-)
-
-defFunction('atk_object_add_relationship',
-	{
-		class = 'AtkObject',
-		since = '0.1',
-		args = {'GObject* none', 'int none', 'GObject* none'},
-		ret = 'boolean none'
-	}
-)
-
-defFunction('atk_object_remove_relationship',
-	{
-		class = 'AtkObject',
-		since = '0.1',
-		args = {'GObject* none', 'int none', 'GObject* none'},
-		ret = 'boolean none'
-	}
-)
-
 defFunction('atk_object_factory_get_type',
 	{
 		class = 'AtkObjectFactory',
@@ -1021,15 +1029,7 @@ defFunction('atk_object_factory_create_accessible',
 		class = 'AtkObjectFactory',
 		since = '0.1',
 		args = {'GObject* none', 'GObject* none'},
-		ret = 'GObject* full'
-	}
-)
-
-defFunction('atk_object_factory_invalidate',
-	{
-		class = 'AtkObjectFactory',
-		since = '0.1',
-		args = {'GObject* none'}
+		ret = 'GObject* none'
 	}
 )
 
@@ -1039,6 +1039,14 @@ defFunction('atk_object_factory_get_accessible_type',
 		since = '0.1',
 		args = {'GObject* none'},
 		ret = 'unsigned long none'
+	}
+)
+
+defFunction('atk_object_factory_invalidate',
+	{
+		class = 'AtkObjectFactory',
+		since = '0.1',
+		args = {'GObject* none'}
 	}
 )
 
@@ -1076,11 +1084,12 @@ defFunction('atk_registry_get_type',
 	}
 )
 
-defFunction('atk_registry_set_factory_type',
+defFunction('atk_registry_get_factory',
 	{
 		class = 'AtkRegistry',
 		since = '0.1',
-		args = {'GObject* none', 'unsigned long none', 'unsigned long none'}
+		args = {'GObject* none', 'unsigned long none'},
+		ret = 'GObject* none'
 	}
 )
 
@@ -1093,12 +1102,11 @@ defFunction('atk_registry_get_factory_type',
 	}
 )
 
-defFunction('atk_registry_get_factory',
+defFunction('atk_registry_set_factory_type',
 	{
 		class = 'AtkRegistry',
 		since = '0.1',
-		args = {'GObject* none', 'unsigned long none'},
-		ret = 'GObject* full'
+		args = {'GObject* none', 'unsigned long none', 'unsigned long none'}
 	}
 )
 
@@ -1120,27 +1128,11 @@ defFunction('atk_relation_new',
 	}
 )
 
-defFunction('atk_relation_type_register',
+defFunction('atk_relation_add_target',
 	{
-		since = '0.1',
-		args = {'char* none'},
-		ret = 'int full'
-	}
-)
-
-defFunction('atk_relation_type_get_name',
-	{
-		since = '0.1',
-		args = {'int none'},
-		ret = 'char* none'
-	}
-)
-
-defFunction('atk_relation_type_for_name',
-	{
-		since = '0.1',
-		args = {'char* none'},
-		ret = 'int full'
+		class = 'AtkRelation',
+		since = '1.9',
+		args = {'GObject* none', 'GObject* none'}
 	}
 )
 
@@ -1150,7 +1142,7 @@ defFunction('atk_relation_get_relation_type',
 		since = '0.1',
 		accessorSince = '1.0',
 		args = {'GObject* none'},
-		ret = 'int full'
+		ret = 'int none'
 	}
 )
 
@@ -1159,16 +1151,7 @@ defFunction('atk_relation_get_target',
 		class = 'AtkRelation',
 		since = '0.1',
 		accessorSince = '1.0',
-		args = {'GObject* none'},
-		ret = 'struct* full'
-	}
-)
-
-defFunction('atk_relation_add_target',
-	{
-		class = 'AtkRelation',
-		since = '1.9',
-		args = {'GObject* none', 'GObject* none'}
+		args = {'GObject* none'}
 	}
 )
 
@@ -1198,28 +1181,28 @@ defFunction('atk_relation_set_new',
 	}
 )
 
+defFunction('atk_relation_set_add',
+	{
+		class = 'AtkRelationSet',
+		since = '0.1',
+		args = {'GObject* none', 'GObject* none'}
+	}
+)
+
+defFunction('atk_relation_set_add_relation_by_type',
+	{
+		class = 'AtkRelationSet',
+		since = '1.9',
+		args = {'GObject* none', 'int none', 'GObject* none'}
+	}
+)
+
 defFunction('atk_relation_set_contains',
 	{
 		class = 'AtkRelationSet',
 		since = '0.1',
 		args = {'GObject* none', 'int none'},
 		ret = 'boolean none'
-	}
-)
-
-defFunction('atk_relation_set_remove',
-	{
-		class = 'AtkRelationSet',
-		since = '0.1',
-		args = {'GObject* none', 'GObject* none'}
-	}
-)
-
-defFunction('atk_relation_set_add',
-	{
-		class = 'AtkRelationSet',
-		since = '0.1',
-		args = {'GObject* none', 'GObject* none'}
 	}
 )
 
@@ -1237,7 +1220,7 @@ defFunction('atk_relation_set_get_relation',
 		class = 'AtkRelationSet',
 		since = '0.1',
 		args = {'GObject* none', 'int none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -1246,15 +1229,15 @@ defFunction('atk_relation_set_get_relation_by_type',
 		class = 'AtkRelationSet',
 		since = '0.1',
 		args = {'GObject* none', 'int none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
-defFunction('atk_relation_set_add_relation_by_type',
+defFunction('atk_relation_set_remove',
 	{
 		class = 'AtkRelationSet',
-		since = '1.9',
-		args = {'GObject* none', 'int none', 'GObject* none'}
+		since = '0.1',
+		args = {'GObject* none', 'GObject* none'}
 	}
 )
 
@@ -1276,15 +1259,6 @@ defFunction('atk_selection_clear_selection',
 	}
 )
 
-defFunction('atk_selection_ref_selection',
-	{
-		class = 'AtkSelection',
-		since = '0.1',
-		args = {'GObject* none', 'int none'},
-		ret = 'GObject* full'
-	}
-)
-
 defFunction('atk_selection_get_selection_count',
 	{
 		class = 'AtkSelection',
@@ -1300,6 +1274,15 @@ defFunction('atk_selection_is_child_selected',
 		since = '0.1',
 		args = {'GObject* none', 'int none'},
 		ret = 'boolean none'
+	}
+)
+
+defFunction('atk_selection_ref_selection',
+	{
+		class = 'AtkSelection',
+		since = '0.1',
+		args = {'GObject* none', 'int none'},
+		ret = 'GObject* none'
 	}
 )
 
@@ -1342,7 +1325,7 @@ defFunction('atk_socket_embed',
 	{
 		class = 'AtkSocket',
 		since = '1.0',
-		args = {'GObject* none', 'char* full'}
+		args = {'GObject* none', 'char* none'}
 	}
 )
 
@@ -1372,15 +1355,6 @@ defFunction('atk_state_set_new',
 	}
 )
 
-defFunction('atk_state_set_is_empty',
-	{
-		class = 'AtkStateSet',
-		since = '0.1',
-		args = {'GObject* none'},
-		ret = 'boolean none'
-	}
-)
-
 defFunction('atk_state_set_add_state',
 	{
 		class = 'AtkStateSet',
@@ -1395,6 +1369,15 @@ defFunction('atk_state_set_add_states',
 		class = 'AtkStateSet',
 		since = '0.1',
 		args = {'GObject* none', 'int* none', 'int none'}
+	}
+)
+
+defFunction('atk_state_set_and_sets',
+	{
+		class = 'AtkStateSet',
+		since = '0.1',
+		args = {'GObject* none', 'GObject* none'},
+		ret = 'GObject* none'
 	}
 )
 
@@ -1424,6 +1407,24 @@ defFunction('atk_state_set_contains_states',
 	}
 )
 
+defFunction('atk_state_set_is_empty',
+	{
+		class = 'AtkStateSet',
+		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('atk_state_set_or_sets',
+	{
+		class = 'AtkStateSet',
+		since = '0.1',
+		args = {'GObject* none', 'GObject* none'},
+		ret = 'GObject* none'
+	}
+)
+
 defFunction('atk_state_set_remove_state',
 	{
 		class = 'AtkStateSet',
@@ -1433,39 +1434,12 @@ defFunction('atk_state_set_remove_state',
 	}
 )
 
-defFunction('atk_state_set_and_sets',
-	{
-		class = 'AtkStateSet',
-		since = '0.1',
-		args = {'GObject* none', 'GObject* none'},
-		ret = 'GObject* full'
-	}
-)
-
-defFunction('atk_state_set_or_sets',
-	{
-		class = 'AtkStateSet',
-		since = '0.1',
-		args = {'GObject* none', 'GObject* none'},
-		ret = 'GObject* full'
-	}
-)
-
 defFunction('atk_state_set_xor_sets',
 	{
 		class = 'AtkStateSet',
 		since = '0.1',
 		args = {'GObject* none', 'GObject* none'},
-		ret = 'GObject* full'
-	}
-)
-
-defFunction('atk_streamable_content_get_n_mime_types',
-	{
-		class = 'AtkStreamableContent',
-		since = '0.1',
-		args = {'GObject* none'},
-		ret = 'int none'
+		ret = 'GObject* none'
 	}
 )
 
@@ -1478,12 +1452,21 @@ defFunction('atk_streamable_content_get_mime_type',
 	}
 )
 
+defFunction('atk_streamable_content_get_n_mime_types',
+	{
+		class = 'AtkStreamableContent',
+		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'int none'
+	}
+)
+
 defFunction('atk_streamable_content_get_stream',
 	{
 		class = 'AtkStreamableContent',
 		since = '0.1',
 		args = {'GObject* none', 'char* none'},
-		ret = 'struct* full'
+		ret = 'struct* none'
 	}
 )
 
@@ -1496,21 +1479,30 @@ defFunction('atk_streamable_content_get_uri',
 	}
 )
 
-defFunction('atk_table_ref_at',
+defFunction('atk_table_add_column_selection',
 	{
 		class = 'AtkTable',
 		since = '0.1',
-		args = {'GObject* none', 'int none', 'int none'},
-		ret = 'GObject* full'
+		args = {'GObject* none', 'int none'},
+		ret = 'boolean none'
 	}
 )
 
-defFunction('atk_table_get_index_at',
+defFunction('atk_table_add_row_selection',
 	{
 		class = 'AtkTable',
 		since = '0.1',
-		args = {'GObject* none', 'int none', 'int none'},
-		ret = 'int none'
+		args = {'GObject* none', 'int none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('atk_table_get_caption',
+	{
+		class = 'AtkTable',
+		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'GObject* none'
 	}
 )
 
@@ -1523,11 +1515,38 @@ defFunction('atk_table_get_column_at_index',
 	}
 )
 
-defFunction('atk_table_get_row_at_index',
+defFunction('atk_table_get_column_description',
 	{
 		class = 'AtkTable',
 		since = '0.1',
 		args = {'GObject* none', 'int none'},
+		ret = 'char* none'
+	}
+)
+
+defFunction('atk_table_get_column_extent_at',
+	{
+		class = 'AtkTable',
+		since = '0.1',
+		args = {'GObject* none', 'int none', 'int none'},
+		ret = 'int none'
+	}
+)
+
+defFunction('atk_table_get_column_header',
+	{
+		class = 'AtkTable',
+		since = '0.1',
+		args = {'GObject* none', 'int none'},
+		ret = 'GObject* none'
+	}
+)
+
+defFunction('atk_table_get_index_at',
+	{
+		class = 'AtkTable',
+		since = '0.1',
+		args = {'GObject* none', 'int none', 'int none'},
 		ret = 'int none'
 	}
 )
@@ -1550,48 +1569,12 @@ defFunction('atk_table_get_n_rows',
 	}
 )
 
-defFunction('atk_table_get_column_extent_at',
-	{
-		class = 'AtkTable',
-		since = '0.1',
-		args = {'GObject* none', 'int none', 'int none'},
-		ret = 'int none'
-	}
-)
-
-defFunction('atk_table_get_row_extent_at',
-	{
-		class = 'AtkTable',
-		since = '0.1',
-		args = {'GObject* none', 'int none', 'int none'},
-		ret = 'int none'
-	}
-)
-
-defFunction('atk_table_get_caption',
-	{
-		class = 'AtkTable',
-		since = '0.1',
-		args = {'GObject* none'},
-		ret = 'GObject* full'
-	}
-)
-
-defFunction('atk_table_get_column_description',
+defFunction('atk_table_get_row_at_index',
 	{
 		class = 'AtkTable',
 		since = '0.1',
 		args = {'GObject* none', 'int none'},
-		ret = 'char* none'
-	}
-)
-
-defFunction('atk_table_get_column_header',
-	{
-		class = 'AtkTable',
-		since = '0.1',
-		args = {'GObject* none', 'int none'},
-		ret = 'GObject* full'
+		ret = 'int none'
 	}
 )
 
@@ -1604,12 +1587,39 @@ defFunction('atk_table_get_row_description',
 	}
 )
 
+defFunction('atk_table_get_row_extent_at',
+	{
+		class = 'AtkTable',
+		since = '0.1',
+		args = {'GObject* none', 'int none', 'int none'},
+		ret = 'int none'
+	}
+)
+
 defFunction('atk_table_get_row_header',
 	{
 		class = 'AtkTable',
 		since = '0.1',
 		args = {'GObject* none', 'int none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
+	}
+)
+
+defFunction('atk_table_get_selected_columns',
+	{
+		class = 'AtkTable',
+		since = '0.1',
+		args = {'GObject* none', 'int** none'},
+		ret = 'int none'
+	}
+)
+
+defFunction('atk_table_get_selected_rows',
+	{
+		class = 'AtkTable',
+		since = '0.1',
+		args = {'GObject* none', 'int** none'},
+		ret = 'int none'
 	}
 )
 
@@ -1618,7 +1628,61 @@ defFunction('atk_table_get_summary',
 		class = 'AtkTable',
 		since = '0.1',
 		args = {'GObject* none'},
-		ret = 'GObject* full'
+		ret = 'GObject* none'
+	}
+)
+
+defFunction('atk_table_is_column_selected',
+	{
+		class = 'AtkTable',
+		since = '0.1',
+		args = {'GObject* none', 'int none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('atk_table_is_row_selected',
+	{
+		class = 'AtkTable',
+		since = '0.1',
+		args = {'GObject* none', 'int none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('atk_table_is_selected',
+	{
+		class = 'AtkTable',
+		since = '0.1',
+		args = {'GObject* none', 'int none', 'int none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('atk_table_ref_at',
+	{
+		class = 'AtkTable',
+		since = '0.1',
+		args = {'GObject* none', 'int none', 'int none'},
+		ret = 'GObject* none'
+	}
+)
+
+defFunction('atk_table_remove_column_selection',
+	{
+		class = 'AtkTable',
+		since = '0.1',
+		args = {'GObject* none', 'int none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('atk_table_remove_row_selection',
+	{
+		class = 'AtkTable',
+		since = '0.1',
+		args = {'GObject* none', 'int none'},
+		ret = 'boolean none'
 	}
 )
 
@@ -1670,129 +1734,21 @@ defFunction('atk_table_set_summary',
 	}
 )
 
-defFunction('atk_table_get_selected_columns',
-	{
-		class = 'AtkTable',
-		since = '0.1',
-		args = {'GObject* none', 'int** full'},
-		ret = 'int none'
-	}
-)
-
-defFunction('atk_table_get_selected_rows',
-	{
-		class = 'AtkTable',
-		since = '0.1',
-		args = {'GObject* none', 'int** full'},
-		ret = 'int none'
-	}
-)
-
-defFunction('atk_table_is_column_selected',
-	{
-		class = 'AtkTable',
-		since = '0.1',
-		args = {'GObject* none', 'int none'},
-		ret = 'boolean none'
-	}
-)
-
-defFunction('atk_table_is_row_selected',
-	{
-		class = 'AtkTable',
-		since = '0.1',
-		args = {'GObject* none', 'int none'},
-		ret = 'boolean none'
-	}
-)
-
-defFunction('atk_table_is_selected',
-	{
-		class = 'AtkTable',
-		since = '0.1',
-		args = {'GObject* none', 'int none', 'int none'},
-		ret = 'boolean none'
-	}
-)
-
-defFunction('atk_table_add_row_selection',
-	{
-		class = 'AtkTable',
-		since = '0.1',
-		args = {'GObject* none', 'int none'},
-		ret = 'boolean none'
-	}
-)
-
-defFunction('atk_table_remove_row_selection',
-	{
-		class = 'AtkTable',
-		since = '0.1',
-		args = {'GObject* none', 'int none'},
-		ret = 'boolean none'
-	}
-)
-
-defFunction('atk_table_add_column_selection',
-	{
-		class = 'AtkTable',
-		since = '0.1',
-		args = {'GObject* none', 'int none'},
-		ret = 'boolean none'
-	}
-)
-
-defFunction('atk_table_remove_column_selection',
-	{
-		class = 'AtkTable',
-		since = '0.1',
-		args = {'GObject* none', 'int none'},
-		ret = 'boolean none'
-	}
-)
-
-defFunction('atk_text_get_text',
+defFunction('atk_text_add_selection',
 	{
 		class = 'AtkText',
 		since = '0.1',
 		args = {'GObject* none', 'int none', 'int none'},
-		ret = 'char* full'
+		ret = 'boolean none'
 	}
 )
 
-defFunction('atk_text_get_character_at_offset',
+defFunction('atk_text_get_bounded_ranges',
 	{
 		class = 'AtkText',
-		since = '0.1',
-		args = {'GObject* none', 'int none'},
-		ret = 'unsigned long full'
-	}
-)
-
-defFunction('atk_text_get_text_after_offset',
-	{
-		class = 'AtkText',
-		since = '0.1',
-		args = {'GObject* none', 'int none', 'int none', 'int* full', 'int* full'},
-		ret = 'char* full'
-	}
-)
-
-defFunction('atk_text_get_text_at_offset',
-	{
-		class = 'AtkText',
-		since = '0.1',
-		args = {'GObject* none', 'int none', 'int none', 'int* full', 'int* full'},
-		ret = 'char* full'
-	}
-)
-
-defFunction('atk_text_get_text_before_offset',
-	{
-		class = 'AtkText',
-		since = '0.1',
-		args = {'GObject* none', 'int none', 'int none', 'int* full', 'int* full'},
-		ret = 'char* full'
+		since = '1.3',
+		args = {'GObject* none', 'struct* none', 'int none', 'int none', 'int none'},
+		ret = 'struct** none'
 	}
 )
 
@@ -1805,20 +1761,29 @@ defFunction('atk_text_get_caret_offset',
 	}
 )
 
+defFunction('atk_text_get_character_at_offset',
+	{
+		class = 'AtkText',
+		since = '0.1',
+		args = {'GObject* none', 'int none'},
+		ret = 'gunichar none'
+	}
+)
+
+defFunction('atk_text_get_character_count',
+	{
+		class = 'AtkText',
+		since = '0.1',
+		args = {'GObject* none'},
+		ret = 'int none'
+	}
+)
+
 defFunction('atk_text_get_character_extents',
 	{
 		class = 'AtkText',
 		since = '0.1',
-		args = {'GObject* none', 'int none', 'int* full', 'int* full', 'int* full', 'int* full', 'int none'}
-	}
-)
-
-defFunction('atk_text_get_run_attributes',
-	{
-		class = 'AtkText',
-		since = '0.1',
-		args = {'GObject* none', 'int none', 'int* full', 'int* full'},
-		ret = 'struct* full'
+		args = {'GObject* none', 'int none', 'int* none', 'int* none', 'int* none', 'int* none', 'int none'}
 	}
 )
 
@@ -1827,11 +1792,11 @@ defFunction('atk_text_get_default_attributes',
 		class = 'AtkText',
 		since = '0.1',
 		args = {'GObject* none'},
-		ret = 'struct* full'
+		ret = 'AtkAttributeSet* none'
 	}
 )
 
-defFunction('atk_text_get_character_count',
+defFunction('atk_text_get_n_selections',
 	{
 		class = 'AtkText',
 		since = '0.1',
@@ -1849,12 +1814,20 @@ defFunction('atk_text_get_offset_at_point',
 	}
 )
 
-defFunction('atk_text_get_n_selections',
+defFunction('atk_text_get_range_extents',
+	{
+		class = 'AtkText',
+		since = '1.3',
+		args = {'GObject* none', 'int none', 'int none', 'int none', 'struct* none'}
+	}
+)
+
+defFunction('atk_text_get_run_attributes',
 	{
 		class = 'AtkText',
 		since = '0.1',
-		args = {'GObject* none'},
-		ret = 'int none'
+		args = {'GObject* none', 'int none', 'int* none', 'int* none'},
+		ret = 'AtkAttributeSet* none'
 	}
 )
 
@@ -1862,21 +1835,57 @@ defFunction('atk_text_get_selection',
 	{
 		class = 'AtkText',
 		since = '0.1',
-		args = {'GObject* none', 'int none', 'int* full', 'int* full'},
+		args = {'GObject* none', 'int none', 'int* none', 'int* none'},
 		ret = 'char* full'
 	}
 )
 
-defFunction('atk_text_add_selection',
+defFunction('atk_text_get_text',
 	{
 		class = 'AtkText',
 		since = '0.1',
 		args = {'GObject* none', 'int none', 'int none'},
-		ret = 'boolean none'
+		ret = 'char* full'
+	}
+)
+
+defFunction('atk_text_get_text_after_offset',
+	{
+		class = 'AtkText',
+		since = '0.1',
+		args = {'GObject* none', 'int none', 'int none', 'int* none', 'int* none'},
+		ret = 'char* full'
+	}
+)
+
+defFunction('atk_text_get_text_at_offset',
+	{
+		class = 'AtkText',
+		since = '0.1',
+		args = {'GObject* none', 'int none', 'int none', 'int* none', 'int* none'},
+		ret = 'char* full'
+	}
+)
+
+defFunction('atk_text_get_text_before_offset',
+	{
+		class = 'AtkText',
+		since = '0.1',
+		args = {'GObject* none', 'int none', 'int none', 'int* none', 'int* none'},
+		ret = 'char* full'
 	}
 )
 
 defFunction('atk_text_remove_selection',
+	{
+		class = 'AtkText',
+		since = '0.1',
+		args = {'GObject* none', 'int none'},
+		ret = 'boolean none'
+	}
+)
+
+defFunction('atk_text_set_caret_offset',
 	{
 		class = 'AtkText',
 		since = '0.1',
@@ -1891,32 +1900,6 @@ defFunction('atk_text_set_selection',
 		since = '0.1',
 		args = {'GObject* none', 'int none', 'int none', 'int none'},
 		ret = 'boolean none'
-	}
-)
-
-defFunction('atk_text_set_caret_offset',
-	{
-		class = 'AtkText',
-		since = '0.1',
-		args = {'GObject* none', 'int none'},
-		ret = 'boolean none'
-	}
-)
-
-defFunction('atk_text_get_range_extents',
-	{
-		class = 'AtkText',
-		since = '1.3',
-		args = {'GObject* none', 'int none', 'int none', 'int none', 'struct* none'}
-	}
-)
-
-defFunction('atk_text_get_bounded_ranges',
-	{
-		class = 'AtkText',
-		since = '1.3',
-		args = {'GObject* none', 'struct* none', 'int none', 'int none', 'int none'},
-		ret = 'struct** full'
 	}
 )
 
@@ -1944,6 +1927,14 @@ defFunction('atk_value_get_maximum_value',
 	}
 )
 
+defFunction('atk_value_get_minimum_increment',
+	{
+		class = 'AtkValue',
+		since = '1.12',
+		args = {'GObject* none', 'struct* none'}
+	}
+)
+
 defFunction('atk_value_get_minimum_value',
 	{
 		class = 'AtkValue',
@@ -1958,14 +1949,6 @@ defFunction('atk_value_set_current_value',
 		since = '0.1',
 		args = {'GObject* none', 'struct* none'},
 		ret = 'boolean none'
-	}
-)
-
-defFunction('atk_value_get_minimum_increment',
-	{
-		class = 'AtkValue',
-		since = '1.12',
-		args = {'GObject* none', 'struct* none'}
 	}
 )
 
@@ -1996,7 +1979,7 @@ defFunction('atk_add_key_event_listener',
 defFunction('atk_attribute_set_free',
 	{
 		since = '0.1',
-		args = {'struct* none'}
+		args = {'AtkAttributeSet* none'}
 	}
 )
 
@@ -2017,21 +2000,21 @@ defFunction('atk_focus_tracker_notify',
 defFunction('atk_get_default_registry',
 	{
 		since = '0.1',
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
 defFunction('atk_get_focus_object',
 	{
 		since = '1.6',
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
 defFunction('atk_get_root',
 	{
 		since = '0.1',
-		ret = 'GObject* full'
+		ret = 'GObject* none'
 	}
 )
 
@@ -2053,6 +2036,30 @@ defFunction('atk_get_version',
 	{
 		since = '1.0',
 		ret = 'char* none'
+	}
+)
+
+defFunction('atk_relation_type_for_name',
+	{
+		since = '0.1',
+		args = {'char* none'},
+		ret = 'int none'
+	}
+)
+
+defFunction('atk_relation_type_get_name',
+	{
+		since = '0.1',
+		args = {'int none'},
+		ret = 'char* none'
+	}
+)
+
+defFunction('atk_relation_type_register',
+	{
+		since = '0.1',
+		args = {'char* none'},
+		ret = 'int none'
 	}
 )
 
@@ -2081,7 +2088,7 @@ defFunction('atk_role_for_name',
 	{
 		since = '0.1',
 		args = {'char* none'},
-		ret = 'int full'
+		ret = 'int none'
 	}
 )
 
@@ -2105,7 +2112,7 @@ defFunction('atk_role_register',
 	{
 		since = '0.1',
 		args = {'char* none'},
-		ret = 'int full'
+		ret = 'int none'
 	}
 )
 
@@ -2113,7 +2120,7 @@ defFunction('atk_state_type_for_name',
 	{
 		since = '0.1',
 		args = {'char* none'},
-		ret = 'int full'
+		ret = 'int none'
 	}
 )
 
@@ -2129,7 +2136,7 @@ defFunction('atk_state_type_register',
 	{
 		since = '0.1',
 		args = {'char* none'},
-		ret = 'int full'
+		ret = 'int none'
 	}
 )
 
@@ -2137,7 +2144,7 @@ defFunction('atk_text_attribute_for_name',
 	{
 		since = '0.1',
 		args = {'char* none'},
-		ret = 'int full'
+		ret = 'int none'
 	}
 )
 
@@ -2161,7 +2168,7 @@ defFunction('atk_text_attribute_register',
 	{
 		since = '0.1',
 		args = {'char* none'},
-		ret = 'int full'
+		ret = 'int none'
 	}
 )
 

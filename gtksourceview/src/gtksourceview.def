@@ -1007,7 +1007,7 @@ defFunction('gtk_source_language_manager_set_search_path',
 		class = 'GtkSourceLanguageManager',
 		since = '0.1',
 		accessorSince = '2.2',
-		args = {'GObject* none', 'unhandled none'}
+		args = {'GObject* none', 'void* none'}
 	}
 )
 
@@ -1543,7 +1543,7 @@ defFunction('gtk_source_style_scheme_manager_set_search_path',
 		class = 'GtkSourceStyleSchemeManager',
 		since = '0.1',
 		accessorSince = '2.2',
-		args = {'GObject* none', 'unhandled none'}
+		args = {'GObject* none', 'void* none'}
 	}
 )
 

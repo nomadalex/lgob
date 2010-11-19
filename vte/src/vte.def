@@ -85,7 +85,7 @@ defFunction('vte_terminal_fork_command',
 	{
 		class = 'VteTerminal',
 		since = '0.1',
-		args = {'GObject* none', 'char* none', 'unhandled none', 'unhandled none', 'char* none', 'boolean none', 'boolean none', 'boolean none'},
+		args = {'GObject* none', 'char* none', 'void* none', 'void* none', 'char* none', 'boolean none', 'boolean none', 'boolean none'},
 		ret = 'pid_t none'
 	}
 )
@@ -94,7 +94,7 @@ defFunction('vte_terminal_forkpty',
 	{
 		class = 'VteTerminal',
 		since = '0.11.11',
-		args = {'GObject* none', 'unhandled none', 'char* none', 'boolean none', 'boolean none', 'boolean none'},
+		args = {'GObject* none', 'void* none', 'char* none', 'boolean none', 'boolean none', 'boolean none'},
 		ret = 'pid_t none'
 	}
 )
@@ -481,7 +481,7 @@ defFunction('vte_terminal_is_word_char',
 	{
 		class = 'VteTerminal',
 		since = '0.1',
-		args = {'GObject* none', 'unsigned long none'},
+		args = {'GObject* none', 'gunichar none'},
 		ret = 'boolean none'
 	}
 )

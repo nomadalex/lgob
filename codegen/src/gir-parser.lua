@@ -15,9 +15,9 @@ local input, output, logout
 
 -- * Parse options ** --
 local options = parseOptions(arg)
-if options['-i'] then input = options['-i'] else error('You must specify the input file') end  
+if options['-i'] then input = options['-i']                else error('You must specify the input file') end  
 if options['-o'] then output = io.open(options['-o'], 'w') else output = io.stdout end
-if options['-n'] then defName = options['-n'] end
+if options['-n'] then defName = options['-n']              end
 if options['-l'] then logout = io.open(options['-l'], 'w') else logout = io.stderr end
 
 function print(str) output:write(str,'\n') end
@@ -49,8 +49,8 @@ end
 
 for pos, func in ipairs(functions) do
 	local ret, args = func.ret, func.args
-	ret.type = symbols[ret.type] or ret.type
-	ret.type = scSymbols[ret.type] or ret.type
+	ret.type        = symbols[ret.type] or ret.type
+	ret.type        = scSymbols[ret.type] or ret.type
 	
 	for pos, arg in ipairs(func.args or {}) do
 		args[pos].type = symbols[arg.type] or args[pos].type
@@ -104,8 +104,8 @@ print(sf('defName = \'%s\'\n', defName))
 
 for pos, class in ipairs(classes) do
 	local body = {}
-	if class.parent then ti(body, sf([[parent = '%s']], class.parent)) end
-	if class.abstract then ti(body, [[abstract = true]]) end
+	if class.parent          then ti(body, sf([[parent = '%s']], class.parent)) end
+	if class.abstract        then ti(body, [[abstract = true]]) end
 	if #class.implements > 0 then ti(body, sf([[implements = {%s}]], tc(class.implements, ', '))) end
 	
 	print(sf(
@@ -140,20 +140,20 @@ end
 for pos, func in ipairs(functions) do
 	if not (func.class and privates[func.class]) then
 		local body = {}
-		if func.class then ti(body, sf([[class = '%s']], func.class)) end
-		if func.constructor then ti(body, [[constructor = true]]) end
-		if func.since then ti(body, sf([[since = '%s']], func.since)) end
-		if func.deprecated then ti(body, sf([[deprecated = '%s']], func.deprecated)) end
+		if func.class         then ti(body, sf([[class = '%s']], func.class)) end
+		if func.constructor   then ti(body, [[constructor = true]]) end
+		if func.since         then ti(body, sf([[since = '%s']], func.since)) end
+		if func.deprecated    then ti(body, sf([[deprecated = '%s']], func.deprecated)) end
 		if func.accessorSince then ti(body, sf([[accessorSince = '%s']], func.accessorSince)) end
 		
 		local arglist = {}
 		for pos, arg in ipairs(func.args) do
-			ti(arglist, sf([['%s %s']], arg.type, arg.ownership))
+            ti(arglist, sf([['%s %s']], arg.type, arg.ownership))
 		end
 		if #arglist > 0 then ti(body, sf([[args = {%s}]], tc(arglist, ', '))) end
 
 		local ret = func.ret
-		if ret.type and ret.type ~= 'void' then  ti(body, sf([[ret = '%s %s']], ret.type, ret.ownership)) end
+        if ret.type and ret.type ~= 'void' then  ti(body, sf([[ret = '%s %s']], ret.type, ret.ownership)) end
 		
 		print(sf(
 [[

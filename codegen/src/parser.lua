@@ -72,28 +72,28 @@ function parse(name, v1, v2)
 		end,
 		
 		['class'] = function(attr)
-			local tp = attr['c:type']
+			local tp     = attr['c:type'] or attr['glib:type-name']
 			local parent = attr['parent']
-			local longn = sf('%s.%s', defName, attr['name'])
+			local longn  = sf('%s.%s', defName, attr['name'])
 			
 			if parent and not parent:find('%.') then
 				parent = sf('%s.%s', defName, parent)
 			end
 			
 			local class = {
-				['name'] = tp,
-				['parent'] = parent,
-				['methods'] = {},
-				['properties'] = {},
-				['implements'] = {},
+				['name']        = tp,
+				['parent']      = parent,
+				['methods']     = {},
+				['properties']  = {},
+				['implements']  = {},
 			}
 			
 			state.class = class
-			symbols[longn] = tp
-			symbols[longn .. '*'] = tp .. '*'
-			symbols[longn .. '**'] = tp .. '**'
-			scSymbols[tp .. '*'] = 'GObject*'
-			scSymbols[tp .. '**'] = 'GObject**'
+			symbols[longn]          = tp
+			symbols[longn .. '*']   = tp .. '*'
+			symbols[longn .. '**']  = tp .. '**'
+			scSymbols[tp .. '*']    = 'GObject*'
+			scSymbols[tp .. '**']   = 'GObject**'
 			ti(classes, class)
 			
 			local getType = {
@@ -264,8 +264,9 @@ function parse(name, v1, v2)
 			}
 				
 			state.method = method
-			state.args = method.args
-			symbols[tp] = 'callback'
+			state.args   = method.args
+            
+            if tp then symbols[tp]  = 'callback' end
 		end,
 		
 		['glib:signal'] = function(attr)
@@ -284,13 +285,13 @@ function parse(name, v1, v2)
 			local tag = stack:peek()
 			
 			state.method.ret = {
-				['ownership'] = attr['transfer-ownership']
+				['ownership'] = attr['transfer-ownership'] or 'none'
 			}
 		end,
 		
 		['parameter'] = function(attr)
 			local arg = {
-				['ownership'] = attr['transfer-ownership'],
+				['ownership'] = attr['transfer-ownership'] or 'none',
 				['type'] = 'unhandled'
 			}
 			
@@ -311,10 +312,7 @@ function parse(name, v1, v2)
 		end,
 		
 		['alias'] = function(attr)
-			local tp, tg = attr['c:type'], attr['target']
-			symbols[tp] = tg
-			symbols[tp .. '*'] = tg .. '*'
-			symbols[tp .. '**'] = tg .. '**'
+            state.alias = attr['c:type'] or 'unhandled'
 		end,
 		
 		['implements'] = function(attr)
@@ -375,7 +373,7 @@ function parse(name, v1, v2)
 		
 		['type'] = function(attr)
 			local tag = stack:peek()
-			local tp = attr['c:type']
+			local tp = attr['c:type'] or attr['name']
 			
 			if tag == 'return-value' then
 				state.method.ret.type = tp
@@ -383,12 +381,18 @@ function parse(name, v1, v2)
 				state.arg.type = tp
 			elseif tag == 'property' then
 				state.property.type = tp
-			end
+			elseif tag == 'alias' then
+                local tp = state.alias
+			    local tg = attr['name']
+                symbols[tp]         = tg
+			    symbols[tp .. '*']  = tg .. '*'
+			    symbols[tp .. '**'] = tg .. '**'
+            end
 		end,
 		
 		['array'] = function(attr)
 			local tag = stack:peek()
-			local tp = attr['c:type']
+			local tp  = attr['c:type'] or 'unhandled'
 		
 			-- currently, only char arrays are accepted
 			if not tp:match('char') or tp:match('%*%*') then return end
@@ -396,9 +400,9 @@ function parse(name, v1, v2)
 			if tag == 'return-value' then
 				state.method.ret.type = tp
 			elseif tag == 'parameter' then
-				state.arg.type = tp
+				state.arg.type        = tp
 			elseif tag == 'property' then
-				state.property.type = tp
+				state.property.type   = tp
 			end
 		end,
 	}

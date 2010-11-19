@@ -716,7 +716,7 @@ defFunction('goo_canvas_ellipse_new',
 		class = 'GooCanvasEllipse',
 		constructor = true,
 		since = '0.1',
-		args = {'GObject* none', 'double none', 'double none', 'double none', 'double none', 'unhandled none'},
+		args = {'GObject* none', 'double none', 'double none', 'double none', 'double none', 'void* none'},
 		ret = 'GObject* full'
 	}
 )
@@ -734,7 +734,7 @@ defFunction('goo_canvas_ellipse_model_new',
 		class = 'GooCanvasEllipseModel',
 		constructor = true,
 		since = '0.1',
-		args = {'GObject* none', 'double none', 'double none', 'double none', 'double none', 'unhandled none'},
+		args = {'GObject* none', 'double none', 'double none', 'double none', 'double none', 'void* none'},
 		ret = 'GObject* full'
 	}
 )
@@ -752,7 +752,7 @@ defFunction('goo_canvas_grid_new',
 		class = 'GooCanvasGrid',
 		constructor = true,
 		since = '0.1',
-		args = {'GObject* none', 'double none', 'double none', 'double none', 'double none', 'double none', 'double none', 'double none', 'double none', 'unhandled none'},
+		args = {'GObject* none', 'double none', 'double none', 'double none', 'double none', 'double none', 'double none', 'double none', 'double none', 'void* none'},
 		ret = 'GObject* full'
 	}
 )
@@ -770,7 +770,7 @@ defFunction('goo_canvas_grid_model_new',
 		class = 'GooCanvasGridModel',
 		constructor = true,
 		since = '0.1',
-		args = {'GObject* none', 'double none', 'double none', 'double none', 'double none', 'double none', 'double none', 'double none', 'double none', 'unhandled none'},
+		args = {'GObject* none', 'double none', 'double none', 'double none', 'double none', 'double none', 'double none', 'double none', 'double none', 'void* none'},
 		ret = 'GObject* full'
 	}
 )
@@ -788,7 +788,7 @@ defFunction('goo_canvas_group_new',
 		class = 'GooCanvasGroup',
 		constructor = true,
 		since = '0.1',
-		args = {'GObject* none', 'unhandled none'},
+		args = {'GObject* none', 'void* none'},
 		ret = 'GObject* full'
 	}
 )
@@ -806,7 +806,7 @@ defFunction('goo_canvas_group_model_new',
 		class = 'GooCanvasGroupModel',
 		constructor = true,
 		since = '0.1',
-		args = {'GObject* none', 'unhandled none'},
+		args = {'GObject* none', 'void* none'},
 		ret = 'GObject* full'
 	}
 )
@@ -824,7 +824,7 @@ defFunction('goo_canvas_image_new',
 		class = 'GooCanvasImage',
 		constructor = true,
 		since = '0.1',
-		args = {'GObject* none', 'GObject* none', 'double none', 'double none', 'unhandled none'},
+		args = {'GObject* none', 'GObject* none', 'double none', 'double none', 'void* none'},
 		ret = 'GObject* full'
 	}
 )
@@ -842,7 +842,7 @@ defFunction('goo_canvas_image_model_new',
 		class = 'GooCanvasImageModel',
 		constructor = true,
 		since = '0.1',
-		args = {'GObject* none', 'GObject* none', 'double none', 'double none', 'unhandled none'},
+		args = {'GObject* none', 'GObject* none', 'double none', 'double none', 'void* none'},
 		ret = 'GObject* full'
 	}
 )
@@ -918,7 +918,7 @@ defFunction('goo_canvas_item_get_child_properties',
 	{
 		class = 'GooCanvasItem',
 		since = '0.1',
-		args = {'GObject* none', 'GObject* none', 'unhandled none'}
+		args = {'GObject* none', 'GObject* none', 'void* none'}
 	}
 )
 
@@ -926,7 +926,7 @@ defFunction('goo_canvas_item_set_child_properties',
 	{
 		class = 'GooCanvasItem',
 		since = '0.1',
-		args = {'GObject* none', 'GObject* none', 'unhandled none'}
+		args = {'GObject* none', 'GObject* none', 'void* none'}
 	}
 )
 
@@ -1302,7 +1302,7 @@ defFunction('goo_canvas_item_model_get_child_properties',
 	{
 		class = 'GooCanvasItemModel',
 		since = '0.1',
-		args = {'GObject* none', 'GObject* none', 'unhandled none'}
+		args = {'GObject* none', 'GObject* none', 'void* none'}
 	}
 )
 
@@ -1310,7 +1310,7 @@ defFunction('goo_canvas_item_model_set_child_properties',
 	{
 		class = 'GooCanvasItemModel',
 		since = '0.1',
-		args = {'GObject* none', 'GObject* none', 'unhandled none'}
+		args = {'GObject* none', 'GObject* none', 'void* none'}
 	}
 )
 
@@ -1567,7 +1567,7 @@ defFunction('goo_canvas_line_dash_new',
 		class = 'GooCanvasLineDash',
 		constructor = true,
 		since = '0.1',
-		args = {'int none', 'unhandled none'},
+		args = {'int none', 'void* none'},
 		ret = 'struct* full'
 	}
 )
@@ -1612,7 +1612,7 @@ defFunction('goo_canvas_path_new',
 		class = 'GooCanvasPath',
 		constructor = true,
 		since = '0.1',
-		args = {'GObject* none', 'char* none', 'unhandled none'},
+		args = {'GObject* none', 'char* none', 'void* none'},
 		ret = 'GObject* full'
 	}
 )
@@ -1630,7 +1630,7 @@ defFunction('goo_canvas_path_model_new',
 		class = 'GooCanvasPathModel',
 		constructor = true,
 		since = '0.1',
-		args = {'GObject* none', 'char* none', 'unhandled none'},
+		args = {'GObject* none', 'char* none', 'void* none'},
 		ret = 'GObject* full'
 	}
 )
@@ -1675,7 +1675,7 @@ defFunction('goo_canvas_polyline_new',
 		class = 'GooCanvasPolyline',
 		constructor = true,
 		since = '0.1',
-		args = {'GObject* none', 'boolean none', 'int none', 'unhandled none'},
+		args = {'GObject* none', 'boolean none', 'int none', 'void* none'},
 		ret = 'GObject* full'
 	}
 )
@@ -1685,7 +1685,7 @@ defFunction('goo_canvas_polyline_new_line',
 		class = 'GooCanvasPolyline',
 		constructor = true,
 		since = '0.1',
-		args = {'GObject* none', 'double none', 'double none', 'double none', 'double none', 'unhandled none'},
+		args = {'GObject* none', 'double none', 'double none', 'double none', 'double none', 'void* none'},
 		ret = 'GObject* full'
 	}
 )
@@ -1703,7 +1703,7 @@ defFunction('goo_canvas_polyline_model_new',
 		class = 'GooCanvasPolylineModel',
 		constructor = true,
 		since = '0.1',
-		args = {'GObject* none', 'boolean none', 'int none', 'unhandled none'},
+		args = {'GObject* none', 'boolean none', 'int none', 'void* none'},
 		ret = 'GObject* full'
 	}
 )
@@ -1713,7 +1713,7 @@ defFunction('goo_canvas_polyline_model_new_line',
 		class = 'GooCanvasPolylineModel',
 		constructor = true,
 		since = '0.1',
-		args = {'GObject* none', 'double none', 'double none', 'double none', 'double none', 'unhandled none'},
+		args = {'GObject* none', 'double none', 'double none', 'double none', 'double none', 'void* none'},
 		ret = 'GObject* full'
 	}
 )
@@ -1731,7 +1731,7 @@ defFunction('goo_canvas_rect_new',
 		class = 'GooCanvasRect',
 		constructor = true,
 		since = '0.1',
-		args = {'GObject* none', 'double none', 'double none', 'double none', 'double none', 'unhandled none'},
+		args = {'GObject* none', 'double none', 'double none', 'double none', 'double none', 'void* none'},
 		ret = 'GObject* full'
 	}
 )
@@ -1749,7 +1749,7 @@ defFunction('goo_canvas_rect_model_new',
 		class = 'GooCanvasRectModel',
 		constructor = true,
 		since = '0.1',
-		args = {'GObject* none', 'double none', 'double none', 'double none', 'double none', 'unhandled none'},
+		args = {'GObject* none', 'double none', 'double none', 'double none', 'double none', 'void* none'},
 		ret = 'GObject* full'
 	}
 )
@@ -1845,7 +1845,7 @@ defFunction('goo_canvas_table_new',
 		class = 'GooCanvasTable',
 		constructor = true,
 		since = '0.1',
-		args = {'GObject* none', 'unhandled none'},
+		args = {'GObject* none', 'void* none'},
 		ret = 'GObject* full'
 	}
 )
@@ -1863,7 +1863,7 @@ defFunction('goo_canvas_table_model_new',
 		class = 'GooCanvasTableModel',
 		constructor = true,
 		since = '0.1',
-		args = {'GObject* none', 'unhandled none'},
+		args = {'GObject* none', 'void* none'},
 		ret = 'GObject* full'
 	}
 )
@@ -1881,7 +1881,7 @@ defFunction('goo_canvas_text_new',
 		class = 'GooCanvasText',
 		constructor = true,
 		since = '0.1',
-		args = {'GObject* none', 'char* none', 'double none', 'double none', 'double none', 'int none', 'unhandled none'},
+		args = {'GObject* none', 'char* none', 'double none', 'double none', 'double none', 'int none', 'void* none'},
 		ret = 'GObject* full'
 	}
 )
@@ -1907,7 +1907,7 @@ defFunction('goo_canvas_text_model_new',
 		class = 'GooCanvasTextModel',
 		constructor = true,
 		since = '0.1',
-		args = {'GObject* none', 'char* none', 'double none', 'double none', 'double none', 'int none', 'unhandled none'},
+		args = {'GObject* none', 'char* none', 'double none', 'double none', 'double none', 'int none', 'void* none'},
 		ret = 'GObject* full'
 	}
 )
@@ -1925,7 +1925,7 @@ defFunction('goo_canvas_widget_new',
 		class = 'GooCanvasWidget',
 		constructor = true,
 		since = '0.1',
-		args = {'GObject* none', 'GObject* none', 'double none', 'double none', 'double none', 'double none', 'unhandled none'},
+		args = {'GObject* none', 'GObject* none', 'double none', 'double none', 'double none', 'double none', 'void* none'},
 		ret = 'GObject* full'
 	}
 )
