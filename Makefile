@@ -1,7 +1,7 @@
 # Usage: make DESTDIR=/absolute/path
 SUBDIRS=codegen common gobject loader cairo gdk gtk \
 	pango pangocairo atk vte webkit gstreamer gtkspell gtksourceview goocanvas \
-	poppler clutter cluttergtk
+	poppler clutter cluttergtk gtkextra
 
 .PHONY: $(SUBDIRS)
 
