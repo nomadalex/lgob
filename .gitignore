@@ -4,3 +4,4 @@ iface.c
 *.dll
 *.o
 */log
+res

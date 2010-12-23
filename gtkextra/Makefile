@@ -1,10 +1,8 @@
 include ../config.mk
-PKG_PACKAGES=$(PKG_LUA)
+PKG_PACKAGES=gtkextra-3.0 $(PKG_LUA)
 NAME=gtkextra.so
 VERSION=`pkg-config --modversion gtkextra-3.0`
 include ../flags.mk
-CFLAGS+=-pthread -I/usr/include/gtkextra-2.0 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/gtk-2.0 -I/usr/lib/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng14
-LDFLAGS+=-pthread -lgtkextra-x11-2.0 -lgtk-x11-2.0 -lgdk-x11-2.0 -latk-1.0 -lgio-2.0 -lpangoft2-1.0 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lm -lcairo -lpng14 -lpango-1.0 -lfreetype -lfontconfig -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lrt -lglib-2.0
 
 $(NAME): gtkextra.o
 	$(CC) gtkextra.o -o $(NAME) $(LDFLAGS)

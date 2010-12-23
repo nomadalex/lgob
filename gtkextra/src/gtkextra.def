@@ -3,67 +3,78 @@ defName = 'gtkextra'
 
 defClass('GtkCharSelection',
 	{
-		parent = 'GInitiallyUnowned'
+		parent = 'GtkWindow',
+		implements = {'AtkImplementorIface', 'GtkBuildable'}
 	}
 )
 
 defClass('GtkCheckItem',
 	{
-		parent = 'GInitiallyUnowned'
+		parent = 'GtkToggleButton',
+		implements = {'AtkImplementorIface', 'GtkActivatable', 'GtkBuildable'}
 	}
 )
 
 defClass('GtkColorCombo',
 	{
-		parent = 'GtkComboButton'
+		parent = 'GtkComboButton',
+		implements = {'AtkImplementorIface', 'GtkBuildable', 'GtkOrientable'}
 	}
 )
 
 defClass('GtkDirTree',
 	{
-		parent = 'GInitiallyUnowned'
+		parent = 'GtkCTree',
+		implements = {'AtkImplementorIface', 'GtkBuildable'}
 	}
 )
 
 defClass('GtkFileList',
 	{
-		parent = 'GtkIconList'
+		parent = 'GtkIconList',
+		implements = {'AtkImplementorIface', 'GtkBuildable'}
 	}
 )
 
 defClass('GtkFontCombo',
 	{
-		parent = 'GInitiallyUnowned'
+		parent = 'GtkToolbar',
+		implements = {'AtkImplementorIface', 'GtkBuildable', 'GtkOrientable', 'GtkToolShell'}
 	}
 )
 
 defClass('GtkIconFileSel',
 	{
-		parent = 'GInitiallyUnowned'
+		parent = 'GtkWindow',
+		implements = {'AtkImplementorIface', 'GtkBuildable'}
 	}
 )
 
 defClass('GtkIconList',
 	{
-		parent = 'GInitiallyUnowned'
+		parent = 'GtkFixed',
+		implements = {'AtkImplementorIface', 'GtkBuildable'}
 	}
 )
 
 defClass('GtkItemEntry',
 	{
-		parent = 'GInitiallyUnowned'
+		parent = 'GtkEntry',
+		implements = {'AtkImplementorIface', 'GtkBuildable', 'GtkCellEditable', 'GtkEditable'}
 	}
 )
 
 defClass('GtkPlot',
 	{
-		parent = 'GInitiallyUnowned'
+		parent = 'GtkMisc',
+		implements = {'AtkImplementorIface', 'GtkBuildable'}
 	}
 )
 
 defClass('GtkPlot3D',
 	{
-		parent = 'GtkPlot'
+		parent = 'GtkPlot',
+		implements = {'AtkImplementorIface', 'GtkBuildable'}
 	}
 )
 
@@ -81,31 +92,35 @@ defClass('GtkPlotArrayList',
 
 defClass('GtkPlotAxis',
 	{
-		parent = 'GInitiallyUnowned'
+		parent = 'GtkObject'
 	}
 )
 
 defClass('GtkPlotBar',
 	{
-		parent = 'GtkPlotData'
+		parent = 'GtkPlotData',
+		implements = {'AtkImplementorIface', 'GtkBuildable'}
 	}
 )
 
 defClass('GtkPlotBox',
 	{
-		parent = 'GtkPlotData'
+		parent = 'GtkPlotData',
+		implements = {'AtkImplementorIface', 'GtkBuildable'}
 	}
 )
 
 defClass('GtkPlotBubble',
 	{
-		parent = 'GtkPlotData'
+		parent = 'GtkPlotData',
+		implements = {'AtkImplementorIface', 'GtkBuildable'}
 	}
 )
 
 defClass('GtkPlotCSurface',
 	{
-		parent = 'GtkPlotSurface'
+		parent = 'GtkPlotSurface',
+		implements = {'AtkImplementorIface', 'GtkBuildable'}
 	}
 )
 
@@ -117,19 +132,21 @@ defClass('GtkPlotCairo',
 
 defClass('GtkPlotCandle',
 	{
-		parent = 'GtkPlotData'
+		parent = 'GtkPlotData',
+		implements = {'AtkImplementorIface', 'GtkBuildable'}
 	}
 )
 
 defClass('GtkPlotCanvas',
 	{
-		parent = 'GInitiallyUnowned'
+		parent = 'GtkFixed',
+		implements = {'AtkImplementorIface', 'GtkBuildable'}
 	}
 )
 
 defClass('GtkPlotCanvasChild',
 	{
-		parent = 'GInitiallyUnowned'
+		parent = 'GtkObject'
 	}
 )
 
@@ -171,19 +188,21 @@ defClass('GtkPlotCanvasText',
 
 defClass('GtkPlotDT',
 	{
-		parent = 'GInitiallyUnowned'
+		parent = 'GtkObject'
 	}
 )
 
 defClass('GtkPlotData',
 	{
-		parent = 'GInitiallyUnowned'
+		parent = 'GtkWidget',
+		implements = {'AtkImplementorIface', 'GtkBuildable'}
 	}
 )
 
 defClass('GtkPlotFlux',
 	{
-		parent = 'GtkPlotData'
+		parent = 'GtkPlotData',
+		implements = {'AtkImplementorIface', 'GtkBuildable'}
 	}
 )
 
@@ -195,7 +214,7 @@ defClass('GtkPlotGdk',
 
 defClass('GtkPlotPC',
 	{
-		parent = 'GInitiallyUnowned'
+		parent = 'GtkObject'
 	}
 )
 
@@ -207,43 +226,50 @@ defClass('GtkPlotPS',
 
 defClass('GtkPlotPixmap',
 	{
-		parent = 'GtkPlotData'
+		parent = 'GtkPlotData',
+		implements = {'AtkImplementorIface', 'GtkBuildable'}
 	}
 )
 
 defClass('GtkPlotPolar',
 	{
-		parent = 'GtkPlot'
+		parent = 'GtkPlot',
+		implements = {'AtkImplementorIface', 'GtkBuildable'}
 	}
 )
 
 defClass('GtkPlotSegment',
 	{
-		parent = 'GtkPlotData'
+		parent = 'GtkPlotData',
+		implements = {'AtkImplementorIface', 'GtkBuildable'}
 	}
 )
 
 defClass('GtkPlotSurface',
 	{
-		parent = 'GtkPlotData'
+		parent = 'GtkPlotData',
+		implements = {'AtkImplementorIface', 'GtkBuildable'}
 	}
 )
 
 defClass('GtkSheet',
 	{
-		parent = 'GInitiallyUnowned'
+		parent = 'GtkContainer',
+		implements = {'AtkImplementorIface', 'GtkBuildable'}
 	}
 )
 
 defClass('GtkSheetColumn',
 	{
-		parent = 'GInitiallyUnowned'
+		parent = 'GtkWidget',
+		implements = {'AtkImplementorIface', 'GtkBuildable'}
 	}
 )
 
 defClass('GtkToggleCombo',
 	{
-		parent = 'GtkComboButton'
+		parent = 'GtkComboButton',
+		implements = {'AtkImplementorIface', 'GtkBuildable', 'GtkOrientable'}
 	}
 )
 
