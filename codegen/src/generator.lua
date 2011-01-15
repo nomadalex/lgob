@@ -8,10 +8,10 @@
 
 inGenerator = true
 
-require("definition")
-require("types")
-require("templates")
-require("utils")
+require('definition')
+require('types')
+require('templates')
+require('utils')
 
 -- Globals: defName, defOverrides, defFunctions, defEnums, defClasses, defTypes, v1, v2
 local ti, tc, sf, ex = table.insert, table.concat, string.format, os.execute
@@ -22,19 +22,19 @@ local input, output, logout
 -- Parse options
 local options = parseOptions(arg)
 if options['-v'] then v1, v2 = parseVersion(options['-v']) end
-if options['-i'] then input = options['-i'] else error('You must specify the input file') end  
+if options['-i'] then input = options['-i'] else error("You must specify the input file") end  
 if options['-o'] then output = io.open(options['-o'], 'w') else output = io.stdout end
 if options['-l'] then logout = io.open(options['-l'], 'w') else logout = io.stderr end
-if options['-d'] then allow_deprecated = options['-d'] == 'allow' end -- global
+if options['-d'] then allow_deprecated = options['-d'] == "allow" end -- global
 
 function print(str) output:write(str,'\n') end
 function log(str) logout:write(str,'\n') end
 
 -- Load the file
-if not input then error('You must specify an input file.') end
+if not input then error("You must specify an input file.") end
 setBasePath(input) 
 dofile(input)
-log(sf('** Input **: %s (%s) ...', input, defName))
+log(sf("** Input **: %s (%s) ...", input, defName))
 
 -- Informative
 local nFuncTotal, nFuncHandled = 0, 0
@@ -173,7 +173,7 @@ local function generateClass(cname, class)
 	if self then
 		self = sf('"%s"', self)
 	else
-		error('Self can\'t be nil!')
+		error("Self can't be nil!")
 	end
 	
 	if parent then
@@ -254,4 +254,4 @@ print(sf(Templates['mainEnd'], defName))
 print(Templates['headerEnd'])
 
 -- Print some information
-log(sf('** Handled %i of %i functions **', nFuncHandled, nFuncTotal))
+log(sf("** Handled %i of %i functions **", nFuncHandled, nFuncTotal))

@@ -13,7 +13,7 @@ local opts      = arg[2] or ''
 local modules   = {
     'codegen', 'common', 'gobject', 'loader', 'cairo', 'gdk', 'gtk',
     'pango', 'pangocairo', 'vte', 'webkit', 'atk', 'gstreamer', 'gtkspell',
-    'gtksourceview', 'goocanvas', 'poppler', 'clutter', 'cluttergtk'
+    'gtksourceview', 'goocanvas', 'poppler', 'clutter', 'cluttergtk', 'gtkextra'
 }
 
 for i, m in ipairs(modules) do

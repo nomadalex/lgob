@@ -1,7 +1,7 @@
 #! /usr/bin/env lua
 
 --[[
-	.gir to lobj .def translator.
+	.gir to lgob .def translator.
 		
 	@author Lucas Hermann Negri
 --]]
@@ -15,7 +15,7 @@ local input, output, logout
 
 -- * Parse options ** --
 local options = parseOptions(arg)
-if options['-i'] then input = options['-i']                else error('You must specify the input file') end  
+if options['-i'] then input = options['-i']                else error("You must specify the input file") end  
 if options['-o'] then output = io.open(options['-o'], 'w') else output = io.stdout end
 if options['-n'] then defName = options['-n']              end
 if options['-l'] then logout = io.open(options['-l'], 'w') else logout = io.stderr end
@@ -170,7 +170,7 @@ for pos, enum in ipairs(enums) do
 	local body = {}
 	
 	for pos, member in ipairs(enum.members) do
-		ti(body, sf("['%s'] = %i", member.name, member.value))
+		ti(body, sf('[\'%s\'] = %i', member.name, member.value))
 	end
 	
 	print(sf(
