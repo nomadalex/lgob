@@ -82,7 +82,10 @@ fixVersion('gdk_pixbuf_apply_embedded_orientation', '2.12')
 fixVersion('gdk_window_get_root_coords', '2.18')
 fixVersion('gdk_window_is_destroyed', '2.18')
 
+-- Hack
+local GdkEventType = defEnums.GdkEventType
 undefPattern('GdkEvent.+')
+defEnum('GdkEventType', GdkEventType)
 
 -- 2.20
 undef{
