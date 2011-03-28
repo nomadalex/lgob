@@ -3,18 +3,18 @@
 --[[
     lgob.gtk + lgob.gtkglext + luagl : OpenGL demo
 
-    Written by Yuri Kaszubowski Lopes <yurikazuba@gmail.com> based(translate for)
-    C code  written by Davyd Madeley <davyd@madeley.id.au> and made available under
+    Written by Yuri Kaszubowski Lopes <yurikazuba@gmail.com> based on (translate from)
+    the C code written by Davyd Madeley <davyd@madeley.id.au>, originaly made available under
     a BSD license.
 
     LuaGL project: http://luagl.sourceforge.net/
 --]]
 
-require'lgob.gdk'
-require'lgob.gtk'
-require'lgob.gtkglext'
-require'luagl'
-require'luaglu'
+require 'lgob.gdk'
+require 'lgob.gtk'
+require 'lgob.gtkglext'
+require 'luagl'
+require 'luaglu'
 
 boxv = {
     { -0.5, -0.5, -0.5 },
@@ -38,7 +38,7 @@ function OpenGl.new( options )
     }
     setmetatable( self, OpenGl_MT )
 
-    --Struct's
+    --Structs
     self.window                    = gtk.Window.new(gtk.WINDOW_TOPLEVEL)
         self.vbox                  = gtk.VBox.new(false, 0)
             self.menubar           = gtk.MenuBar.new()
@@ -50,10 +50,10 @@ function OpenGl.new( options )
     self.dialog = gtk.AboutDialog.new()
 
     --Actions
-    self.about = gtk.Action.new( 'about', 'About', nil, 'gtk-about')
-    self.about:connect("activate", self.show_about, self )
+    self.about = gtk.Action.new( 'about', "About", nil, 'gtk-about')
+    self.about:connect('activate', self.show_about, self )
 
-    --Link Struct's
+    --Link Structs
     self.window:add( self.vbox )
         self.vbox:pack_start(self.menubar, false, false, 0)
             self.menubar:append( self.menu_1 )
@@ -65,11 +65,11 @@ function OpenGl.new( options )
 
     --Properties
     self.window:set(
-        "title", "Lua OpenGL: lgob.gtk, lgob.gtkglext, luagl",
-        "width-request", 800,
-        "height-request", 600,
-        "window-position", gtk.WIN_POS_CENTER,
-        "icon-name", "gtk-about"
+        'title', "Lua OpenGL: lgob.gtk, lgob.gtkglext, luagl",
+        'width-request', 800,
+        'height-request', 600,
+        'window-position', gtk.WIN_POS_CENTER,
+        'icon-name', "gtk-about"
     )
 
     --Objects
@@ -81,14 +81,14 @@ function OpenGl.new( options )
     gtkglext.Widget.set_gl_capability(self.drawing_area, self.glconfig, true, gtkglext.MODE_RGB)
 
     --CallBacks
-     self.drawing_area:connect("configure-event", self.configure, self )
-     self.drawing_area:connect("expose-event", self.expose, self )
-     self.window:connect("delete-event", gtk.main_quit)
+     self.drawing_area:connect('configure-event', self.configure, self )
+     self.drawing_area:connect('expose-event', self.expose, self )
+     self.window:connect('delete-event', gtk.main_quit)
 
      --
-     self.dialog:set("program-name", "Lua GTK + OpenGL demo", "authors", {"Yuri Kaszubowski Lopes <yurikazuba@gmail.com>"},
-        "comments", "Using lgob.gtk, lgob.gtkglext and luagl", "license", "LGPL 3+", "title", "About...",
-        "website", "http://oproj.tuxfamily.org")
+     self.dialog:set('program-name', "Lua GTK + OpenGL demo", 'authors', {"Yuri Kaszubowski Lopes <yurikazuba@gmail.com>"},
+        'comments', "Using lgob.gtk, lgob.gtkglext and luagl", 'license', "LGPL 3+", 'title', "About...",
+        'website', "http://oproj.tuxfamily.org")
 
      self.window:show_all()
 
@@ -101,13 +101,11 @@ function OpenGl:configure( event )
 
     drawable:gl_begin( context )
 
-    gl.LoadIdentity();
-    --local da_alloc = self.drawing_area:get_allocation()
-    --gl.Viewport (0, 0, da_alloc.width, da_alloc.height);
-    gl.Viewport (0, 0, 800, 600);
-    gl.Ortho (-10,10,-10,10,-20050,10000);
-    gl.Enable (gl.BLEND);
-    gl.BlendFunc (gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    gl.LoadIdentity()
+    gl.Viewport  (0, 0, 800, 600);
+    gl.Ortho     (-10,10,-10,10,-20050,10000);
+    gl.Enable    (gl.BLEND)
+    gl.BlendFunc (gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
 
     gl.Scale (10, 10, 10);
 
@@ -191,7 +189,6 @@ function OpenGl:expose( event )
     drawable:gl_end()
 
     return true
-
 end
 
 function OpenGl:rotate( )
@@ -204,7 +201,6 @@ function OpenGl:rotate( )
 end
 
 function OpenGl:show_about()
-    print('hi')
     self.dialog:run()
     self.dialog:hide()
 end
@@ -218,7 +214,7 @@ function OpenGl:run()
 
 end
 
---test
+-- test
 
 inst = OpenGl.new()
 inst:run()
