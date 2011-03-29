@@ -1,0 +1,13 @@
+LUA_PKG = 'lua'                     -- lua pkg-config file
+PKG     = 'pkg-config'              -- pkg-config program
+EXT     = 'so'                      -- shared library extension
+CC      = 'gcc'                     -- C compiler
+PWD     = 'pwd'                     -- current dir
+ARGS    = '-O2 -Wall -shared'       -- compile flags
+RM      = 'rm -f'                   -- file removal
+SHARED  = '/share/lua/5.1/lgob'    -- Lua shared dir
+LIB     = '/lib/lua/5.1/lgob'       -- Lua lib dir
+INST    = 'install -Dm644'          -- install a common file
+INSTD   = 'install -dm755'          -- create a dir
+SED     = 'sed'                     -- sed
+CHMOD   = 'chmod +x'                -- give executing permission

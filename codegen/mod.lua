@@ -1,0 +1,8 @@
+shell( sf('%s %s/%s', INSTD, DEST, SHARED) )
+shell( sf('%s %s/bin', INSTD, DEST       ) )
+shell( sf('%s codegen/src/*.lua %s/%s', INST, DEST, SHARED) )
+shell( sf('%s \'s|DESTDIR|%s|\' < codegen/src/lgob-generator > %s/bin/lgob-generator'  , SED, DEST, DEST) )
+shell( sf('%s \'s|DESTDIR|%s|\' < codegen/src/lgob-gir-parser > %s/bin/lgob-gir-parser'  , SED, DEST, DEST) )
+shell( sf('%s %s/bin/lgob-generator', CHMOD, DEST ) )
+shell( sf('%s %s/bin/lgob-gir-parser', CHMOD, DEST) )
+shell( sf('%s %s/%s/generator.lua', CHMOD, DEST, SHARED) )
