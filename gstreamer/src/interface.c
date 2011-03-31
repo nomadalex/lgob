@@ -29,7 +29,7 @@
 #include <lgob/common/types.h>
 #include <lgob/gobject/types.h>
 
-#ifdef WITH_XOVERLAY
+#ifndef WITHOUT_XOVERLAY
     #include <gst/interfaces/xoverlay.h>
 #endif
 
@@ -142,7 +142,7 @@ static const struct luaL_reg parse [] =
 	{NULL, NULL}
 };
 
-#ifdef WITH_XOVERLAY
+#ifndef WITHOUT_XOVERLAY
 static const struct luaL_reg xoverlay [] =
 {
 	{"set_xwindow_id", lgob_x_overlay_set_xwindow_id},
@@ -255,7 +255,7 @@ int luaopen_lgob_gst(lua_State *L)
 	register_class(L, "gst.Parse", NULL, parse);
 	register_class(L, "gst.Message", NULL, message);
 	
-	#ifdef WITH_XOVERLAY
+#ifndef WITHOUT_XOVERLAY
 	register_class(L, "gst.XOverlay", NULL, xoverlay);
 	#endif
 	

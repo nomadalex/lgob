@@ -203,7 +203,7 @@ static int __index(lua_State* L)
 	return 1;
 }
 
-static void _wrap_glib_init(lua_State* L)
+static void _wrap_gobject_init(lua_State* L)
 {
 	/* Initialization */
 	g_type_init();
@@ -216,7 +216,7 @@ static void _wrap_glib_init(lua_State* L)
 	luaL_loadstring(L, "require('lgob.common')"); lua_call(L, 0, 0);
 }
 
-static void _wrap_glib_ret(lua_State* L)
+static void _wrap_gobject_ret(lua_State* L)
 {
 	/* Register the classes */
 	luaL_register(L, "gobject", gobject);

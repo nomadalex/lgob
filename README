@@ -38,7 +38,7 @@
     
 -> Install
     
-    To compile or install the modules, use the build.lua script, located at
-    the root directory. You may need to adjust config.mk and flags.mk to
-    change compiler and environment options, and build.lua to select the
+    To compile or install the modules, use the build.lua / build_all.lua scripts,
+    located at the root directory. You may need to adjust config.lua to
+    change compiler and environment options, and build_all.lua to select the
     desired modules.

@@ -2,6 +2,8 @@
 
 --[[
     Why use Makefiles when there is Lua available?
+    
+    Usage: ./build module absolute_out_path [AMD64]
 --]]
 
 sf = string.format
@@ -33,10 +35,10 @@ function gen_iface(mod)
 end
 
 function compile(mod)
-    local input    = sf('%s/src/iface.c', mod.name)
+    local input    = sf('%s/src/%s', mod.name, mod.src or 'iface.c')
     local output   = sf('%s/src/%s.%s', mod.name, mod.name, EXT)
     local pkgflags = pkg('--cflags --libs', {LUA_PKG, mod.pkg})
-    local cmd      = sf('%s %s %s -o %s %s', CC, ARGS, input, output, pkgflags)
+    local cmd      = sf('%s %s -I%s/include %s -o %s %s', CC, ARGS, DEST, input, output, pkgflags)
     shell(cmd)
 end
 
@@ -60,12 +62,13 @@ function clean(mod)
     end
 end
 
-require('config')
-
 local usage = sf([[Usage: %s module absolute_dest]], arg[0])
 
 MODULE = assert(arg[1], usage)
 DEST   = assert(arg[2], usage)
+AMD64  = arg[3] == 'AMD64'
 GEN    = DEST .. '/bin/lgob-generator'
 
+require('config')
+print( sf('** Building module %s with %s**', MODULE, ARGS) )
 require( sf('%s/mod', MODULE) )

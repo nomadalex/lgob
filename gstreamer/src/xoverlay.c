@@ -17,7 +17,7 @@
     Copyright (C) 2008 - 2010 Lucas Hermann Negri
 */
 
-#ifdef WITH_XOVERLAY
+#ifndef WITHOUT_XOVERLAY
 
 static int lgob_x_overlay_set_xwindow_id(lua_State* L)
 {
