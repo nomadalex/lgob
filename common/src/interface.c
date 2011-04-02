@@ -39,14 +39,14 @@ static int priv_eq(lua_State* L)
  */
 static int lgob_register_special(lua_State* L)
 {
-	const char* namespace = lua_tostring(L, 2);
+    const char* namespace = lua_tostring(L, 2);
 	const char* class = lua_tostring(L, 3);
 	
-	/* __index */
+    /* __index */
 	if(namespace)
 	{
-		lua_getfield(L, LUA_GLOBALSINDEX, namespace);
-		lua_pushliteral(L, "__index");
+    	lua_getfield(L, LUA_GLOBALSINDEX, namespace);
+    	lua_pushliteral(L, "__index");
 		lua_getfield(L, -2, class);
 	}
 	else
@@ -54,7 +54,7 @@ static int lgob_register_special(lua_State* L)
 		lua_pushliteral(L, "__index");
 		lua_getfield(L, LUA_GLOBALSINDEX, class);
 	}
-	
+    
 	lua_rawset(L, 1);
 	
 	/* __gc */
@@ -90,7 +90,7 @@ static int lgob_register_special(lua_State* L)
 
 int luaopen_lgob_common(lua_State* L)
 {
-	lua_pushcfunction(L, lgob_register_special);
+    lua_pushcfunction(L, lgob_register_special);
 	lua_setfield(L, LUA_REGISTRYINDEX, "lgobRegisterSpecial");
 	
 	lua_pushnil(L);

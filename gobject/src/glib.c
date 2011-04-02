@@ -203,25 +203,24 @@ static int __index(lua_State* L)
 	return 1;
 }
 
-static void _wrap_gobject_init(lua_State* L)
+static void _wrap_glib_init(lua_State* L)
 {
-	/* Initialization */
+    /* Initialization */
 	g_type_init();
 	priv_handle_log(L, "GLib");
 	priv_handle_log(L, "GThread");
 	priv_handle_log(L, "GLib-GObject");
-	
 	luaL_register(L, "glib", _glib);
 	luaL_register(L, NULL, _global);
 	luaL_loadstring(L, "require('lgob.common')"); lua_call(L, 0, 0);
 }
 
-static void _wrap_gobject_ret(lua_State* L)
+static void _wrap_glib_ret(lua_State* L)
 {
 	/* Register the classes */
 	luaL_register(L, "gobject", gobject);
 	int top = lua_gettop(L);
-	
+    
 	lua_pushliteral(L, "lgobObject");
 	luaL_register(L, "gobject.Object", object);
 	
@@ -230,12 +229,12 @@ static void _wrap_gobject_ret(lua_State* L)
 	lua_pushliteral(L, "__index");
 	lua_pushcfunction(L, __index);
 	lua_rawset(L, -3);
-	
+    
 	lua_setmetatable(L, -2);
 	
 	lua_rawset(L, LUA_REGISTRYINDEX);
 	luaL_register(L, "gobject.Type", type);
-	
+    
 	/* Export some internal functions to other bindings */
 	priv_register(L, "lgobObjectNew", lgob_object_new); 
 	priv_register(L, "lgobStructNew", lgob_struct_new); 
@@ -264,4 +263,5 @@ static void _wrap_gobject_ret(lua_State* L)
 	
 	/* gobject table must be in the top */
 	lua_settop(L, top);
+    
 }

@@ -3,7 +3,7 @@
 ---
 -- Simple music player. Usage example: ./GstPlayer.lua file:///home/myuser/myfile.ogg
 
-require("lgob.gst")
+require('lgob.gst')
 
 -- User passed the music to play?
 if not arg[1] then
@@ -12,16 +12,16 @@ if not arg[1] then
 end
 
 -- Create the objects
-local pipe = gst.ElementFactory.make("playbin", "player")
+local pipe = gst.ElementFactory.make('playbin", 'player')
 local bus = pipe:get_bus()
 local main = glib.MainLoop.new()
 
 -- Configure them
-pipe:set("uri", arg[1])
+pipe:set('uri', arg[1])
 
 ---
 -- Watch callback
-function watchEOS(userData, msg)
+function watch_eos(userData, msg)
 	-- Reached the end of file
 	pipe:set_state(gst.STATE_NULL)
 	main:quit()
@@ -29,7 +29,7 @@ end
 
 ---
 -- Tag callback
-function watchTag(data, msg, oi)
+function watch_tag(data, msg, oi)
 	-- Push all the received tags into tbl. The tags usually doesn't
 	-- come in the same callback.
 	local tbl = {}
@@ -41,8 +41,8 @@ function watchTag(data, msg, oi)
 end
 
 bus:add_signal_watch()
-bus:connect("message::tag", watchTag)
-bus:connect("message::eos", watchEOS)
+bus:connect('message::tag', watch_tag)
+bus:connect('message::eos', watch_eos)
 pipe:set_state(gst.STATE_PLAYING)
 
 -- Display the current position and the total duration

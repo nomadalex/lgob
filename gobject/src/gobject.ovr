@@ -1,2 +1,2 @@
 include('glib.ovr')
-defName = 'gobject'
+defName = 'glib'

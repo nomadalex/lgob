@@ -23,6 +23,7 @@ undef{
 	'clutter_actor_box_get_y2',
 	'CLUTTER_UNITS_FROM_DEVICE',
 	'CLUTTER_UNITS_TO_DEVICE',
+    'clutter_timeline_do_tick'
 }
 
 undefPattern('cogl.+')
