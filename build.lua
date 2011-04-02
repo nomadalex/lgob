@@ -30,7 +30,7 @@ function gen_iface(mod)
     local log     = sf('%s/%s/src/log'    , pwd, mod.name)
     local version = pkg('--modversion'    , {mod.pkg})
     
-    local cmd = sf('%s -i %s -o %s -l %s -v %s', GEN, input, output, log, version)
+    local cmd = sf('sh %s -i %s -o %s -l %s -v %s', GEN, input, output, log, version)
     shell(cmd)
 end
 

@@ -1,5 +1,5 @@
 mod = {
-    name = 'gtkieembed',
+    name = 'ieembed',
     pkg  = 'gtkieembed',
 }
 
