@@ -20,8 +20,7 @@
 #include <lua.h>
 #include <lauxlib.h>
 
-#ifdef OS_UNIX
-
+#ifndef _WIN32
 #include <dlfcn.h>
 
 /* libraries loaded with this loader aren't unloaded at the end of the execution
