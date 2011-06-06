@@ -201,16 +201,16 @@ defOverride('gtk_list_store_set', [[
 #if GTK_CHECK_VERSION(2, 12, 0)
 	/* {model, iter, key, val, ...} */
 	int nvals = (size - 2) / 2;
-	 
+
 	/* Alocate the temp GValue array  */
 	int vsize = sizeof(GValue) * nvals;
 	GValue* vals = g_malloc(vsize);
 	GValue* val;
 	memset(vals, 0, vsize);
-	
+
 	/* Allocate the columns array */
 	int* cols = g_malloc(sizeof(int) * nvals);
- 	
+
 	/* Get the fields by field */
 	for(i = 3; i <= size; i += 2)
 	{
@@ -221,21 +221,21 @@ defOverride('gtk_list_store_set', [[
 		int curr = (i - 3) / 2;
 		cols[curr] = column;
 		val = &vals[curr];
-		
+
 		g_value_init(val, type);
 		lua_pushvalue(L, size + 1); /* "lgobValueSet" */
 		lua_pushlightuserdata(L, val);
 		lua_pushvalue(L, i + 1);
 		lua_call(L, 2, 0);
 	}
-	
+
 	/* Ok, now we have the array with the values. Set them with one hit! */
 	gtk_list_store_set_valuesv(list, iter, cols, vals, nvals);
-	
+
 	/* Now unset them all */
 	for(i = 0; i < nvals; ++i)
 		g_value_unset(&vals[i]);
-		
+
 	/* Free the dinamic alocated arrays */
 	g_free(vals);
 	g_free(cols);
@@ -299,16 +299,16 @@ defOverride('gtk_list_store_seto', [[
 #if GTK_CHECK_VERSION(2, 12, 0)
 	/* {model, iter, val, val, ...} */
 	int nvals = (size - 2);
-	 
+
 	/* Alocate the temp GValue array  */
 	int vsize = sizeof(GValue) * nvals;
 	GValue* vals = g_malloc(vsize);
 	GValue* val;
 	memset(vals, 0, vsize);
-	
+
 	/* Allocate the columns array */
 	int* cols = g_malloc(sizeof(int) * nvals);
- 	
+
 	/* Get the fields by field */
 	for(i = 3; i <= size; ++i)
 	{
@@ -318,21 +318,21 @@ defOverride('gtk_list_store_seto', [[
 		/* Current pair */
 		cols[column] = column;
 		val = &vals[column];
-		
+
 		g_value_init(val, type);
 		lua_pushvalue(L, size + 1); /* "lgobValueSet" */
 		lua_pushlightuserdata(L, val);
 		lua_pushvalue(L, i);
 		lua_call(L, 2, 0);
 	}
-	
+
 	/* Ok, now we have the array with the values. Set them with one hit! */
 	gtk_list_store_set_valuesv(list, iter, cols, vals, nvals);
-	
+
 	/* Now unset them all */
 	for(i = 0; i < nvals; ++i)
 		g_value_unset(&vals[i]);
-		
+
 	/* Free the dinamic alocated arrays */
 	g_free(vals);
 	g_free(cols);
@@ -367,11 +367,11 @@ defOverride('gtk_about_dialog_set_email_hook', [[
         gtk_about_dialog_set_url_hook(NULL, NULL, NULL);
     }
     else
-    {    
+    {
         int size = lua_gettop(L);
         int ud_ref = -1;
         /* User data? */
-        
+
         if(size > 1)
             ud_ref = luaL_ref(L, LUA_REGISTRYINDEX);
 
@@ -386,11 +386,11 @@ defOverride('gtk_about_dialog_set_email_hook', [[
         gtk_about_dialog_set_email_hook((GtkAboutDialogActivateLinkFunc)hook_callback,
             data, callback_free);
     }
-    
+
 	return 0;
 ]])
 
-defOverride('gtk_about_dialog_set_url_hook', [[    
+defOverride('gtk_about_dialog_set_url_hook', [[
     /* Deactivating it? */
 	if( lua_isnoneornil(L, 1) )
     {
@@ -429,7 +429,7 @@ defOverride('gtk_builder_get_objects', [[
 	lua_pushlightuserdata(L, list);
 	lua_pushinteger(L, TYPE_OBJECT);
 	lua_call(L, 2, 1);
-	
+
 	/* Free the list (the content will be Garbage-collected) */
 	g_slist_free(list);
 
@@ -441,20 +441,20 @@ defOverride('gtk_container_child_set', [[
 	Object* con = lua_touserdata(L, 1);
 	Object* obj = lua_touserdata(L, 2);
 	const char* property = NULL;
-	gpointer klass = G_OBJECT_GET_CLASS(con->pointer); 
+	gpointer klass = G_OBJECT_GET_CLASS(con->pointer);
 
 	/* Set the properties, pair by pair */
 	for(i = 3; i <= size; i += 2)
 	{
 		/* Get the property */
 		property = lua_tostring(L, i);
-		
+
 		/* Set the value */
 		GParamSpec* spec = gtk_container_class_find_child_property(klass, property);
-	
+
 		if(!spec)
 			luaL_error(L, "The GObject doesn't have the property %s!", property);
-		
+
 		GValue val = {0};
 		g_value_init(&val, spec->value_type);
 		lua_getfield(L, LUA_REGISTRYINDEX, "lgobValueSet");
@@ -478,13 +478,13 @@ defOverride('gtk_container_child_get', [[
 	for(i = 3; i <= size; ++i)
 	{
 		property = lua_tostring(L, i);
-		
+
 		/* Get the value */
 		GParamSpec* spec = gtk_container_class_find_child_property(klass, property);
-	
+
 		if(!spec)
 			luaL_error(L, "The GObject doesn't have the property %s!", property);
-		
+
 		GValue val = {0};
 		g_value_init(&val, spec->value_type);
 		gtk_container_child_get_property(con->pointer, obj->pointer, property, &val);
@@ -499,34 +499,34 @@ defOverride('gtk_container_child_get', [[
 
 defOverride('gtk_container_get_children', [[
 	Object* obj = lua_touserdata(L, 1);
-	
+
 	GList* children = gtk_container_get_children(obj->pointer);
 	lua_pushliteral(L, "lgobGList2table");
 	lua_rawget(L, LUA_REGISTRYINDEX);
 	lua_pushlightuserdata(L, children);
 	lua_pushinteger(L, TYPE_OBJECT);
 	lua_call(L, 2, 1);
-	
+
 	g_list_free(children);
-	
+
 	return 1;
 ]])
 
 defOverride('gtk_icon_view_get_path_at_pos', [[
 	Object* obj = lua_touserdata(L, 1);
-	
+
 	GtkTreePath* path = gtk_icon_view_get_path_at_pos(obj->pointer,
 		lua_tointeger(L, 2), lua_tointeger(L, 3));
-	
+
 	if(path == NULL)
 		return 0;
-	
+
 	gchar* spath = gtk_tree_path_to_string(path);
-	
+
 	lua_pushstring(L, spath);
 	gtk_tree_path_free(path);
 	g_free(spath);
-	
+
 	return 1;
 ]])
 
@@ -577,7 +577,7 @@ defOverride('gtk_tree_store_new', [[
 	GtkTreeStore* ptr = gtk_tree_store_newv(size, types);
 	object_new(L, ptr, TRUE);
 	g_free(types);
-	
+
 	return 1;
 ]])
 
@@ -590,41 +590,41 @@ defOverride('gtk_tree_store_set', [[
 #if GTK_CHECK_VERSION(2, 12, 0)
 	/* {model, iter, key, val, ...} */
 	int nvals = (size - 2) / 2;
-	 
+
 	/* Allocate the temp GValue array  */
 	int vsize = sizeof(GValue) * nvals;
 	GValue* vals = g_malloc(vsize);
 	GValue* val;
 	memset(vals, 0, vsize);
-	
+
 	/* Alocate the columns array */
 	int* cols = g_malloc(sizeof(int) * nvals);
- 	
+
 	/* Get the fields by field */
 	for(i = 3; i <= size; i += 2)
 	{
 		int column = lua_tointeger(L, i);
 		GType type = gtk_tree_model_get_column_type(tree, column);
-		
+
 		/* Current pair */
 		int curr = (i - 3) / 2;
 		cols[curr] = column;
 		val = &vals[curr];
-		
+
 		g_value_init(val, type);
 		lua_pushvalue(L, size + 1); /* "lgobValueSet" */
 		lua_pushlightuserdata(L, val);
 		lua_pushvalue(L, i + 1);
 		lua_call(L, 2, 0);
 	}
-	
+
 	/* Ok, now we have the array with the values. Set them with one hit! */
 	gtk_tree_store_set_valuesv(tree, iter, cols, vals, nvals);
-	
+
 	/* Now unset them all */
 	for(i = 0; i < nvals; ++i)
 		g_value_unset(&vals[i]);
-		
+
 	/* Free the dinamic alocated arrays */
 	g_free(vals);
 	g_free(cols);
@@ -645,7 +645,7 @@ defOverride('gtk_tree_store_set', [[
                 lua_call(L, 2, 0);
 	        /* modify value and unset var */
 	        gtk_tree_store_set_value(tree, iter, column, val);
-	        g_value_unset(val);  
+	        g_value_unset(val);
         }
 #endif
 
@@ -667,40 +667,40 @@ int size = lua_gettop(L), i;
 #if GTK_CHECK_VERSION(2, 12, 0)
 	/* {model, iter, val, val, ...} */
 	int nvals = (size - 2);
-	 
+
 	/* Alocate the temp GValue array  */
 	int vsize = sizeof(GValue) * nvals;
 	GValue* vals = g_malloc(vsize);
 	GValue* val;
 	memset(vals, 0, vsize);
-	
+
 	/* Allocate the columns array */
 	int* cols = g_malloc(sizeof(int) * nvals);
- 	
+
 	/* Get the fields by field */
 	for(i = 3; i <= size; ++i)
 	{
 		int column = i - 3;
 		GType type = gtk_tree_model_get_column_type(tree, column);
-		
+
 		/* Current pair */
 		cols[column] = column;
 		val = &vals[column];
-		
+
 		g_value_init(val, type);
 		lua_pushvalue(L, size + 1); /* "lgobValueSet" */
 		lua_pushlightuserdata(L, val);
 		lua_pushvalue(L, i);
 		lua_call(L, 2, 0);
 	}
-	
+
 	/* Ok, now we have the array with the values. Set them with one hit! */
 	gtk_tree_store_set_valuesv(tree, iter, cols, vals, nvals);
-	
+
 	/* Now unset them all */
 	for(i = 0; i < nvals; ++i)
 		g_value_unset(&vals[i]);
-		
+
 	/* Free the dinamic alocated arrays */
 	g_free(vals);
 	g_free(cols);
@@ -725,7 +725,7 @@ int size = lua_gettop(L), i;
 	        g_value_unset(val);
         }
 #endif
-	
+
 	return 0;
 ]])
 
@@ -745,7 +745,7 @@ defOverride('gtk_tree_selection_get_selected', [[
 defOverride('gtk_tree_selection_get_selected_rows', [[
 	Object* obj = lua_touserdata(L, 1);
 	GtkTreeModel* tm = NULL; /* Always NULL. Why? */
-	
+
 	GList* list = gtk_tree_selection_get_selected_rows(obj->pointer, &tm);
 
 	lua_pushliteral(L, "lgobGList2table");
@@ -754,11 +754,11 @@ defOverride('gtk_tree_selection_get_selected_rows', [[
 	lua_pushinteger(L, TYPE_CUSTOM);
 	lua_pushcfunction(L, tree_path_handler);
 	lua_call(L, 3, 1);
-	
+
 	/* Free the list */
 	g_list_foreach(list, (GFunc)gtk_tree_path_free, NULL);
 	g_list_free(list);
-	
+
 	return 1;
 ]])
 
@@ -783,42 +783,42 @@ defOverride('gtk_tree_view_get_path_at_pos', [[
 	GtkTreePath* path = NULL;
 	GtkTreeViewColumn* col = NULL;
 	gint cell_x, cell_y;
-	
+
 	gboolean res = gtk_tree_view_get_path_at_pos(obj->pointer,
 		lua_tointeger(L, 2), lua_tointeger(L, 3), &path, &col, &cell_x, &cell_y);
-	
+
 	if(path == NULL)
 	{
 		lua_pushboolean(L, FALSE);
 		return 1;
 	}
-	
+
 	gchar* spath = gtk_tree_path_to_string(path);
-	
+
 	lua_pushboolean(L, res);
 	lua_pushstring(L, spath);
 	object_new(L, col, FALSE);
 	lua_pushinteger(L, cell_x);
 	lua_pushinteger(L, cell_y);
-	
+
 	gtk_tree_path_free(path);
 	g_free(spath);
-	
+
 	return 5;
 ]])
 
 defOverride('gtk_tree_sortable_get_sort_column_id', [[
 	gint id;
 	GtkSortType order;
-	
+
 	Object* obj = lua_touserdata(L, 1);
-	gboolean res = gtk_tree_sortable_get_sort_column_id(obj->pointer, 
+	gboolean res = gtk_tree_sortable_get_sort_column_id(obj->pointer,
 		&id, &order);
-		
+
 	lua_pushboolean(L, res);
-	lua_pushinteger(L, id);	
-	lua_pushinteger(L, order);	
-		
+	lua_pushinteger(L, id);
+	lua_pushinteger(L, order);
+
 	return 3;
 ]])
 
@@ -897,13 +897,13 @@ defOverride('gtk_text_buffer_insert_with_tags', [[
 defOverride('gtk_file_chooser_dialog_new', [[
 	int i, size = lua_gettop(L);
 	GtkWindow* parent = NULL;
-	
+
 	if(lua_type(L, 2) == LUA_TUSERDATA)
-	{		
+	{
 		Object* obj = lua_touserdata(L, 2);
 		parent = obj->pointer;
 	}
-	
+
 	gpointer ptr = gtk_file_chooser_dialog_new(lua_tostring(L, 1), parent,
 		lua_tointeger(L, 3), lua_tostring(L, 4), lua_tointeger(L, 5), NULL);
 
@@ -971,7 +971,7 @@ defOverride('gtk_menu_popup', [[
 	/* Simplify the task! Very incomplete. */
 	luaL_checktype(L, 1, LUA_TUSERDATA);
 	Object* obj = lua_touserdata(L, 1);
-	
+
 	gtk_menu_popup(obj->pointer, NULL, NULL, NULL, NULL,
 	0, gtk_get_current_event_time());
 
@@ -990,10 +990,10 @@ defOverride('gtk_menu_popup_from_status_icon', [[
 	luaL_checktype(L, 1, LUA_TUSERDATA);
 	Object* obj1 = lua_touserdata(L, 1);
 	Object* obj2 = lua_touserdata(L, 2);
-	
+
 	gtk_menu_popup(GTK_MENU(obj1->pointer), NULL, NULL, gtk_status_icon_position_menu,
 		obj2->pointer, 0, gtk_get_current_event_time());
-		
+
 	return 0;
 ]])
 
@@ -1106,7 +1106,7 @@ defOverride('gtk_accel_group_connect', [[
 	lua_rawget(L, LUA_REGISTRYINDEX);
 	lua_pushlightuserdata(L, data);
 	lua_call(L, 1, 1);
-	GClosure* closure = lua_touserdata(L, -1);  
+	GClosure* closure = lua_touserdata(L, -1);
 
 	/* Temp storage, to parse the keys */
 	guint key;
@@ -1212,7 +1212,7 @@ defFunction('gtk_print_run_page_setup_dialog',
 	}
 )
 
-defFunction('gtk_print_context_get_size', 
+defFunction('gtk_print_context_get_size',
 	{
 		class = 'GtkPrintContext',
 		since = '2.10',
@@ -1252,21 +1252,21 @@ defFunction('gtk_combo_box_new_text',
 	}
 )
 
-defOverride('gtk_tree_view_column_set_cell_data_func', [[	
+defOverride('gtk_tree_view_column_set_cell_data_func', [[
 	luaL_checktype(L, 1, LUA_TUSERDATA);
 	luaL_checktype(L, 2, LUA_TUSERDATA);
-	
+
 	Object* obj1 = lua_touserdata(L, 1);
 	Object* obj2 = lua_touserdata(L, 2);
-	
+
 	if( lua_type(L, 3) != LUA_TFUNCTION )
 		gtk_tree_view_column_set_cell_data_func(obj1->pointer, obj2->pointer,
 			NULL, NULL, NULL);
 	else
-	{	
+	{
 		int size = lua_gettop(L);
 		int ud_ref = -1;
-		
+
 		if(size > 3)
 			ud_ref = luaL_ref(L, LUA_REGISTRYINDEX);
 
@@ -1285,21 +1285,21 @@ defOverride('gtk_tree_view_column_set_cell_data_func', [[
 	return 0;
 ]])
 
-defOverride('gtk_tree_view_column_set_cell_data_func', [[	
+defOverride('gtk_tree_view_column_set_cell_data_func', [[
 	luaL_checktype(L, 1, LUA_TUSERDATA);
 	luaL_checktype(L, 2, LUA_TUSERDATA);
-	
+
 	Object* obj1 = lua_touserdata(L, 1);
 	Object* obj2 = lua_touserdata(L, 2);
-	
+
 	if( lua_type(L, 3) != LUA_TFUNCTION )
 		gtk_tree_view_column_set_cell_data_func(obj1->pointer, obj2->pointer,
 			NULL, NULL, NULL);
 	else
-	{	
+	{
 		int size = lua_gettop(L);
 		int ud_ref = -1;
-		
+
 		if(size > 3)
 			ud_ref = luaL_ref(L, LUA_REGISTRYINDEX);
 
@@ -1321,18 +1321,18 @@ defOverride('gtk_tree_view_column_set_cell_data_func', [[
 defOverride('gtk_cell_layout_set_cell_data_func', [[
 	luaL_checktype(L, 1, LUA_TUSERDATA);
 	luaL_checktype(L, 2, LUA_TUSERDATA);
-	
+
 	Object* obj1 = lua_touserdata(L, 1);
 	Object* obj2 = lua_touserdata(L, 2);
-	
+
 	if( lua_type(L, 3) != LUA_TFUNCTION )
 		gtk_cell_layout_set_cell_data_func(obj1->pointer, obj2->pointer,
 			NULL, NULL, NULL);
 	else
-	{	
+	{
 		int size = lua_gettop(L);
 		int ud_ref = -1;
-		
+
 		if(size > 3)
 			ud_ref = luaL_ref(L, LUA_REGISTRYINDEX);
 
@@ -1354,31 +1354,31 @@ defOverride('gtk_cell_layout_set_cell_data_func', [[
 defOverride('gtk_tree_model_foreach', [[
 	luaL_checktype(L, 1, LUA_TUSERDATA);
 	luaL_checktype(L, 2, LUA_TFUNCTION);
-	
+
 	int top = lua_gettop(L);
-	
+
 	Object* obj = lua_touserdata(L, 1);
 	lua_pushvalue(L, 2);
-	
+
 	if(top > 2)
 		lua_pushvalue(L, 3);
 	else
 		lua_pushnil(L);
-	
-	gtk_tree_model_foreach(GTK_TREE_MODEL(obj->pointer), 
+
+	gtk_tree_model_foreach(GTK_TREE_MODEL(obj->pointer),
 		(GtkTreeModelForeachFunc)tree_foreach_callback, L);
 
 	return 0;
 ]])
 
-defFunction('gtk_widget_set_flags', 
+defFunction('gtk_widget_set_flags',
 	{
 		class = 'GtkWidget',
 		since = '2.0',
 	}
 )
 
-defFunction('gtk_widget_unset_flags', 
+defFunction('gtk_widget_unset_flags',
 	{
 		class = 'GtkWidget',
 		since = '2.0',
@@ -1388,20 +1388,20 @@ defFunction('gtk_widget_unset_flags',
 defOverride('gtk_widget_set_flags', [[
 	luaL_checktype(L, 1, LUA_TUSERDATA);
 	luaL_checktype(L, 2, LUA_TNUMBER);
-	
+
 	Object* obj = lua_touserdata(L, 1);
 	GTK_WIDGET_SET_FLAGS(obj->pointer, lua_tointeger(L, 2));
-	
+
 	return 0;
 ]])
 
 defOverride('gtk_widget_unset_flags', [[
 	luaL_checktype(L, 1, LUA_TUSERDATA);
 	luaL_checktype(L, 2, LUA_TNUMBER);
-	
+
 	Object* obj = lua_touserdata(L, 1);
 	GTK_WIDGET_UNSET_FLAGS(obj->pointer, lua_tointeger(L, 2));
-	
+
 	return 0;
 ]])
 
@@ -1446,53 +1446,53 @@ defFunction('gtk_scrolled_window_get_policy',
 
 defOverride('gtk_message_dialog_new', [[
 	Object* obj1 = lua_touserdata(L, 1);
-		
+
 	GtkWidget* ptr = gtk_message_dialog_new(obj1 ? obj1->pointer : NULL,
 		lua_tointeger(L, 2), lua_tointeger(L, 3), lua_tointeger(L, 4),
 		NULL);
-		
+
 	object_new(L, ptr, FALSE);
 	return 1;
 ]])
 
 defOverride('gtk_drag_dest_set', [[
     luaL_checktype(L, 1, LUA_TUSERDATA);
-    
+
     Object* obj1 = lua_touserdata(L, 1);
     Object* obj2 = lua_touserdata(L, 3);
-    
+
     gtk_drag_dest_set(
         obj1->pointer,
         lua_tointeger(L, 2),
-        obj2 ? obj2->pointer : NULL, 
+        obj2 ? obj2->pointer : NULL,
         lua_tointeger(L, 4),
         lua_tointeger(L, 5)
     );
-    
+
     return 0;
 ]])
 
 defOverride('gtk_drag_source_set', [[
     luaL_checktype(L, 1, LUA_TUSERDATA);
-    
+
     Object* obj1 = lua_touserdata(L, 1);
     Object* obj2 = lua_touserdata(L, 3);
-    
+
     gtk_drag_source_set(
         obj1->pointer,
         lua_tointeger(L, 2),
-        obj2 ? obj2->pointer : NULL, 
+        obj2 ? obj2->pointer : NULL,
         lua_tointeger(L, 4),
         lua_tointeger(L, 5)
     );
-    
+
     return 0;
 ]])
 
 defOverride('gtk_builder_connect_signals_full', [[
     luaL_checktype(L, 1, LUA_TUSERDATA);
 	luaL_checktype(L, 2, LUA_TFUNCTION);
-    
+
     int size = lua_gettop(L);
     if(size < 3) lua_pushnil(L);
 
@@ -1500,7 +1500,7 @@ defOverride('gtk_builder_connect_signals_full', [[
 	gtk_builder_connect_signals_full(obj->pointer, (GtkBuilderConnectFunc)builder_connect_callback, L);
 
     lua_settop(L, size);
-    
+
     return 0;
 ]])
 
@@ -1532,3 +1532,29 @@ defFunction('gtk_tree_model_sort_new_with_model',
         constructor = true
 	}
 )
+
+defOverride('gtk_tree_model_get_path', [[
+	luaL_checktype(L, 1, LUA_TUSERDATA);
+	luaL_checktype(L, 2, LUA_TUSERDATA);
+
+	Object* obj1 = lua_touserdata(L, 1);
+	Object* obj2 = lua_touserdata(L, 2);
+
+	GtkTreePath* path = gtk_tree_model_get_path(obj1->pointer, obj2->pointer);
+	special_type_new(L, "gtkTreePathMT", path);
+	return 1;
+]])
+
+defOverride('gtk_tree_path_get_indices', [[
+	luaL_checktype(L, 1, LUA_TUSERDATA);
+	luaL_checktype(L, 2, LUA_TNUMBER);
+
+	Object* obj1 = lua_touserdata(L, 1);
+
+	gint* indices = gtk_tree_path_get_indices(obj1->pointer);
+	lua_pushnumber(L, indices[lua_tointeger(L, 2)]);
+
+	return 1;
+]])
+
+
