@@ -31,6 +31,12 @@ for i = 1, 5 do
 			assert(path)
 			assert(iter)
 		end, "hey")
+    
+    list:get_iter_first(iter)
+    
+    for i = 1, 1e3 do
+        path = list:get_path(iter)
+    end
 end
 
 print("End.")

@@ -1532,3 +1532,16 @@ defFunction('gtk_tree_model_sort_new_with_model',
         constructor = true
 	}
 )
+
+defOverride('gtk_tree_model_get_path', [[
+    luaL_checktype(L, 1, LUA_TUSERDATA);
+    luaL_checktype(L, 2, LUA_TUSERDATA);
+
+    Object* obj1 = lua_touserdata(L, 1);
+    Object* obj2 = lua_touserdata(L, 2);
+
+    GtkTreePath* path = gtk_tree_model_get_path(obj1->pointer, obj2->pointer);
+    special_type_new(L, "gtkTreePathMT", path);
+    
+    return 1;
+]])
