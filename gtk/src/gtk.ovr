@@ -1543,18 +1543,26 @@ defOverride('gtk_tree_model_get_path', [[
 
     GtkTreePath* path = gtk_tree_model_get_path(obj1->pointer, obj2->pointer);
     special_type_new(L, "gtkTreePathMT", path);
-    
+
     return 1;
 ]])
 
 defOverride('gtk_tree_path_get_indices', [[
-    luaL_checktype(L, 1, LUA_TUSERDATA);
-    luaL_checktype(L, 2, LUA_TNUMBER);
+	luaL_checktype(L, 1, LUA_TUSERDATA);
+	luaL_checktype(L, 2, LUA_TNUMBER);
 
-    Object* obj1 = lua_touserdata(L, 1);
+	Object* obj1 = lua_touserdata(L, 1);
 
-    gint* indices = gtk_tree_path_get_indices(obj1->pointer);
-    lua_pushnumber(L, indices[lua_tointeger(L, 2)]);
+	gint* indices = gtk_tree_path_get_indices(obj1->pointer);
+	gint indices_depth = gtk_tree_path_get_depth(obj1->pointer);
+	gint i;
 
-    return 1;
+	lua_newtable(L);
+
+	for(i=0; i<indices_depth; i++){
+		lua_pushnumber(L, i+1);
+		lua_pushnumber(L, indices[lua_tointeger(L, 2)]);
+		lua_settable(L, -3);
+	}
+	return 1;
 ]])
