@@ -7,11 +7,15 @@
 --]]
 
 local base = _G
+local _expandStr_mt = { __index = base }
 function expandStr(str, t)
 	if not t then t = { } end
 	str = str:gsub('%$(%b())', function (s)
 								   s = s:sub(2, #s-1)
-								   return tostring(t[s] or base[s])
+								   local func = loadstring('return ' .. s)
+								   local env = setmetatable(t, _expandStr_mt)
+								   setfenv(func, env)
+								   return tostring(func())
 						   end)
 	str = str:gsub('%$([%w_]+)', function (s)
 								  return tostring(t[s] or base[s])
