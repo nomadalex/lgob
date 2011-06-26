@@ -6,7 +6,28 @@
     Usage: ./build module absolute_out_path [AMD64]
 --]]
 
+local base = _G
+function expandStr(str, t)
+	if not t then t = { } end
+	str = str:gsub('%$(%b())', function (s)
+								   s = s:sub(2, #s-1)
+								   return tostring(t[s] or base[s])
+						   end)
+	str = str:gsub('%$(%w+)', function (s)
+								  return tostring(t[s] or base[s])
+						  end)
+	return str
+end
+
 sf = string.format
+es = expandStr
+
+local usage = sf([[Usage: %s module absolute_dest]], arg[0])
+
+MODULE = assert(arg[1], usage)
+DEST   = assert(arg[2], usage)
+AMD64  = arg[3] == 'AMD64'
+GEN    = DEST .. '/bin/lgob-generator'
 
 function shell(cmd)
     local f = assert(io.popen(cmd), sf("Couldn't open the pipe for %s!", cmd))
@@ -18,57 +39,54 @@ function shell(cmd)
     return a
 end
 
+require('config')
+
 function pkg(arg, pkgs)
     local p = table.concat(pkgs, ' ')
-    return shell( sf('%s %s %s', PKG, arg, p) )
+	local t = { p = p, arg = arg }
+    return shell( es('$PKG $arg $p', t) )
 end
 
 function gen_iface(mod)
-    local pwd     = shell(PWD)
-    local input   = sf('%s/%s/src/%s.ovr' , pwd, mod.name, mod.name)
-    local output  = sf('%s/%s/src/iface.c', pwd, mod.name)
-    local log     = sf('%s/%s/src/log'    , pwd, mod.name)
-    local version = pkg('--modversion'    , {mod.pkg})
+	local t = { pwd = shell(PWD), name = mod.name }
+    t.input   = es('$pwd/$name/src/$name.ovr' , t)
+    t.output  = es('$pwd/$name/src/iface.c', t)
+    t.log     = es('$pwd/$name/src/log', t)
+    t.version = pkg('--modversion', {mod.pkg})
     
-    local cmd = sf('sh %s -i %s -o %s -l %s -v %s', GEN, input, output, log, version)
-    shell(cmd)
+    shell(es('$GEN -i $input -o $output -l $log -v $version', t))
 end
 
 function compile(mod)
-    local input    = sf('%s/src/%s', mod.name, mod.src or 'iface.c')
-    local output   = sf('%s/src/%s.%s', mod.name, mod.name, EXT)
-    local pkgflags = pkg('--cflags --libs', {LUA_PKG, mod.pkg})
-    local cmd      = sf('%s %s -I%s/include %s -o %s %s', CC, ARGS, DEST, input, output, pkgflags)
-    shell(cmd)
+	local t = { name = mod.name, src = mod.src or 'iface.c' }
+    t.input    = es('$name/src/$src', t)
+    t.output   = es('$name/src/$name.$EXT', t)
+    t.pkgflags = pkg('--cflags --libs', {LUA_PKG, mod.pkg})
+
+    shell(es('$CC $ARGS -I$DEST/include $input -o $output $pkgflags', t))
 end
 
 function install(mod, d)
-    local dir   = sf('%s/src', mod.name)
-    local inst = mod.inst or {sf('%s.%s', mod.name, EXT)}
+	local t = { name = mod.name, d = d }
+    t.dir   = es('$name/src', t)
+    local inst = mod.inst or {es('$name.$EXT', t)}
     
     for _, f in ipairs(inst) do
-        local cmd = sf('%s %s/%s %s/%s/%s', INST, dir, f, DEST, d, f)
-        shell(cmd)
+		t.f = f
+        shell(es('$INST $dir/$f $DEST/$d/$f', t))
     end
 end
 
 function clean(mod)
-    local dir   = sf('%s/src', mod.name)
+	local t = {}
+    t.dir   = mod.name .. '/src'
     local garb  = mod.garb or {'iface.c', 'log', mod.name .. '.' .. EXT}
     
     for _, f in ipairs(garb) do
-        local cmd = sf('%s %s/%s', RM, dir, f)
-        shell(cmd)
+		t.f = f
+        shell(es('$RM $dir/$f', t))
     end
 end
 
-local usage = sf([[Usage: %s module absolute_dest]], arg[0])
-
-MODULE = assert(arg[1], usage)
-DEST   = assert(arg[2], usage)
-AMD64  = arg[3] == 'AMD64'
-GEN    = DEST .. '/bin/lgob-generator'
-
-require('config')
-print( sf('** Building module %s with %s**', MODULE, ARGS) )
-require( sf('%s/mod', MODULE) )
+print( es'** Building module $MODULE with $ARGS **' )
+require( MODULE .. '/mod' )
