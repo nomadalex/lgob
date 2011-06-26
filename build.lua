@@ -1,9 +1,9 @@
 #! /usr/bin/env lua
 
 --[[
-    Why use Makefiles when there is Lua available?
-    
-    Usage: ./build module absolute_out_path [AMD64]
+	Why use Makefiles when there is Lua available?
+
+	Usage: ./build absolute_out_path [AMD64]
 --]]
 SEP = package.config:sub(1,1)
 local SEP = SEP
@@ -45,21 +45,20 @@ local sf = sf
 es = expandStr
 local es = es
 
-local usage = es'Usage: $(arg[0]) module absolute_dest'
+local usage = es'Usage: $(arg[0]) absolute_dest [AMD64]'
 
-MODULE = assert(arg[1], usage)
-DEST   = assert(arg[2], usage)
-AMD64  = arg[3] == 'AMD64'
+DEST   = assert(arg[1], usage)
+AMD64  = arg[2] == 'AMD64'
 GEN    = DEST .. '/bin/lgob-generator'
 
 function shell(cmd)
-    local f = assert(io.popen(cmd), sf("Couldn't open the pipe for %s!", cmd))
-    
-    local a = f:read('*a')
-    f:close()
-    a = a:gsub('\n', '')
-    
-    return a
+	local f = assert(io.popen(cmd), sf("Couldn't open the pipe for %s!", cmd))
+
+	local a = f:read('*a')
+	f:close()
+	a = a:gsub('\n', '')
+
+	return a
 end
 sh = shell
 local sh = sh
@@ -67,51 +66,54 @@ local sh = sh
 require('config')
 
 function pkg(arg, pkgs)
-    local p = table.concat(pkgs, ' ')
+	local p = table.concat(pkgs, ' ')
 	local t = { p = p, arg = arg }
-    return sh( es('$PKG $arg $p', t) )
+	return sh( es('$PKG $arg $p', t) )
 end
 
 function gen_iface(mod)
-	local t = { pwd = sh(PWD), name = mod.name }
-    t.input   = es('$pwd/$name/src/$name.ovr' , t)
-    t.output  = es('$pwd/$name/src/iface.c', t)
-    t.log     = es('$pwd/$name/src/log', t)
-    t.version = pkg('--modversion', {mod.pkg})
-    
-    sh(es('$GEN -i $input -o $output -l $log -v $version', t))
+	local t = { name = mod.name }
+	t.input   = es('src/$name.ovr' , t)
+	t.output  = es('src/iface.c', t)
+	t.log     = es('src/log', t)
+	t.version = pkg('--modversion', {mod.pkg})
+
+	sh(es('$GEN -i $input -o $output -l $log -v $version', t))
 end
 
 function compile(mod)
 	local t = { name = mod.name, src = mod.src or 'iface.c' }
-    t.input    = es('$name/src/$src', t)
-    t.output   = es('$name/src/$name.$EXT', t)
-    t.pkgflags = pkg('--cflags --libs', {LUA_PKG, mod.pkg})
+	t.input    = es('src/$src', t)
+	t.output   = es('src/$name.$EXT', t)
+	t.pkgflags = pkg('--cflags --libs', {LUA_PKG, mod.pkg})
 
-    sh(es('$CC $COMPILE_FLAGS -I$DEST/include $input -o $output $pkgflags', t))
+	sh(es('$CC $COMPILE_FLAGS -I$DEST/include $input -o $output $pkgflags', t))
 end
 
-function install(mod, d)
-	local t = { name = mod.name, d = d }
-    t.dir   = es('$name/src', t)
-    local inst = mod.inst or {es('$name.$EXT', t)}
-    
-    for _, f in ipairs(inst) do
+function install(mod, dest)
+	local t = { name = mod.name, dest = dest }
+	t.dir   = 'src'
+	local inst = mod.inst or {es('$name.$EXT', t)}
+
+	for _, f in ipairs(inst) do
 		t.f = f
-        sh(es('$INST $dir/$f $DEST/$d/$f', t))
-    end
+		sh(es('$INST $dir/$f $DEST/$dest/$f', t))
+	end
 end
 
 function clean(mod)
 	local t = {}
-    t.dir   = mod.name .. '/src'
-    local garb  = mod.garb or {'iface.c', 'log', mod.name .. '.' .. EXT}
-    
-    for _, f in ipairs(garb) do
+	t.dir   = 'src'
+	local garb  = mod.garb or {'iface.c', 'log', mod.name .. '.' .. EXT}
+
+	for _, f in ipairs(garb) do
 		t.f = f
-        sh(es('$RM $dir/$f', t))
-    end
+		sh(es('$RM $dir/$f', t))
+	end
 end
 
-print( es'** Building module $MODULE with $COMPILE_FLAGS **' )
-require( MODULE .. '/mod' )
+function init()
+	print( es'** Building module $MODULE with $COMPILE_FLAGS **' )
+end
+
+require( 'mod' )

@@ -1,9 +1,12 @@
+MODULE = 'loader'
+init()
+
 mod = {
     name = 'loader',
     src  = 'loader.c'
 }
 
 compile(mod)
-shell( sf('%s loader/src/loader.lua %s/%s/loader.lua', INST, DEST, SHARED) )
-shell( sf('%s loader/src/loader.%s %s/%s/_loader.%s', INST, EXT, DEST, LIB, EXT) )
+sh( es'$INST src/loader.lua $DEST/$SHARED/loader.lua' )
+sh( es'$INST src/loader.$EXT $DEST/$LIB/_loader.$EXT' )
 clean  (mod)

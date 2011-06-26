@@ -1,3 +1,6 @@
+MODULE = 'atk'
+init()
+
 mod = {
     name = 'atk',
     pkg  = 'atk',

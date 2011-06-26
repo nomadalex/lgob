@@ -1,3 +1,6 @@
+MODULE = 'gobject'
+init()
+
 mod = {
     name = 'gobject',
     pkg  = 'gobject-2.0'
@@ -8,4 +11,4 @@ compile  (mod)
 install  (mod, LIB)
 clean    (mod)
 
-shell( sf('%s gobject/src/types.h %s/include/lgob/gobject/types.h', INST, DEST) )
+sh( es'$INST src/types.h $DEST/include/lgob/gobject/types.h' )

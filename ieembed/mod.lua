@@ -1,3 +1,6 @@
+MODULE = 'ieembed'
+init()
+
 mod = {
     name = 'ieembed',
     pkg  = 'gtkieembed',

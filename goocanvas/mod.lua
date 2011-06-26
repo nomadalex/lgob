@@ -1,3 +1,6 @@
+MODULE = 'goocanvas'
+init()
+
 mod = {
     name = 'goocanvas',
     pkg  = 'goocanvas',

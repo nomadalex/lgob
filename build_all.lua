@@ -1,33 +1,33 @@
 #! /usr/bin/env lua
 
 --[[
-    Usage: ./build absolute_out_path [AMD64]
+	Usage: ./build absolute_out_path [AMD64]
 --]]
 
 local LUA = 'lua'
 
 local modules = {
-    'codegen',
-    'common',
-    'loader',
-    'gobject',
-    'gdk',
-    'gtk',
-    'cairo',
-    'atk','clutter',
-    'cluttergtk',
-    'goocanvas',
-    'gst',
-    'gtkextra',
-    'gtkglext',
+	'codegen',
+	'common',
+	'loader',
+	'gobject',
+	'gdk',
+	'gtk',
+	'cairo',
+	'atk','clutter',
+	'cluttergtk',
+	'goocanvas',
+	'gst',
+	'gtkextra',
+	'gtkglext',
 --  'gtkieembed',
-    'gtksourceview',
-    'gtkspell',
-    'pango',
-    'pangocairo',
-    'poppler',
-    'vte',
-    'webkit',
+	'gtksourceview',
+	'gtkspell',
+	'pango',
+	'pangocairo',
+	'poppler',
+	'vte',
+	'webkit',
 }
 
 local usage = string.format([[Usage: %s absolute_dest]], arg[0])
@@ -37,5 +37,5 @@ local flags = arg[2] or ''
 local ex    = function(...) os.execute(string.format(...)) end
 
 for _, mod in ipairs(modules) do
-    ex('%s build.lua %s %s %s', LUA, mod, out, flags)    
+	ex('cd %s; %s ../build.lua %s %s', mod, LUA, out, flags)
 end

@@ -1,3 +1,6 @@
+MODULE = 'gdk'
+init()
+
 mod = {
     name = 'gdk',
     pkg  = 'gdk-2.0',

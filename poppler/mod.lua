@@ -1,3 +1,6 @@
+MODULE = 'poppler'
+init()
+
 mod = {
     name = 'poppler',
     pkg  = 'poppler-glib',

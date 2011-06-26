@@ -1,3 +1,6 @@
+MODULE = 'clutter'
+init()
+
 mod = {
     name = 'clutter',
     pkg  = 'clutter-1.0',

@@ -1,3 +1,6 @@
+MODULE = 'gtksourceview'
+init()
+
 mod = {
     name = 'gtksourceview',
     pkg  = 'gtksourceview-2.0',

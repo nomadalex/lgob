@@ -1,3 +1,6 @@
+MODULE = 'gtk'
+init()
+
 mod = {
     name = 'gtk',
     pkg  = 'gtk+-2.0',

@@ -1,3 +1,6 @@
+MODULE = 'gtkspell'
+init()
+
 mod = {
     name = 'gtkspell',
     pkg  = 'gtkspell-2.0',

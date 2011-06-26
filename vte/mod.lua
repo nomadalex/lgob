@@ -1,3 +1,6 @@
+MODULE = 'vte'
+init()
+
 mod = {
     name = 'vte',
     pkg  = 'vte',

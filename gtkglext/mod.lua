@@ -1,3 +1,6 @@
+MODULE = 'gtkglext'
+init()
+
 mod = {
     name = 'gtkglext',
     src  = 'gtkglext.c',

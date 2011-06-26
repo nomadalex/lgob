@@ -1,3 +1,6 @@
+MODULE = 'webkit'
+init()
+
 mod = {
     name = 'webkit',
     pkg  = 'webkit-1.0',

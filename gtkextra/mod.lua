@@ -1,3 +1,6 @@
+MODULE = 'gtkextra'
+init()
+
 mod = {
     name = 'gtkextra',
     pkg  = 'gtkextra-3.0',

@@ -1,3 +1,6 @@
+MODULE = 'pango'
+init()
+
 mod = {
     name = 'pango',
     pkg  = 'pango',

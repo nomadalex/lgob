@@ -1,3 +1,6 @@
+MODULE = 'cluttergtk'
+init()
+
 mod = {
     name = 'cluttergtk',
     pkg  = 'clutter-gtk-0.10',

@@ -1,3 +1,6 @@
+MODULE = 'gst'
+init()
+
 mod = {
     name = 'gst',
     src  = 'interface.c',
