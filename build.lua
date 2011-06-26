@@ -13,7 +13,7 @@ function expandStr(str, t)
 								   s = s:sub(2, #s-1)
 								   return tostring(t[s] or base[s])
 						   end)
-	str = str:gsub('%$(%w+)', function (s)
+	str = str:gsub('%$([%w_]+)', function (s)
 								  return tostring(t[s] or base[s])
 						  end)
 	return str
