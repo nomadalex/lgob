@@ -14,4 +14,4 @@ CHMOD   = 'chmod +x'                -- give executing permission
 -- compiler flags
 fpic    = AMD64 and '-fPIC -DAMD64'   or '-fpic'
 opt     = DEBUG and '-g -O0 -DIDEBUG' or '-Os'
-ARGS    = sf('%s -Wall -shared %s', opt, fpic)
+COMPILE_FLAGS = es'$opt -Wall -shared $fpic'

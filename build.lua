@@ -69,7 +69,7 @@ function compile(mod)
     t.output   = es('$name/src/$name.$EXT', t)
     t.pkgflags = pkg('--cflags --libs', {LUA_PKG, mod.pkg})
 
-    shell(es('$CC $ARGS -I$DEST/include $input -o $output $pkgflags', t))
+    shell(es('$CC $COMPILE_FLAGS -I$DEST/include $input -o $output $pkgflags', t))
 end
 
 function install(mod, d)
@@ -94,5 +94,5 @@ function clean(mod)
     end
 end
 
-print( es'** Building module $MODULE with $ARGS **' )
+print( es'** Building module $MODULE with $COMPILE_FLAGS **' )
 require( MODULE .. '/mod' )
