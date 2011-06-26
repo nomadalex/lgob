@@ -10,7 +10,7 @@
 ]]
 
 require("lxp")
-require("utils")
+require("lgob.utils")
 
 local debugi = true
 local baseVersion = '0.1'

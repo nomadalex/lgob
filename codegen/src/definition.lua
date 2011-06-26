@@ -2,7 +2,7 @@
 	Handles definition files.
 --]]
 
-require('utils')
+require('lgob.utils')
 
 defOverrides = {}	-- Defined 'forced' functions
 defFunctions = {}	-- Defined functions (like gtk_widget_show)

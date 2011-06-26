@@ -5,10 +5,27 @@
 		
 	@author Lucas Hermann Negri
 --]]
+SEP = package.config:sub(1,1)
+
+local exe_path
+if arg[0]:sub(1,1) == '.' then
+   exe_path = os.getenv'PWD'
+   exe_path = exe_path .. SEP .. arg[0]
+else
+   exe_path = arg[0]
+end
+_,_, exe_path = exe_path:find('^(.+)' .. SEP .. '.+$')
+
+package.path = string.format('%s;%s/../share/lua/5.1/?.lua', package.path, exe_path)
+if SEP == '/' then
+   package.cpath = string.format('%s;%s/../lib/lua/5.1/?.so', package.cpath, exe_path)
+else
+   package.cpath = string.format('%s;%s/../lib/lua/5.1/?.dll', package.cpath, exe_path)
+end
 
 require('lxp')
-require('utils')
-require('parser')
+require('lgob.utils')
+require('lgob.parser')
 
 local ti, tc, sf = table.insert, table.concat, string.format
 local input, output, logout
