@@ -44,23 +44,25 @@ function shell(cmd)
     
     return a
 end
+sh = shell
+local sh = sh
 
 require('config')
 
 function pkg(arg, pkgs)
     local p = table.concat(pkgs, ' ')
 	local t = { p = p, arg = arg }
-    return shell( es('$PKG $arg $p', t) )
+    return sh( es('$PKG $arg $p', t) )
 end
 
 function gen_iface(mod)
-	local t = { pwd = shell(PWD), name = mod.name }
+	local t = { pwd = sh(PWD), name = mod.name }
     t.input   = es('$pwd/$name/src/$name.ovr' , t)
     t.output  = es('$pwd/$name/src/iface.c', t)
     t.log     = es('$pwd/$name/src/log', t)
     t.version = pkg('--modversion', {mod.pkg})
     
-    shell(es('$GEN -i $input -o $output -l $log -v $version', t))
+    sh(es('$GEN -i $input -o $output -l $log -v $version', t))
 end
 
 function compile(mod)
@@ -69,7 +71,7 @@ function compile(mod)
     t.output   = es('$name/src/$name.$EXT', t)
     t.pkgflags = pkg('--cflags --libs', {LUA_PKG, mod.pkg})
 
-    shell(es('$CC $COMPILE_FLAGS -I$DEST/include $input -o $output $pkgflags', t))
+    sh(es('$CC $COMPILE_FLAGS -I$DEST/include $input -o $output $pkgflags', t))
 end
 
 function install(mod, d)
@@ -79,7 +81,7 @@ function install(mod, d)
     
     for _, f in ipairs(inst) do
 		t.f = f
-        shell(es('$INST $dir/$f $DEST/$d/$f', t))
+        sh(es('$INST $dir/$f $DEST/$d/$f', t))
     end
 end
 
@@ -90,7 +92,7 @@ function clean(mod)
     
     for _, f in ipairs(garb) do
 		t.f = f
-        shell(es('$RM $dir/$f', t))
+        sh(es('$RM $dir/$f', t))
     end
 end
 
