@@ -24,9 +24,11 @@ function expandStr(str, t)
 end
 
 sf = string.format
+local sf = sf
 es = expandStr
+local es = es
 
-local usage = sf([[Usage: %s module absolute_dest]], arg[0])
+local usage = es'Usage: $(arg[0]) module absolute_dest'
 
 MODULE = assert(arg[1], usage)
 DEST   = assert(arg[2], usage)
