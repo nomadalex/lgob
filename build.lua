@@ -5,6 +5,23 @@
     
     Usage: ./build module absolute_out_path [AMD64]
 --]]
+SEP = package.config:sub(1,1)
+local SEP = SEP
+
+local exe_path
+if arg[0]:sub(1,1) == '.' then
+   exe_path = os.getenv'PWD'
+   exe_path = exe_path .. SEP .. arg[0]
+else
+   exe_path = arg[0]
+end
+_,_, exe_path = exe_path:find('^(.+)' .. SEP .. '.+$')
+package.path = exe_path .. '/?.lua;' .. package.path
+if SEP == '/' then
+	package.cpath = exe_path .. '/?.so;' .. package.cpath
+else
+	package.cpath = exe_path .. '/?.dll;' .. package.cpath
+end
 
 local base = _G
 local _expandStr_mt = { __index = base }
